@@ -103,6 +103,7 @@ by Prelude.")
 (require 'prelude-ui)
 (require 'prelude-core)
 (require 'prelude-mode)
+(require 'prelude-company)
 (require 'prelude-editor)
 (require 'prelude-global-keybindings)
 

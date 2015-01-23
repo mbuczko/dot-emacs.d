@@ -147,8 +147,8 @@
 (recentf-mode +1)
 
 ;; use shift + arrow keys to switch between visible buffers
-(require 'windmove)
-(windmove-default-keybindings)
+;;(require 'windmove)
+;;(windmove-default-keybindings)
 
 ;; automatically save buffers associated with files on buffer switch
 ;; and on windows switch
@@ -380,7 +380,7 @@ indent yanked text (with prefix arg don't indent)."
 (diminish 'undo-tree-mode)
 
 ;; enable winner-mode to manage window configurations
-(winner-mode +1)
+;;(winner-mode +1)
 
 ;; diff-hl
 (global-diff-hl-mode +1)
