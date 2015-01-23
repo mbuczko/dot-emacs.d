@@ -1,0 +1,7 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (defn "comment" ...)
+# --
+(defn $1 
+"$2"
+[$3]
+$0)

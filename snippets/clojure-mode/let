@@ -1,0 +1,5 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (let [...])
+# --
+(let [$1]
+$0)
