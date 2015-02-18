@@ -307,10 +307,11 @@
 (diminish 'yas-minor-mode)
 (diminish 'visual-line-mode)
 (diminish 'smartparens-mode)
-(diminish 'global-visual-line-mode)
 (diminish 'git-gutter+-mode)
 (diminish 'paxedit-mode)
 (diminish 'prelude-mode)
+(diminish 'flycheck-mode)
+(diminish 'company-mode)
 
 ;; full screen magit-status
 
@@ -348,6 +349,8 @@
   (find-tag (first (last (split-string (symbol-name (symbol-at-point)) "/")))
             next-p))
 
+(define-key company-active-map "\e" 'company-abort)
+
 ;; global keybindings
 (global-set-key (kbd "M-w")       nil)
 (global-set-key (kbd "M-c")       'kill-ring-save)
@@ -370,11 +373,6 @@
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-i")   'helm-etags-select)
-(global-set-key (kbd "C-x C-g h") 'git-gutter+-show-hunk)
-(global-set-key (kbd "C-x C-g s") 'git-gutter+-stage-hunks)
-(global-set-key (kbd "C-x C-g c") 'git-gutter+-stage-and-commit)
-(global-set-key (kbd "C-x C-g r") 'git-gutter+-revert-hunk)
-(global-set-key (kbd "C-x C-g C") 'git-gutter+-commit)
 (global-set-key (kbd "C-x C-d")   'dash-at-point)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
@@ -388,10 +386,10 @@
 (global-set-key [?\C-p]           'helm-projectile)
 (global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
 (global-set-key [?\M-.]           'find-tag-without-ns)
-(global-set-key [?\M-g]           'elisp-slime-nav-find-elisp-thing-at-point)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [?\M-e]           'smex)
 (global-set-key [?\M-h]           'goto-last-change)
+(global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
 (global-set-key [?\M-)]           '(lambda () (interactive) (insert ")")))
 
 (global-set-key (kbd "M-'")       'paxedit-kill)
@@ -403,4 +401,11 @@
 (global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive) (save-buffer) (cider-load-global)))
+(global-set-key [f2] (lambda () (interactive)
+					   (cider-interactive-eval "(system/system-reload)")))
+(global-set-key [f3] (lambda () (interactive)
+					   (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")
+					   (cider-interactive-eval "(system/system-go)")))
+
+(set-face-background 'highlight "gray20")
+(set-face-background 'region "DarkBlue")

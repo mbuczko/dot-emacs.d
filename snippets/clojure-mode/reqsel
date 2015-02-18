@@ -1,4 +1,4 @@
 #contributor : Michal Buczko <michal@buczko.pl>
-#name : (log/fatal ...)
+#name : (require selmer)
 # --
-(log/fatal $0)
+[selmer.parser :as selmer]
