@@ -401,11 +401,9 @@
 (global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive)
-					   (cider-interactive-eval "(system/system-reload)")))
-(global-set-key [f3] (lambda () (interactive)
-					   (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")
-					   (cider-interactive-eval "(system/system-go)")))
+(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(translateria.system/reload)")))
+(global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
+
 
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DarkBlue")
