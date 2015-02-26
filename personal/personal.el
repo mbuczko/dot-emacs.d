@@ -41,6 +41,10 @@
       window-min-width 30)
 
 
+(add-to-list 'projectile-globally-ignored-directories "node_modules")
+(add-to-list 'projectile-globally-ignored-directories "bower_components")
+(add-to-list 'projectile-globally-ignored-directories "dist")
+
 ;; additional hooks
 
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
@@ -277,11 +281,6 @@
 
 (yas/global-mode 1)
 
-;; cider
-
-(add-hook 'cider-repl-mode-hook 'company-mode)
-(add-hook 'cider-mode-hook 'company-mode)
-
 ;; javascript mode
 
 (autoload 'js2-mode "js2-mode" nil t)
@@ -366,15 +365,16 @@
 (global-set-key (kbd "M-w o")     'er/mark-outer-tag)
 (global-set-key (kbd "C-c d")     'duplicate-line)
 (global-set-key (kbd "C-c m")     'magit-status)
-(global-set-key (kbd "C-x m")     'bm-toggle)
-(global-set-key (kbd "C-x n")     'bm-next)
-(global-set-key (kbd "C-x l")     'bm-show)
+(global-set-key (kbd "C-x f")     'projectile-find-file)
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-i")   'helm-etags-select)
 (global-set-key (kbd "C-x C-d")   'dash-at-point)
-(global-set-key (kbd "C-x f")     'projectile-find-file)
+(global-set-key (kbd "C-x C-b")   'projectile-ibuffer)
+(global-set-key (kbd "C-x C-m")   'bm-toggle)
+(global-set-key (kbd "C-x C-n")   'bm-next)
+(global-set-key (kbd "C-x C-l")   'bm-show)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
 (global-set-key [C-S-down]        'highlight-symbol-next)
 (global-set-key [C-S-up]          'highlight-symbol-prev)
@@ -384,13 +384,13 @@
 (global-set-key [?\C-b]           'ido-switch-buffer)
 (global-set-key [?\C-o]           'helm-imenu)
 (global-set-key [?\C-p]           'helm-projectile)
-(global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
-(global-set-key [?\M-.]           'find-tag-without-ns)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [?\M-e]           'smex)
-(global-set-key [?\M-h]           'goto-last-change)
+(global-set-key [?\M-a]           'find-tag-without-ns)
+(global-set-key [?\M-r]           'goto-last-change)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
 (global-set-key [?\M-)]           '(lambda () (interactive) (insert ")")))
+(global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
 
 (global-set-key (kbd "M-'")       'paxedit-kill)
 (global-set-key (kbd "M-<left>")  'paxedit-transpose-backward)
