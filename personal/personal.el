@@ -9,6 +9,7 @@
 (require 'git-gutter-fringe+)
 (require 'ace-isearch)
 (require 'diminish)
+(require 'clj-refactor)
 
 (setq prelude-guru nil)
 (setq prelude-whitespace nil)
@@ -297,6 +298,13 @@
             (highlight-indentation-current-column-mode)
             (local-set-key [return] 'reindent-then-newline-and-indent)))
 
+
+;; clojure mode
+
+(add-hook 'clojure-mode-hook
+		  (lambda ()
+			(clj-refactor-mode 1)
+			(cljr-add-keybindings-with-prefix "C-c C-k")))
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 
