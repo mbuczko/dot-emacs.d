@@ -11,19 +11,6 @@
 (require 'diminish)
 (require 'clj-refactor)
 
-(setq prelude-guru nil)
-(setq prelude-whitespace nil)
-(setq prelude-flyspell nil)
-
-(setq mac-option-key-is-meta nil)
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
-
-(setq tags-revert-without-query 1)
-(setq powerline-arrow-shape 'slant-right)
-(setq use-dialog-box nil)
-
 (scroll-bar-mode      -1)
 (tool-bar-mode        -1)
 (global-hl-line-mode   1)
@@ -32,25 +19,35 @@
 (golden-ratio-mode     1)
 (helm-mode             1)
 (paxedit-mode          1)
+(yas/global-mode       1)
 
 (global-git-gutter+-mode)
 (powerline-default-theme)
 (rvm-use-default)
 
-(setq split-width-threshold 0
-      split-height-threshold nil
-      window-min-width 30)
+(setq prelude-guru nil
+	  prelude-whitespace nil
+	  prelude-flyspell nil
+
+	  mac-option-key-is-meta nil
+	  mac-command-key-is-meta t
+	  mac-command-modifier 'meta
+	  mac-option-modifier nil
+
+	  tags-revert-without-query 1
+	  powerline-arrow-shape 'slant-right
+	  use-dialog-box nil
+	  
+	  ;; keep window splitting at sane proportions 
+	  ;; with golden-ratio switched on
+	  
+	  split-width-threshold 0
+	  split-height-threshold nil
+	  window-min-width 30)
 
 
-(add-to-list 'projectile-globally-ignored-directories "node_modules")
-(add-to-list 'projectile-globally-ignored-directories "bower_components")
-(add-to-list 'projectile-globally-ignored-directories "dist")
-
-;; additional hooks
-
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-
-;; Set deja-vu UTF characters
+;; set deja-vu UTF characters
+;; this is important for Gnus decorations
 
 (set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
                   (cons (decode-char 'ucs #x2500)
@@ -71,6 +68,18 @@
 								 "Ruby_2/Ruby" 
 								 "Ruby_on_Rails_4/Ruby on Rails"))
 
+;; projectile setup
+;; (add-hook 'projectile-mode-hook 'projectile-rails-on)
+
+(projectile-global-mode)
+
+(setq projectile-completion-system 'grizzl)
+
+(add-to-list 'projectile-globally-ignored-directories "node_modules")
+(add-to-list 'projectile-globally-ignored-directories "bower_components")
+(add-to-list 'projectile-globally-ignored-directories "dist")
+(add-to-list 'projectile-globally-ignored-directories "target")
+
 ;; ido magic
 
 (setq ido-enable-prefix nil
@@ -83,14 +92,16 @@
       ido-handle-duplicate-virtual-buffers 2
       ido-max-prospects 10)
 
-(defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
+(defun ido-disable-line-trucation () 
+  (set (make-local-variable 'truncate-lines) nil))
+
 (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
 
 (setq ido-save-directory-list-file "~/tmp/ido.last"
       ido-ignore-buffers '( "\\` " "^\*" "^\:" ".*Completion" "^\*Ido" "^\*trace" "^\*compilation" "^\*GTAGS" "\.bbdb" ".*nxhtml\-mode.*" "^\.newsrc*" ".*indent-buffer" "TAGS")
       ido-decorations '("  " "" " | " ", ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]")
 
-      ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~src")
+      ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~/workspace")
       ido-case-fold  t                 ; be case-insensitive
 
       ido-enable-last-directory-history t ; remember last used dirs
@@ -109,7 +120,9 @@
 ;; ibuffer setup
 ;; http://martinowen.net/blog/2010/02/tips-for-emacs-ibuffer.html
 
-(setq ibuffer-saved-filter-groups
+(setq ibuffer-expert t
+	  ibuffer-show-empty-filter-groups nil
+	  ibuffer-saved-filter-groups
       '(("home"
          ("emacs-config" (or (filename . ".emacs")
                              (filename . ".gnus")))
@@ -147,9 +160,6 @@
          (ibuffer-auto-mode 1)
 	     (ibuffer-switch-to-saved-filter-groups "home")))
 
-(setq ibuffer-expert t)
-(setq ibuffer-show-empty-filter-groups nil)
-
 ;; dired configuration
 
 (add-hook 'dired-mode-hook
@@ -161,7 +171,7 @@
 
 ; links abbreviations
 (setq org-link-abbrev-alist
-       '(("jira"  . "http://jira.intranet.roche.com/jira/browse/%s")))
+	  '(("jira"  . "http://jira.corpo.im.working.in.com/jira/browse/%s")))
 
 ; custom commands for agenda view
 (setq org-agenda-custom-commands
@@ -273,15 +283,6 @@
         (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
         (define-key yas/keymap [tab] 'yas/next-field)))
 
-;; projectile
-
-(projectile-global-mode)
-(setq projectile-completion-system 'grizzl)
-
-;; yasnippet mode
-
-(yas/global-mode 1)
-
 ;; javascript mode
 
 (autoload 'js2-mode "js2-mode" nil t)
@@ -374,6 +375,7 @@
 (global-set-key (kbd "C-c d")     'duplicate-line)
 (global-set-key (kbd "C-c m")     'magit-status)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
+(global-set-key (kbd "C-x d")     'projectile-speedbar-open-current-buffer-in-tree)
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
@@ -395,9 +397,8 @@
 (global-set-key [?\C-z]           'undo)
 (global-set-key [?\M-e]           'smex)
 (global-set-key [?\M-a]           'find-tag-without-ns)
-(global-set-key [?\M-r]           'goto-last-change)
+(global-set-key [?\M-l]           'goto-last-change)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
-(global-set-key [?\M-)]           '(lambda () (interactive) (insert ")")))
 (global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
 
 (global-set-key (kbd "M-'")       'paxedit-kill)
@@ -414,4 +415,5 @@
 
 
 (set-face-background 'highlight "gray20")
-(set-face-background 'region "DarkBlue")
+(set-face-background 'region "DarkMagenta")
+
