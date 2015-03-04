@@ -305,7 +305,7 @@
 (add-hook 'clojure-mode-hook
 		  (lambda ()
 			(clj-refactor-mode 1)
-			(cljr-add-keybindings-with-prefix "C-c C-k")))
+			(cljr-add-keybindings-with-prefix "C-c C-l")))
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 
@@ -366,6 +366,7 @@
 (global-set-key (kbd "M-v")       'yank)
 (global-set-key (kbd "M-z")       'zap-to-char)
 (global-set-key (kbd "C->")       'mc/mark-more-like-this-extended)
+(global-set-key (kbd "C-<")       'mc/mark-all-like-this-dwim)
 (global-set-key (kbd "M-w q")     'er/mark-inside-quotes)
 (global-set-key (kbd "M-w b")     'er/mark-inside-pairs)
 (global-set-key (kbd "M-w w")     'er/mark-word)

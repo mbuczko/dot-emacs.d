@@ -5,17 +5,6 @@
 (setq org-contacts-completion-ignore-case t)
 (org-contacts-gnus-insinuate)
 
-; auto-refresh
-; http://www.emacswiki.org/emacs/GnusNotify
-;; (gnus-demon-add-handler 'gnus-demon-scan-news 5 nil)
-
-;; (setq gnus-desktop-notify-function 'gnus-desktop-notify-exec
-;;       gnus-desktop-notify-groups 'gnus-desktop-notify-explicit
-;;       gnus-desktop-notify-exec-program "growlnotify -a Mail.app -m")
-
-;; (gnus-desktop-notify-mode)
-;; (gnus-demon-add-scanmail)
-
 (setq
   gnus-save-newsrc-file t
   gnus-read-newsrc-file t
@@ -92,8 +81,8 @@
   nnmail-treat-duplicates 'delete
   nnmail-keep-last-article nil
 
-  ;; gnus-select-method '(nntp "news.gmane.org")
-  gnus-select-method '(nntp "europe.newsdemon.com")
+  ;;gnus-select-method '(nntp "news.gmane.org")
+  gnus-select-method '(nntp "news.newsdemon.com")
 
   ;; ~/Mail folders are annoying
 
@@ -167,18 +156,19 @@
   gnus-summary-exit-hook 'gnus-summary-bubble-group)
 
 (defvar *mb-mails*
-        "michal@buczko\\.com")
+  "umrzykus@gazeta\\.pl")
 
 (defun gnus-user-format-function-m (headers)
   (let ((to (gnus-extra-header 'To headers)))
-    (if (string-match *mb-mails* to)
-        (if (string-match "," to) "»" " ")
-      (if (or (string-match *mb-mails*
-                            (gnus-extra-header 'Cc headers))
-              (string-match *mb-mails*
-                            (gnus-extra-header 'BCc headers)))
-          "~"
-        " "))))
+	(if (string-match *mb-mails* to)
+		(if (string-match "," to) "»" " ")
+	  (if (or (string-match *mb-mails*
+							(gnus-extra-header 'Cc headers))
+			  (string-match *mb-mails*
+							(gnus-extra-header 'BCc headers)))
+		  "~"
+		" "))))
+
 
 ;; put groups into topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
@@ -187,41 +177,18 @@
 (add-hook 'message-sent-hook 'gnus-score-followup-thread) ;;'gnus-score-followup-article
 
 ;; identities
-(autoload 'gnus-alias-determine-identity "gnus-alias" "" t)
-(add-hook 'message-setup-hook 'gnus-alias-determine-identity)
+;; (autoload 'gnus-alias-determine-identity "gnus-alias" "" t)
+;; (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
 
-(setq
- gnus-alias-identity-alist '(("news" "" "Janko Muzykant <umrzykus@gazeta.pl>" "" nil "" ""))
- gnus-alias-identity-rules '(("pl.news" ("Newsgroups" "pl.*" current) "news")
-                             ("gmane" ("Newsgroups" "gmane.*" current) "news"))
- gnus-alias-default-identity "news")
+;; (setq
+;;  gnus-alias-identity-alist '(("news" "" "Janko Muzykant <umrzykus@gazeta.pl>" "" nil "" ""))
+;;  gnus-alias-identity-rules '(("pl.news" ("Newsgroups" "pl.*" current) "news")
+;;                              ("gmane" ("Newsgroups" "gmane.*" current) "news"))
+;;  gnus-alias-default-identity "news")
 
-(defun fs-change-smtp ()
-   "Change the SMTP server according to the current from line."
-   (save-excursion
-     (let ((from 
-            (save-restriction
-              (message-narrow-to-headers)
-              (message-fetch-field "from"))))
-       (message "%s" from)                   
-       (message "**** FROM is `%s', setting `smtpmail-smtp-server' to `%s'"
-                from
-                (cond
-                 ((string-match "umrzykus@gazeta.pl" from)
-                  (setq message-send-mail-function 'smtpmail-send-it
-                        user-mail-address "umrzykus@gazeta.pl"))
-                 ((string-match "michal@buczko.pl" from)
-                  (message "Using buczko.pl")
-                  (setq message-send-mail-function 'smtpmail-send-it
-                        user-mail-address "michal@buczko.pl"
-                        smtpmail-auth-credentials '(("buczko.pl" 25 "michal@buczko.pl" nil))
-                        smtpmail-smtp-service 25
-                        smtpmail-smtp-server "buczko.pl")))))))
+(setq user-full-name "Janko Muzykant"
+	  user-mail-address "umrzykus@gazeta.pl")
 
-(setq smtpmail-debug-info t)
-
-;;(add-hook 'message-send-hook 'mml-secure-message-sign-smime)
-(add-hook 'message-send-hook 'fs-change-smtp)
 
 (defconst w3m-meta-content-type-charset-regexp
   "<meta[ \t\n]+http-equiv=\"?Content-type\"?[ \t\n]+\content=\"?\\([^;]+\\);[ \t\n]*charset=\\([^\"]+\\)\"?[ \t\n]*/?>")
