@@ -25,6 +25,9 @@
 (powerline-default-theme)
 (rvm-use-default)
 
+(setq helm-github-stars-username "mbuczko")
+(setq helm-split-window-in-side-p t)
+
 (setq prelude-guru nil
 	  prelude-whitespace nil
 	  prelude-flyspell nil
@@ -357,9 +360,21 @@
   (find-tag (first (last (split-string (symbol-name (symbol-at-point)) "/")))
             next-p))
 
+(defun whack-whitespace ()
+  "Delete all white space from point to the next word.  With prefix ARG
+    delete across newlines as well.  The only danger in this is that you
+    don't have to actually be at the end of a word to make it work.  It
+    skips over to the next whitespace and then whacks it all to the next
+    word."
+  (interactive)
+  (re-search-forward "[ \t\n]+" nil t)
+  (replace-match "" nil nil))
+
 (define-key company-active-map "\e" 'company-abort)
 
+
 ;; global keybindings
+
 (global-set-key (kbd "M-w")       nil)
 (global-set-key (kbd "M-c")       'kill-ring-save)
 (global-set-key (kbd "M-x")       'kill-region)
@@ -386,6 +401,7 @@
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
 (global-set-key (kbd "C-x C-n")   'bm-next)
 (global-set-key (kbd "C-x C-l")   'bm-show)
+(global-set-key (kbd "C-x C-o")   'whack-whitespace)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
 (global-set-key [C-S-down]        'highlight-symbol-next)
 (global-set-key [C-S-up]          'highlight-symbol-prev)
@@ -411,7 +427,7 @@
 (global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(translateria.system/reload)")))
+(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ekg.system/reload)")))
 (global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
 
