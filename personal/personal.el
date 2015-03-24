@@ -40,10 +40,10 @@
 	  tags-revert-without-query 1
 	  powerline-arrow-shape 'slant-right
 	  use-dialog-box nil
-	  
-	  ;; keep window splitting at sane proportions 
+
+	  ;; keep window splitting at sane proportions
 	  ;; with golden-ratio switched on
-	  
+
 	  split-width-threshold 0
 	  split-height-threshold nil
 	  window-min-width 30)
@@ -59,16 +59,13 @@
 
 ;; helm customization
 
-(defadvice helm-display-mode-line (after undisplay-header activate)
-  (setq header-line-format nil))
-
 (setq helm-split-window-default-side 'other
 	  helm-dash-common-docsets '("jQuery/jQuery"
 								 "JavaScript/JavaScript"
 								 "NodeJS/NodeJS"
 								 "Clojure/Clojure"
 								 "Express/Express"
-								 "Ruby_2/Ruby" 
+								 "Ruby_2/Ruby"
 								 "Ruby_on_Rails_4/Ruby on Rails"))
 
 ;; projectile setup
@@ -95,7 +92,7 @@
       ido-handle-duplicate-virtual-buffers 2
       ido-max-prospects 10)
 
-(defun ido-disable-line-trucation () 
+(defun ido-disable-line-trucation ()
   (set (make-local-variable 'truncate-lines) nil))
 
 (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
@@ -158,6 +155,7 @@
     (ibuffer-jump-to-buffer recent-buffer-name)))
 
 (ad-activate 'ibuffer)
+
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
          (ibuffer-auto-mode 1)
@@ -169,8 +167,6 @@
 		  (lambda ()
 			(define-key dired-mode-map [M-up]
 			  (lambda () (interactive) (find-alternate-file "..")))))
-
-;; org-mode config
 
 ; links abbreviations
 (setq org-link-abbrev-alist
@@ -423,7 +419,7 @@
 (global-set-key (kbd "M-<right>") 'paxedit-transpose-forward)
 (global-set-key (kbd "M-<up>")    'paxedit-backward-up)
 (global-set-key (kbd "M-<down>")  'paxedit-backward-end)
-(global-set-key [(C-right)]       'sp-forward-symbol) 
+(global-set-key [(C-right)]       'sp-forward-symbol)
 (global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
@@ -432,5 +428,6 @@
 
 
 (set-face-background 'highlight "gray20")
-(set-face-background 'region "DarkMagenta")
+(set-face-background 'region "DodgerBlue4")
+
 
