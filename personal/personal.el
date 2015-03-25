@@ -5,6 +5,7 @@
 (require 'golden-ratio)
 (require 'org-install)
 (require 'magit)
+(require 'history)
 (require 'helm-dash)
 (require 'git-gutter-fringe+)
 (require 'ace-isearch)
@@ -19,6 +20,7 @@
 (golden-ratio-mode     1)
 (helm-mode             1)
 (paxedit-mode          1)
+(history-mode          1)
 (yas/global-mode       1)
 
 (global-git-gutter+-mode)
@@ -58,6 +60,8 @@
                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 
 ;; helm customization
+(defadvice helm-display-mode-line (after undisplay-header activate)
+  (setq header-line-format nil))
 
 (setq helm-split-window-default-side 'other
 	  helm-dash-common-docsets '("jQuery/jQuery"
@@ -212,7 +216,7 @@
       org-deadline-warning-days 3
       org-use-fast-todo-selection t
 
-      org-agenda-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "/Volumes/External/Dropbox/org-mode/scheduled.org" "/Volumes/External/Dropbox/org-mode/contacts.org"))
+      org-agenda-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
       org-contacts-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
       org-log-into-drawer t
       org-log-done 'time
@@ -311,6 +315,7 @@
 (diminish 'projectile-mode)
 (diminish 'golden-ratio-mode)
 (diminish 'helm-mode)
+(diminish 'history-mode)
 (diminish 'yas-minor-mode)
 (diminish 'visual-line-mode)
 (diminish 'smartparens-mode)
@@ -395,8 +400,9 @@
 (global-set-key (kbd "C-x C-d")   'dash-at-point)
 (global-set-key (kbd "C-x C-b")   'projectile-ibuffer)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
-(global-set-key (kbd "C-x C-n")   'bm-next)
-(global-set-key (kbd "C-x C-l")   'bm-show)
+(global-set-key (kbd "C-x C-n")   'history-next-history)
+(global-set-key (kbd "C-x C-p")   'history-prev-history)
+(global-set-key (kbd "C-x C-l")   'bm-show-all)
 (global-set-key (kbd "C-x C-o")   'whack-whitespace)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
 (global-set-key [C-S-down]        'highlight-symbol-next)
@@ -414,7 +420,8 @@
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
 (global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
 
-(global-set-key (kbd "M-'")       'paxedit-kill)
+(global-set-key (kbd "C-\\")      'paxedit-kill)
+(global-set-key (kbd "C-|")       'paxedit-sexp-raise)
 (global-set-key (kbd "M-<left>")  'paxedit-transpose-backward)
 (global-set-key (kbd "M-<right>") 'paxedit-transpose-forward)
 (global-set-key (kbd "M-<up>")    'paxedit-backward-up)

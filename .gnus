@@ -1,6 +1,9 @@
 (require 'starttls)
 (require 'nnir)
 
+(setq org-contacts-completion-ignore-case t)
+(org-contacts-gnus-insinuate)
+
 (setq
   gnus-save-newsrc-file t
   gnus-read-newsrc-file t
