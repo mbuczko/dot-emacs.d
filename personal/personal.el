@@ -431,7 +431,7 @@
 (global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(boot.user/reload)")))
+(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(reload)")))
 (global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
 
