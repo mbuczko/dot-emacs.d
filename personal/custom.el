@@ -33,6 +33,7 @@
  '(canlock-password "1085e8558dcb0236dbd9c1926f175176486526c1")
  '(case-fold-search t)
  '(cider-repl-display-in-current-window t)
+ '(cider-repl-use-pretty-printing t)
  '(column-number-mode t)
  '(comment-line-break-function (quote indent-new-comment-line) t)
  '(comment-multi-line t)
