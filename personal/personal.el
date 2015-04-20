@@ -14,6 +14,7 @@
 
 (scroll-bar-mode      -1)
 (tool-bar-mode        -1)
+(menu-bar-mode        -1)
 (global-hl-line-mode   1)
 (window-numbering-mode 1)
 (blink-cursor-mode     1)
@@ -439,3 +440,5 @@
 (set-face-background 'region "DodgerBlue4")
 
 
+
+(setq magit-last-seen-setup-instructions "1.4.0")
