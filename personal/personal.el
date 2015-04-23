@@ -136,6 +136,7 @@
          ("CSS" (or (mode . scss-mode)
                     (mode . css-mode)))
          ("JS" (mode . js2-mode))
+         ("Clojure" (mode . clojure-mode))
          ("EShell" (mode . eshell-mode))
          ("Org" (or (mode . org-mode)))
          ("Gnus" (or (mode . message-mode)
@@ -277,7 +278,7 @@
 (add-hook 'org-mode-hook
 	  (lambda ()
         (visual-line-mode)
-        (org-defkey org-mode-map [(meta e)] 'smex)
+        (org-defkey org-mode-map [(meta e)] 'helm-M-x)
 
         ;; The way Org mode binds the TAB key (binding to [tab] instead of "\t") overrules YASnippet's access to this key.
         ;; The following code fixed this problem:
@@ -414,8 +415,8 @@
 (global-set-key [?\C-b]           'ido-switch-buffer)
 (global-set-key [?\C-o]           'helm-imenu)
 (global-set-key [?\C-p]           'helm-projectile)
+(global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\C-z]           'undo)
-(global-set-key [?\M-e]           'smex)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-l]           'goto-last-change)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
