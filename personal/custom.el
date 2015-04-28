@@ -50,7 +50,7 @@
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
  '(company-auto-complete t)
- '(company-idle-delay 0.2)
+ '(company-idle-delay 0.4)
  '(company-tooltip-flip-when-above nil)
  '(compilation-ask-about-save nil)
  '(compilation-auto-jump-to-first-error t)
@@ -125,10 +125,14 @@
  '(gnus-use-correct-string-widths t)
  '(golden-ratio-exclude-buffer-names
    (quote
-	("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*undo-tree*")))
+	("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*undo-tree*" "*Helm Swoop*")))
  '(golden-ratio-exclude-modes
    (quote
 	("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
+ '(helm-autoresize-max-height 20)
+ '(helm-autoresize-min-height 10)
+ '(helm-autoresize-mode t)
+ '(helm-candidate-separator "")
  '(helm-completing-read-handlers-alist
    (quote
 	((describe-function . helm-completing-read-symbols)
@@ -139,6 +143,8 @@
 	 (ffap-alternate-file)
 	 (tmm-menubar)
 	 (cycbuf-switch-to-next-buffer))))
+ '(helm-display-header-line nil)
+ '(helm-swoop-split-direction (quote split-window-vertically))
  '(helm-truncate-lines t)
  '(history-mode t)
  '(history-window-local-history t)
