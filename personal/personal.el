@@ -28,8 +28,18 @@
 (powerline-default-theme)
 (rvm-use-default)
 
+(setq-default truncate-lines t)
+
+;; helm configuration
+
 (setq helm-github-stars-username "mbuczko")
 (setq helm-split-window-in-side-p t)
+
+(add-to-list 'display-buffer-alist
+			 `(,(rx bos "*helm" (* not-newline) "*" eos)
+			   (display-buffer-in-side-window)
+			   (inhibit-same-window . t)
+			   (window-height . 0.4)))
 
 (setq prelude-guru nil
 	  prelude-whitespace nil
@@ -433,7 +443,7 @@
 (global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(reload)")))
+(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(system-reload)")))
 (global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
 
