@@ -5,7 +5,6 @@
 (require 'golden-ratio)
 (require 'org-install)
 (require 'magit)
-(require 'history)
 (require 'helm-dash)
 (require 'git-gutter-fringe+)
 (require 'ace-isearch)
@@ -21,7 +20,6 @@
 (golden-ratio-mode     1)
 (helm-mode             1)
 (paxedit-mode          1)
-(history-mode          1)
 (yas/global-mode       1)
 
 (global-git-gutter+-mode)
@@ -69,10 +67,6 @@
                   (cons (decode-char 'ucs #x2500)
                         (decode-char 'ucs #x25ff))
                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-
-;; helm customization
-(defadvice helm-display-mode-line (after undisplay-header activate)
-  (setq header-line-format nil))
 
 (setq helm-split-window-default-side 'other
 	  helm-dash-common-docsets '("jQuery/jQuery"
@@ -243,7 +237,7 @@
               (refile . "Refiled on %t") (clock-out . "")))
 
 
-      org-tag-alist '( ("HOME" . ?h) ("SENCHA" . ?s) ("CALENDARS" . ?c))
+      org-tag-alist '( ("HOME" . ?h) ("MOBI" . ?m))
       org-todo-keywords (quote ((sequence "TODO(t!)" "STARTED(s!)" "|" "DONE(d!/!)")
                                 (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)")
                                 (sequence "OPEN(O!)" "|" "CLOSED(C!)")))
@@ -320,7 +314,7 @@
 (add-hook 'clojure-mode-hook
 		  (lambda ()
 			(clj-refactor-mode 1)
-			(cljr-add-keybindings-with-prefix "C-c C-l")))
+			(cljr-add-keybindings-with-prefix "M-l")))
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 
@@ -412,23 +406,19 @@
 (global-set-key (kbd "C-x C-d")   'dash-at-point)
 (global-set-key (kbd "C-x C-b")   'projectile-ibuffer)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
-(global-set-key (kbd "C-x C-n")   'history-next-history)
-(global-set-key (kbd "C-x C-p")   'history-prev-history)
 (global-set-key (kbd "C-x C-l")   'bm-show-all)
 (global-set-key (kbd "C-x C-o")   'whack-whitespace)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
 (global-set-key [C-S-down]        'highlight-symbol-next)
 (global-set-key [C-S-up]          'highlight-symbol-prev)
-(global-set-key [(C-backspace)]   'backward-kill-word)
-(global-set-key [(C-S-return)]    'er/expand-region)
-(global-set-key [(C-tab)]         'cycbuf-switch-to-next-buffer)
 (global-set-key [?\C-b]           'ido-switch-buffer)
 (global-set-key [?\C-o]           'helm-imenu)
-(global-set-key [?\C-p]           'helm-projectile)
-(global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\C-z]           'undo)
+(global-set-key [(C-backspace)]   'backward-kill-word)
+(global-set-key [(C-S-return)]    'er/expand-region)
+(global-set-key [(C-tab)]         'helm-buffers-list)
+(global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\M-a]           'find-tag-without-ns)
-(global-set-key [?\M-l]           'goto-last-change)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
 (global-set-key [?\M-q]           'kill-buffer-and-window)
 (global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)

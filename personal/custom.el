@@ -129,8 +129,6 @@
  '(golden-ratio-exclude-modes
    (quote
 	("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
- '(helm-autoresize-max-height 20)
- '(helm-autoresize-min-height 10)
  '(helm-autoresize-mode t)
  '(helm-candidate-separator "")
  '(helm-completing-read-handlers-alist
