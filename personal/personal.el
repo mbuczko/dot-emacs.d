@@ -28,6 +28,19 @@
 
 (setq-default truncate-lines t)
 
+;; Add custom magic requires to clj-refactor
+
+(dolist (mapping '(("maps" . "outpace.util.maps")
+                   ("seqs" . "outpace.util.seqs")
+                   ("times" . "outpace.util.times")
+                   ("repl" . "outpace.util.repl")
+                   ("time" . "clj-time.core")
+				   ("try" . "clj-try.core")
+				   ("log"  . "clojure.tools.logging")
+                   ("string" . "clojure.string")))
+  (add-to-list 'cljr-magic-require-namespaces mapping t))
+
+
 ;; helm configuration
 
 (setq helm-github-stars-username "mbuczko")

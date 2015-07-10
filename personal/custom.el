@@ -41,7 +41,9 @@
  '(c-comment-only-line-offset 0)
  '(canlock-password "1085e8558dcb0236dbd9c1926f175176486526c1")
  '(case-fold-search t)
- '(cider-repl-display-in-current-window t)
+ '(cider-repl-display-in-current-window nil)
+ '(cider-repl-history-file nil)
+ '(cider-repl-pop-to-buffer-on-connect nil)
  '(cider-repl-use-pretty-printing t)
  '(cljr-suppress-middleware-warnings t)
  '(column-number-mode t)
@@ -129,7 +131,6 @@
  '(golden-ratio-exclude-modes
    (quote
 	("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
- '(helm-autoresize-mode t)
  '(helm-candidate-separator "")
  '(helm-completing-read-handlers-alist
    (quote
@@ -142,8 +143,8 @@
 	 (tmm-menubar)
 	 (cycbuf-switch-to-next-buffer))))
  '(helm-display-header-line nil)
- '(helm-swoop-split-direction (quote split-window-vertically))
- '(helm-truncate-lines t)
+ '(helm-swoop-split-direction (quote split-window-horizontally))
+ '(helm-truncate-lines t t)
  '(history-mode t)
  '(history-window-local-history t)
  '(hscroll-step 1)
@@ -171,6 +172,7 @@
  '(ls-lisp-dirs-first t)
  '(ls-lisp-ignore-case t)
  '(ls-lisp-use-insert-directory-program nil)
+ '(magit-diff-auto-show (quote (stage-all log-oneline log-select blame-follow)))
  '(magit-process-connection-type nil)
  '(makefile-electric-keys t)
  '(menu-bar-mode nil)
