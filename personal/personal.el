@@ -73,6 +73,10 @@
 	  window-min-width 30)
 
 
+;; no trailing whitespaces, please!
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; set deja-vu UTF characters
 ;; this is important for Gnus decorations
 
@@ -359,6 +363,13 @@
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
+;; magit UTF-8 setting
+
+(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
+(add-hook 'git-commit-mode-hook
+          '(lambda ()
+             (set-buffer-file-coding-system 'utf-8)))
+
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
@@ -449,10 +460,8 @@
 (global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(system-reload)")))
 (global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
-
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
 
-
-
 (setq magit-last-seen-setup-instructions "1.4.0")
+(setq cider-repl-history-file "~/.emacs.d/.cider_history")

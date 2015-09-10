@@ -52,6 +52,7 @@
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
  '(company-auto-complete t)
+ '(company-auto-complete-chars (quote (41 46)))
  '(company-idle-delay 0.4)
  '(company-tooltip-flip-when-above nil)
  '(compilation-ask-about-save nil)
