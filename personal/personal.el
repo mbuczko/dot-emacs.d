@@ -28,6 +28,9 @@
 
 (setq-default truncate-lines t)
 
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system 'utf-8)
+
 ;; Add custom magic requires to clj-refactor
 
 (dolist (mapping '(("maps" . "outpace.util.maps")
