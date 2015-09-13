@@ -26,6 +26,22 @@
 
 (setq-default truncate-lines t)
 
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system 'utf-8)
+
+;; Add custom magic requires to clj-refactor
+
+(dolist (mapping '(("maps" . "outpace.util.maps")
+                   ("seqs" . "outpace.util.seqs")
+                   ("times" . "outpace.util.times")
+                   ("repl" . "outpace.util.repl")
+                   ("time" . "clj-time.core")
+				   ("try" . "clj-try.core")
+				   ("log"  . "clojure.tools.logging")
+                   ("string" . "clojure.string")))
+  (add-to-list 'cljr-magic-require-namespaces mapping t))
+
+
 ;; helm configuration
 
 (setq helm-github-stars-username "mbuczko")
@@ -57,6 +73,10 @@
 	  split-height-threshold nil
 	  window-min-width 30)
 
+
+;; no trailing whitespaces, please!
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set deja-vu UTF characters
 ;; this is important for Gnus decorations
@@ -343,6 +363,13 @@
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
+;; magit UTF-8 setting
+
+(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
+(add-hook 'git-commit-mode-hook
+          '(lambda ()
+             (set-buffer-file-coding-system 'utf-8)))
+
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
@@ -433,10 +460,8 @@
 (global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(system-reload)")))
 (global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
-
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
 
-
-
 (setq magit-last-seen-setup-instructions "1.4.0")
+(setq cider-repl-history-file "~/.emacs.d/.cider_history")

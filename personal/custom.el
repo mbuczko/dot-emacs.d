@@ -41,7 +41,8 @@
  '(c-comment-only-line-offset 0)
  '(canlock-password "1085e8558dcb0236dbd9c1926f175176486526c1")
  '(case-fold-search t)
- '(cider-repl-display-in-current-window t)
+ '(cider-repl-display-in-current-window nil)
+ '(cider-repl-history-file nil)
  '(cider-repl-pop-to-buffer-on-connect nil)
  '(cider-repl-use-pretty-printing t)
  '(cljr-suppress-middleware-warnings t)
@@ -51,6 +52,7 @@
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
  '(company-auto-complete t)
+ '(company-auto-complete-chars (quote (41 46)))
  '(company-idle-delay 0.4)
  '(company-tooltip-flip-when-above nil)
  '(compilation-ask-about-save nil)
@@ -130,7 +132,6 @@
  '(golden-ratio-exclude-modes
    (quote
 	("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
- '(helm-autoresize-mode t)
  '(helm-candidate-separator "")
  '(helm-completing-read-handlers-alist
    (quote
@@ -143,7 +144,7 @@
 	 (tmm-menubar)
 	 (cycbuf-switch-to-next-buffer))))
  '(helm-display-header-line nil)
- '(helm-swoop-split-direction (quote split-window-vertically))
+ '(helm-swoop-split-direction (quote split-window-horizontally))
  '(helm-truncate-lines t t)
  '(history-mode t)
  '(history-window-local-history t)
