@@ -6,7 +6,6 @@
 (require 'org-install)
 (require 'magit)
 (require 'helm-dash)
-(require 'git-gutter-fringe+)
 (require 'ace-isearch)
 (require 'diminish)
 (require 'clj-refactor)
@@ -22,7 +21,6 @@
 (paxedit-mode          1)
 (yas/global-mode       1)
 
-(global-git-gutter+-mode)
 (powerline-default-theme)
 (rvm-use-default)
 
@@ -325,7 +323,6 @@
 (diminish 'yas-minor-mode)
 (diminish 'visual-line-mode)
 (diminish 'smartparens-mode)
-(diminish 'git-gutter+-mode)
 (diminish 'paxedit-mode)
 (diminish 'prelude-mode)
 (diminish 'flycheck-mode)
