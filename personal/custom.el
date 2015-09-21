@@ -41,7 +41,7 @@
  '(c-comment-only-line-offset 0)
  '(canlock-password "1085e8558dcb0236dbd9c1926f175176486526c1")
  '(case-fold-search t)
- '(cider-repl-display-in-current-window nil)
+ '(cider-repl-display-in-current-window t)
  '(cider-repl-history-file nil)
  '(cider-repl-pop-to-buffer-on-connect nil)
  '(cider-repl-use-pretty-printing t)

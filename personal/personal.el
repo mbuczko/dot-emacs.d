@@ -424,6 +424,7 @@
 (global-set-key (kbd "C-x f")     'projectile-find-file)
 (global-set-key (kbd "C-x d")     'projectile-speedbar-open-current-buffer-in-tree)
 (global-set-key (kbd "C-x s")     'helm-git-grep)
+(global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-i")   'helm-etags-select)
@@ -457,11 +458,11 @@
 (global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(system-reload)")))
+(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(reset)")))
 (global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
 
 (setq magit-last-seen-setup-instructions "1.4.0")
-(setq cider-repl-history-file "~/.emacs.d/.cider_history")
+(setq cider-repl-history-file ".cider_history")
