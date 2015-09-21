@@ -440,6 +440,7 @@
 (global-set-key [C-S-up]          'highlight-symbol-prev)
 (global-set-key [?\C-b]           'ido-switch-buffer)
 (global-set-key [?\C-o]           'helm-imenu)
+(global-set-key [?\C-r]           'helm-projectile)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
