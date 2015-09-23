@@ -41,6 +41,7 @@
  '(c-comment-only-line-offset 0)
  '(canlock-password "1085e8558dcb0236dbd9c1926f175176486526c1")
  '(case-fold-search t)
+ '(cider-default-repl-command "boot")
  '(cider-repl-display-in-current-window nil)
  '(cider-repl-history-file nil)
  '(cider-repl-pop-to-buffer-on-connect nil)
