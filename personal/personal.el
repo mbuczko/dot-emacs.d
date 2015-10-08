@@ -373,6 +373,25 @@
           '(lambda ()
              (set-buffer-file-coding-system 'utf-8)))
 
+;; magit toggle whitespaces
+
+(defun magit-toggle-whitespace ()
+  (interactive)
+  (if (member "-w" magit-diff-arguments)
+      (magit-dont-ignore-whitespace)
+    (magit-ignore-whitespace)))
+
+
+(defun magit-ignore-whitespace ()
+  (interactive)
+  (add-to-list 'magit-diff-arguments "-w")
+  (magit-refresh))
+
+(defun magit-dont-ignore-whitespace ()
+  (interactive)
+  (setq magit-diff-arguments (remove "-w" magit-diff-arguments))
+  (magit-refresh))
+
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
@@ -462,10 +481,10 @@
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
 (global-set-key [f2] (lambda () (interactive) (save-buffer) (cider-interactive-eval "(reloaded.repl/reset)")))
-(global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
+(global-set-key [f3] (lambda () (interactive) (save-buffer) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
 
 (setq magit-last-seen-setup-instructions "1.4.0")
-(setq cider-repl-history-file "~/.emacs.d/.cider_history")
+(setq cider-repl-history-file ".cider_history")
