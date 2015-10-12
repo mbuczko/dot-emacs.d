@@ -1,14 +1,12 @@
 (require 'highlight-indentation)
 (require 'highlight-symbol)
-(require 'yasnippet)
 (require 'powerline)
 (require 'golden-ratio)
-(require 'org-install)
-(require 'magit)
 (require 'helm-dash)
 (require 'ace-isearch)
 (require 'diminish)
 (require 'clj-refactor)
+(require 'magit)
 
 (scroll-bar-mode      -1)
 (tool-bar-mode        -1)
@@ -22,7 +20,6 @@
 (yas/global-mode       1)
 
 (powerline-default-theme)
-(rvm-use-default)
 
 (setq-default truncate-lines t)
 
@@ -315,18 +312,6 @@
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-;; ruby mode
-
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (require 'rspec-mode)
-            (require 'helm-rails)
-
-			(rvm-activate-corresponding-ruby)
-            (highlight-indentation-current-column-mode)
-            (local-set-key [return] 'reindent-then-newline-and-indent)))
-
-
 ;; clojure mode
 
 (add-hook 'clojure-mode-hook
@@ -438,7 +423,7 @@
 (global-set-key [C-S-up]          'highlight-symbol-prev)
 (global-set-key [?\C-b]           'ido-switch-buffer)
 (global-set-key [?\C-o]           'helm-imenu)
-(global-set-key [?\C-r]           'helm-projectile)
+(global-set-key [?\C-p]           'helm-projectile)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
@@ -449,18 +434,15 @@
 (global-set-key [?\M-q]           'kill-buffer-and-window)
 (global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
 
-(global-set-key (kbd "C-\\")      'paxedit-kill)
 (global-set-key (kbd "C-|")       'paxedit-sexp-raise)
 (global-set-key (kbd "M-<left>")  'paxedit-transpose-backward)
 (global-set-key (kbd "M-<right>") 'paxedit-transpose-forward)
 (global-set-key (kbd "M-<up>")    'paxedit-backward-up)
 (global-set-key (kbd "M-<down>")  'paxedit-backward-end)
-(global-set-key [(C-right)]       'sp-forward-symbol)
-(global-set-key [(C-left)]        'sp-backward-symbol)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive) (cider-interactive-eval "(ns boot.user)(reset)")))
-(global-set-key [f3] (lambda () (interactive) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
+(global-set-key [f2] (lambda () (interactive) (save-buffer) (cider-interactive-eval "(reloaded.repl/reset)")))
+(global-set-key [f3] (lambda () (interactive) (save-buffer) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
