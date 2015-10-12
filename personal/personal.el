@@ -355,6 +355,25 @@
           '(lambda ()
              (set-buffer-file-coding-system 'utf-8)))
 
+;; magit toggle whitespaces
+
+(defun magit-toggle-whitespace ()
+  (interactive)
+  (if (member "-w" magit-diff-arguments)
+      (magit-dont-ignore-whitespace)
+    (magit-ignore-whitespace)))
+
+
+(defun magit-ignore-whitespace ()
+  (interactive)
+  (add-to-list 'magit-diff-arguments "-w")
+  (magit-refresh))
+
+(defun magit-dont-ignore-whitespace ()
+  (interactive)
+  (setq magit-diff-arguments (remove "-w" magit-diff-arguments))
+  (magit-refresh))
+
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
