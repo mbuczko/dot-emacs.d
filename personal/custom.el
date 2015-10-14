@@ -197,6 +197,8 @@
  '(ring-bell-function (quote ignore) t)
  '(same-window-regexps (quote ("\\*magit.*")))
  '(scss-compile-at-save nil t)
+ '(shell-pop-term-shell "/bin/zsh")
+ '(shell-pop-universal-key "C-t")
  '(show-smartparens-global-mode t)
  '(size-indication-mode t)
  '(smartparens-global-strict-mode t)

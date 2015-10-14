@@ -405,6 +405,7 @@
   (re-search-forward "[ \t\n]+" nil t)
   (replace-match "" nil nil))
 
+
 (define-key company-active-map "\e" 'company-abort)
 
 
@@ -450,9 +451,9 @@
 (global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
+(global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (cider-eval-buffer) (cider-interactive-eval "(reloaded.repl/reset)")))
 (global-set-key [?\M-q]           'kill-buffer-and-window)
 (global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
-
 (global-set-key (kbd "C-|")       'paxedit-sexp-raise)
 (global-set-key (kbd "M-<left>")  'paxedit-transpose-backward)
 (global-set-key (kbd "M-<right>") 'paxedit-transpose-forward)
@@ -460,8 +461,6 @@
 (global-set-key (kbd "M-<down>")  'paxedit-backward-end)
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [f2] (lambda () (interactive) (save-buffer) (cider-interactive-eval "(reloaded.repl/reset)")))
-(global-set-key [f3] (lambda () (interactive) (save-buffer) (cider-interactive-eval "(clojure.tools.namespace.repl/refresh-all)")))
 
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
