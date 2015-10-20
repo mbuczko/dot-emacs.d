@@ -451,9 +451,10 @@
 (global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
-(global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (cider-eval-buffer) (cider-interactive-eval "(reloaded.repl/reset)")))
+(global-set-key [?\M-i]           '(lambda () (interactive) (save-some-buffers t) (cider-interactive-eval "(reloaded.repl/reset)")))
 (global-set-key [?\M-q]           'kill-buffer-and-window)
 (global-set-key [?\M-;]           'comment-or-uncomment-region-or-line)
+
 (global-set-key (kbd "C-|")       'paxedit-sexp-raise)
 (global-set-key (kbd "M-<left>")  'paxedit-transpose-backward)
 (global-set-key (kbd "M-<right>") 'paxedit-transpose-forward)
