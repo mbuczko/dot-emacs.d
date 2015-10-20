@@ -100,40 +100,39 @@ by Prelude.")
 
 (message "Loading Prelude's core...")
 
-(let ((file-name-handler-alist nil))
-  
-  ;; the core stuff
-  (require 'prelude-packages)
-  (require 'prelude-custom)  ;; Needs to be loaded before core, editor and ui
-  (require 'prelude-ui)
-  (require 'prelude-core)
-  (require 'prelude-mode)
-  (require 'prelude-company)
-  (require 'prelude-editor)
-  (require 'prelude-global-keybindings)
+;; the core stuff
+(require 'prelude-packages)
+(require 'prelude-custom)  ;; Needs to be loaded before core, editor and ui
+(require 'prelude-ui)
+(require 'prelude-core)
+(require 'prelude-mode)
+(require 'prelude-editor)
+(require 'prelude-global-keybindings)
 
-  ;; OSX specific settings
-  (when (eq system-type 'darwin)
-	(require 'prelude-osx))
+;; OSX specific settings
+(when (eq system-type 'darwin)
+  (require 'prelude-osx))
 
-  (message "Loading Prelude's modules...")
+(message "Loading Prelude's modules...")
 
-  ;; the modules
-  (when (file-exists-p prelude-modules-file)
-	(load prelude-modules-file))
+;; the modules
+(if (file-exists-p prelude-modules-file)
+    (load prelude-modules-file)
+  (message "Missing modules file %s" prelude-modules-file)
+  (message "You can get started by copying the bundled example file"))
 
-  ;; config changes made through the customize UI will be store here
-  (setq custom-file (expand-file-name "custom.el" prelude-personal-dir))
+;; config changes made through the customize UI will be store here
+(setq custom-file (expand-file-name "custom.el" prelude-personal-dir))
 
-  ;; load the personal settings (this includes `custom-file')
-  (when (file-exists-p prelude-personal-dir)
-	(message "Loading personal configuration files in %s..." prelude-personal-dir)
-	(mapc 'load (directory-files prelude-personal-dir 't "^[^#].*el$")))
+;; load the personal settings (this includes `custom-file')
+(when (file-exists-p prelude-personal-dir)
+  (message "Loading personal configuration files in %s..." prelude-personal-dir)
+  (mapc 'load (directory-files prelude-personal-dir 't "^[^#].*el$")))
 
-  (message "Prelude is ready to do thy bidding, Master %s!" current-user)
+(message "Prelude is ready to do thy bidding, Master %s!" current-user)
 
-  (prelude-eval-after-init
-   ;; greet the use with some useful tip
-   (run-at-time 5 nil 'prelude-tip-of-the-day)))
+(prelude-eval-after-init
+ ;; greet the use with some useful tip
+ (run-at-time 5 nil 'prelude-tip-of-the-day))
 
 ;;; init.el ends here

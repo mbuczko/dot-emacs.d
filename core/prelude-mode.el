@@ -1,6 +1,6 @@
 ;;; prelude-mode.el --- Emacs Prelude: minor mode
 ;;
-;; Copyright © 2011-2014 Bozhidar Batsov
+;; Copyright © 2011-2015 Bozhidar Batsov
 ;;
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/prelude
@@ -71,8 +71,8 @@
     (define-key map (kbd "s-k") 'prelude-kill-whole-line)
     (define-key map (kbd "s-m m") 'magit-status)
     (define-key map (kbd "s-m l") 'magit-log)
-    (define-key map (kbd "s-m f") 'magit-file-log)
-    (define-key map (kbd "s-m b") 'magit-blame-mode)
+    (define-key map (kbd "s-m f") 'magit-log-buffer-file)
+    (define-key map (kbd "s-m b") 'magit-blame)
 
     map)
 	"Keymap for Prelude mode.")
@@ -84,8 +84,7 @@
                         ("Files"
                          ["Open with..." prelude-open-with]
                          ["Delete file and buffer" prelude-delete-file-and-buffer]
-                         ["Rename buffer and file" prelude-rename-buffer-and-file]
-                         ["Copy file name to clipboard" prelude-copy-file-name-to-clipboard])
+                         ["Rename buffer and file" prelude-rename-buffer-and-file])
 
                         ("Buffers"
                          ["Clean up buffer or region" prelude-cleanup-buffer-or-region]
