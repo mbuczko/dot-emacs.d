@@ -426,6 +426,7 @@
 (global-set-key (kbd "M-w o")     'er/mark-outer-tag)
 (global-set-key (kbd "C-c d")     'duplicate-line)
 (global-set-key (kbd "C-c m")     'magit-status)
+(global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
 (global-set-key (kbd "C-x d")     'projectile-speedbar-open-current-buffer-in-tree)
 (global-set-key (kbd "C-x s")     'helm-git-grep)

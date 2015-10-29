@@ -156,7 +156,7 @@
 	(".*indent-buffer" ".*nxhtml-mode.*" ".newsrc*" "*nnimap*" "*gnus trace*" "*fsm-debug*" "*tramp/")) nil (ibuf-ext))
  '(imenu-case-fold-search t t)
  '(imenu-sort-function (quote imenu--sort-by-name))
- '(indent-tabs-mode t)
+ '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(js2-auto-indent-p t)
  '(js2-cleanup-whitespace t)
