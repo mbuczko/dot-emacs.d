@@ -174,6 +174,7 @@
  '(ls-lisp-dirs-first t)
  '(ls-lisp-ignore-case t)
  '(ls-lisp-use-insert-directory-program nil)
+ '(magit-commit-show-diff nil)
  '(magit-diff-auto-show (quote (stage-all log-oneline log-select blame-follow)))
  '(magit-process-connection-type nil)
  '(makefile-electric-keys t)
@@ -204,7 +205,14 @@
  '(smartparens-global-strict-mode t)
  '(sp-autoescape-string-quote nil)
  '(sp-base-key-bindings (quote sp))
- '(sp-navigate-close-if-unbalanced t)
+ '(sp-navigate-close-if-unbalanced nil)
+ '(sp-override-key-bindings
+   (quote
+	(("C-<right>" . sp-forward-sexp)
+	 ("C-<left>" . sp-backward-sexp)
+	 ("C-|" . sp-splice-sexp-killing-forward)
+	 ("M-<up>" . sp-backward-up-sexp)
+	 ("M-<down>" . sp-backward-down-sexp))))
  '(speedbar-tag-group-name-minimum-length 2)
  '(speedbar-use-images nil)
  '(speedbar-use-imenu-flag t)

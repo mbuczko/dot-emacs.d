@@ -2,7 +2,7 @@
 (require 'nnir)
 
 (setq org-contacts-completion-ignore-case t)
-(org-contacts-gnus-insinuate)
+;; (org-contacts-gnus-insinuate)
 
 (setq
   gnus-save-newsrc-file t
@@ -64,13 +64,13 @@
   gnus-nov-is-evil nil
   gnus-novice-user nil
 
-  gnus-agent t 
-  gnus-agent-enable-expiration t 
-  gnus-agent-expire-days 30 
+  gnus-agent t
+  gnus-agent-enable-expiration t
+  gnus-agent-expire-days 30
   gnus-agent-long-article 1000
 
   gnus-button-url 'browse-url-generic
- 
+
   ;; headers setup
 
   gnus-visible-headers "^From:\\|^To:\\|^Subject:\\|^Newsgroups:\\|^Date:\\|^Organization:\\|^X-Newsreader:\\|^User-Agent:"
@@ -102,10 +102,10 @@
 
   gnus-posting-styles '((".*" (signature "Keep flying and stay shiny"))
                         ("gmane.*" (signature "\"This is so f*cking simple that I can't go wrong\" - most popular testing strategy")))
-                        
+
 
   ;; articles sorting by date (reverse)
- 	
+
   gnus-thread-sort-functions '(lambda (t1 t2) (not (gnus-thread-sort-by-date t1 t2)))
 
   message-forward-as-mime t
@@ -137,15 +137,15 @@
   gnus-article-emulate-mime t)
 
 (when window-system
-  (setq 
+  (setq
      gnus-sum-thread-tree-root "● "
-     gnus-sum-thread-tree-false-root "▷ " 
+     gnus-sum-thread-tree-false-root "▷ "
      gnus-sum-thread-tree-single-indent ""
      gnus-sum-thread-tree-leaf-with-other "├─► "
      gnus-sum-thread-tree-vertical "│ "
      gnus-sum-thread-tree-single-leaf "└─► "))
 
-(setq 
+(setq
   gnus-group-line-format   "%5{%M%}%S%3{%5y%} : %(%4{%g%}%) %5{(%R)%}\n"
   gnus-summary-line-format "%1{%U%R%z: %}%2{%d%}%5{ %[%4i%] %}%um %4{%-30,30n%}%1{│%}%1{ %B%}%(%s%)\n"
   gnus-server-line-format  "   {%(%h:%w%)} %s - %n\n"
