@@ -11,10 +11,10 @@
  '(TeX-view-program-list (quote (("Skim" "open %o"))))
  '(TeX-view-program-selection
    (quote
-	((output-pdf "Skim")
-	 (output-dvi "xdvi")
-	 (output-pdf "Evince")
-	 (output-html "xdg-open"))))
+    ((output-pdf "Skim")
+     (output-dvi "xdvi")
+     (output-pdf "Evince")
+     (output-html "xdg-open"))))
  '(ac-delay 0.3)
  '(ac-ignore-case nil)
  '(ac-show-menu-immediately-on-auto-complete nil)
@@ -22,8 +22,8 @@
  '(ack-and-a-half-executable "/usr/local/bin/ack")
  '(ack-and-a-half-mode-extension-alist
    (quote
-	((js2-mode "js" "json" "rb")
-	 (js-mode "js" "json" "rb"))))
+    ((js2-mode "js" "json" "rb")
+     (js-mode "js" "json" "rb"))))
  '(ack-executable "/usr/local/bin/ack")
  '(ansi-color-names-vector
    ["#3C3836" "#FB4934" "#B8BB26" "#FABD2F" "#83A598" "#D3869B" "#8EC07C" "#EBDBB2"])
@@ -71,26 +71,26 @@
  '(cursor-in-non-selected-windows nil)
  '(custom-safe-themes
    (quote
-	("3fd36152f5be7e701856c3d817356f78a4b1f4aefbbe8bbdd1ecbfa557b50006" "8cf56691a70156f611ac86d0bbcbc7dee7673df195de5918f34bfdc6814ffd39" "3164a65923ef23e0f3dff9f9607b4da1e07ef1c3888d0f6878feef6c28357732" "4530ef4d9cf54740fffb6ce25b393122158057d213a2b812f04930fcadf89d62" "77bd459212c0176bdf63c1904c4ba20fce015f730f0343776a1a14432de80990" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "f9e975bdf5843982f4860b39b2409d7fa66afab3deb2616c41a403d788749628" "013e87003e1e965d8ad78ee5b8927e743f940c7679959149bbee9a15bd286689" "9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e292ec749f785d348969926448e25790356a7ce1a8fda6e695f5e8b70bed786b" "a5beb9b1d6dc23dd8a3c204c159c9a5f1e0115ff14b5b8579d6f3ede4f3b3aee" "6c9ddb5e2ac58afb32358def7c68b6211f30dec8a92e44d2b9552141f76891b3" "0795e2c85394140788d72d34969be4acb305e4a54149e7237787d9df27832fbb" "0c311fb22e6197daba9123f43da98f273d2bfaeeaeb653007ad1ee77f0003037" "eea517c5cc867585ba1318d5bb9357b8a5b586e9220f32f35b15124b06d36029" "c63bee436bd8a67f6d9cd96acd5720c4a949c169f09c6850c439751f14fd923e" "1af9aa2eaaaf6cfa7d3b3d0c6d653a9e05b28f11681fbf4efb75812f4a2a310a" "89586444c668bae9ec7e594bc38b3a956f31dc6cb7c851ed40411cc4ff770708" "3103287c8d39800d6b41f8664b223f8ecdd8c6cc0b073441e174b61afdb4ce02" "c87cc60d01cf755375759d165c1d60d9586c6a31f0b5437a0378c2a93cfc8407" "70cf411fbf9512a4da81aa1e87b064d3a3f0a47b19d7a4850578c8d64cac2353" "1cd9defef2a98138c732728568b04043afd321eb802d25a254777de9b2463768" "96efbabfb6516f7375cdf85e7781fe7b7249b6e8114676d65337a1ffe78b78d9" "a655f17225ad0a7190c79602593563191b7640ddebbb8c8fbd80c9d82faff1c6" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "b458d10c9ea0c8c465635b7b13e1bd23f04e6b696b1ca96cb2c4eca35a31641e" "7dd515d883520286fc8936ce32381fb01b978d0d7cfb6fe56f7f55d8accbf63a" "56cb99174fad69feba8edd6663c592e77d77332fb4c4bb5be058ef459a426463" "c3e567dedaa800e869d879c4df8478237d6ea31fd04464086fd674c864fe4d71" "18e89f93cbaaac214202142d910582354d36639f21f32b04718ca6425dbc82a2" "96b023d1a6e796bab61b472f4379656bcac67b3af4e565d9fb1b6b7989356610" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "3d003561784526d83d1dd187aecf4799c72af27046bc3aa2f6d95c64e5ee4746" "d809ca3cef02087b48f3f94279b86feca896f544ae4a82b523fba823206b6040" "2affb26fb9a1b9325f05f4233d08ccbba7ec6e0c99c64681895219f964aac7af" "fa942713c74b5ad27893e72ed8dccf791c9d39e5e7336e52d76e7125bfa51d4c" "456ac8176c7c01680384356cbdc568a7683d1bada9c83ae3d7294809ddda4014" "569dc84822fc0ac6025f50df56eeee0843bffdeceff2c1f1d3b87d4f7d9fa661" "ad9fc392386f4859d28fe4ef3803585b51557838dbc072762117adad37e83585" "2a12e95e9ee6ed57592e7df12f3f028205575e9b3affdb5e6fa589421c618136" "72407995e2f9932fda3347e44e8c3f29879c5ed88da71f06ba4887b0596959a4" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
+    ("3fd36152f5be7e701856c3d817356f78a4b1f4aefbbe8bbdd1ecbfa557b50006" "8cf56691a70156f611ac86d0bbcbc7dee7673df195de5918f34bfdc6814ffd39" "3164a65923ef23e0f3dff9f9607b4da1e07ef1c3888d0f6878feef6c28357732" "4530ef4d9cf54740fffb6ce25b393122158057d213a2b812f04930fcadf89d62" "77bd459212c0176bdf63c1904c4ba20fce015f730f0343776a1a14432de80990" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "f9e975bdf5843982f4860b39b2409d7fa66afab3deb2616c41a403d788749628" "013e87003e1e965d8ad78ee5b8927e743f940c7679959149bbee9a15bd286689" "9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e292ec749f785d348969926448e25790356a7ce1a8fda6e695f5e8b70bed786b" "a5beb9b1d6dc23dd8a3c204c159c9a5f1e0115ff14b5b8579d6f3ede4f3b3aee" "6c9ddb5e2ac58afb32358def7c68b6211f30dec8a92e44d2b9552141f76891b3" "0795e2c85394140788d72d34969be4acb305e4a54149e7237787d9df27832fbb" "0c311fb22e6197daba9123f43da98f273d2bfaeeaeb653007ad1ee77f0003037" "eea517c5cc867585ba1318d5bb9357b8a5b586e9220f32f35b15124b06d36029" "c63bee436bd8a67f6d9cd96acd5720c4a949c169f09c6850c439751f14fd923e" "1af9aa2eaaaf6cfa7d3b3d0c6d653a9e05b28f11681fbf4efb75812f4a2a310a" "89586444c668bae9ec7e594bc38b3a956f31dc6cb7c851ed40411cc4ff770708" "3103287c8d39800d6b41f8664b223f8ecdd8c6cc0b073441e174b61afdb4ce02" "c87cc60d01cf755375759d165c1d60d9586c6a31f0b5437a0378c2a93cfc8407" "70cf411fbf9512a4da81aa1e87b064d3a3f0a47b19d7a4850578c8d64cac2353" "1cd9defef2a98138c732728568b04043afd321eb802d25a254777de9b2463768" "96efbabfb6516f7375cdf85e7781fe7b7249b6e8114676d65337a1ffe78b78d9" "a655f17225ad0a7190c79602593563191b7640ddebbb8c8fbd80c9d82faff1c6" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "b458d10c9ea0c8c465635b7b13e1bd23f04e6b696b1ca96cb2c4eca35a31641e" "7dd515d883520286fc8936ce32381fb01b978d0d7cfb6fe56f7f55d8accbf63a" "56cb99174fad69feba8edd6663c592e77d77332fb4c4bb5be058ef459a426463" "c3e567dedaa800e869d879c4df8478237d6ea31fd04464086fd674c864fe4d71" "18e89f93cbaaac214202142d910582354d36639f21f32b04718ca6425dbc82a2" "96b023d1a6e796bab61b472f4379656bcac67b3af4e565d9fb1b6b7989356610" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "3d003561784526d83d1dd187aecf4799c72af27046bc3aa2f6d95c64e5ee4746" "d809ca3cef02087b48f3f94279b86feca896f544ae4a82b523fba823206b6040" "2affb26fb9a1b9325f05f4233d08ccbba7ec6e0c99c64681895219f964aac7af" "fa942713c74b5ad27893e72ed8dccf791c9d39e5e7336e52d76e7125bfa51d4c" "456ac8176c7c01680384356cbdc568a7683d1bada9c83ae3d7294809ddda4014" "569dc84822fc0ac6025f50df56eeee0843bffdeceff2c1f1d3b87d4f7d9fa661" "ad9fc392386f4859d28fe4ef3803585b51557838dbc072762117adad37e83585" "2a12e95e9ee6ed57592e7df12f3f028205575e9b3affdb5e6fa589421c618136" "72407995e2f9932fda3347e44e8c3f29879c5ed88da71f06ba4887b0596959a4" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
  '(cycbuf-attributes-list
    (quote
-	(("M" 1 left cycbuf-get-modified-string)
-	 ("R" 2 left cycbuf-get-readonly-string)
-	 ("Mode" 12 left cycbuf-get-mode-name)
-	 ("" 2 left "  ")
-	 ("" 1 left " ")
-	 ("Buffer" cycbuf-get-name-length left cycbuf-get-name)
-	 ("" 2 left "  "))))
+    (("M" 1 left cycbuf-get-modified-string)
+     ("R" 2 left cycbuf-get-readonly-string)
+     ("Mode" 12 left cycbuf-get-mode-name)
+     ("" 2 left "  ")
+     ("" 1 left " ")
+     ("Buffer" cycbuf-get-name-length left cycbuf-get-name)
+     ("" 2 left "  "))))
  '(cycbuf-buffer-sort-function (quote cycbuf-sort-by-recency))
  '(cycbuf-clear-delay 1.2)
  '(cycbuf-dont-show-regexp (quote ("^ " "^\\*cycbuf\\*$" "^\\*")))
  '(cycbuf-max-window-height 4)
  '(default-frame-alist
-	(quote
-	 ((top . 50)
-	  (left . 50)
-	  (width . 100)
-	  (height . 40))))
+    (quote
+     ((top . 50)
+      (left . 50)
+      (width . 100)
+      (height . 40))))
  '(default-indicate-buffer-boundaries (quote left) t)
  '(default-input-method "latin-2-prefix")
  '(default-justification (quote left))
@@ -111,7 +111,7 @@
  '(feature-use-rvm t)
  '(file-cache-filter-regexps
    (quote
-	("~$" "\\.o$" "\\.exe$" "\\.a$" "\\.elc$" ",v$" "\\.output$" "\\.$" "#$" "\\.class$" "tmp/")))
+    ("~$" "\\.o$" "\\.exe$" "\\.a$" "\\.elc$" ",v$" "\\.output$" "\\.$" "#$" "\\.class$" "tmp/")))
  '(focus-follows-mouse nil)
  '(font-lock-beginning-of-syntax-function nil t)
  '(font-lock-keywords-case-fold-search nil t)
@@ -129,21 +129,21 @@
  '(gnus-use-correct-string-widths t)
  '(golden-ratio-exclude-buffer-names
    (quote
-	("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*undo-tree*" "*Helm Swoop*")))
+    ("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*undo-tree*" "*Helm Swoop*")))
  '(golden-ratio-exclude-modes
    (quote
-	("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
+    ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
  '(helm-candidate-separator "")
  '(helm-completing-read-handlers-alist
    (quote
-	((describe-function . helm-completing-read-symbols)
-	 (describe-variable . helm-completing-read-symbols)
-	 (debug-on-entry . helm-completing-read-symbols)
-	 (find-function . helm-completing-read-symbols)
-	 (find-tag . helm-completing-read-with-cands-in-buffer)
-	 (ffap-alternate-file)
-	 (tmm-menubar)
-	 (cycbuf-switch-to-next-buffer))))
+    ((describe-function . helm-completing-read-symbols)
+     (describe-variable . helm-completing-read-symbols)
+     (debug-on-entry . helm-completing-read-symbols)
+     (find-function . helm-completing-read-symbols)
+     (find-tag . helm-completing-read-with-cands-in-buffer)
+     (ffap-alternate-file)
+     (tmm-menubar)
+     (cycbuf-switch-to-next-buffer))))
  '(helm-display-header-line nil)
  '(helm-swoop-split-direction (quote split-window-horizontally))
  '(helm-truncate-lines t t)
@@ -153,7 +153,7 @@
  '(ibuffer-display-summary nil)
  '(ibuffer-never-show-predicates
    (quote
-	(".*indent-buffer" ".*nxhtml-mode.*" ".newsrc*" "*nnimap*" "*gnus trace*" "*fsm-debug*" "*tramp/")) nil (ibuf-ext))
+    (".*indent-buffer" ".*nxhtml-mode.*" ".newsrc*" "*nnimap*" "*gnus trace*" "*fsm-debug*" "*tramp/")) nil (ibuf-ext))
  '(imenu-case-fold-search t t)
  '(imenu-sort-function (quote imenu--sort-by-name))
  '(indent-tabs-mode nil)
@@ -163,10 +163,10 @@
  '(js2-enter-indents-newline t)
  '(js2-global-externs
    (quote
-	("$" "Ext"
-	 (\, "describe")
-	 (\, "it")
-	 (\, "require"))))
+    ("$" "Ext"
+     (\, "describe")
+     (\, "it")
+     (\, "require"))))
  '(js2-include-browser-externs t)
  '(js2-include-node-externs t)
  '(js2-mirror-mode nil)
@@ -208,11 +208,15 @@
  '(sp-navigate-close-if-unbalanced nil)
  '(sp-override-key-bindings
    (quote
-	(("C-<right>" . sp-forward-sexp)
-	 ("C-<left>" . sp-backward-sexp)
-	 ("C-|" . sp-splice-sexp-killing-forward)
-	 ("M-<up>" . sp-backward-up-sexp)
-	 ("M-<down>" . sp-backward-down-sexp))))
+    (("M-<right>" . sp-forward-sexp)
+     ("M-<left>" . sp-backward-sexp)
+     ("C-|" . sp-splice-sexp-killing-forward)
+     ("M-<up>" . sp-backward-up-sexp)
+     ("M-<down>" . sp-backward-down-sexp)
+     ("M-C-<right>" . paxedit-transpose-forward)
+     ("M-C-<left>" . paxedit-transpose-backward)
+     ("C-<right>" . sp-next-sexp)
+     ("C-<left>" . sp-previous-sexp))))
  '(speedbar-tag-group-name-minimum-length 2)
  '(speedbar-use-images nil)
  '(speedbar-use-imenu-flag t)
@@ -225,30 +229,30 @@
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
    (quote
-	((20 . "#dd5542")
-	 (40 . "#CC5542")
-	 (60 . "#fb8512")
-	 (80 . "#baba36")
-	 (100 . "#bdbc61")
-	 (120 . "#7d7c61")
-	 (140 . "#6abd50")
-	 (160 . "#6aaf50")
-	 (180 . "#6aa350")
-	 (200 . "#6a9550")
-	 (220 . "#6a8550")
-	 (240 . "#6a7550")
-	 (260 . "#9b55c3")
-	 (280 . "#6CA0A3")
-	 (300 . "#528fd1")
-	 (320 . "#5180b3")
-	 (340 . "#6380b3")
-	 (360 . "#DC8CC3"))))
+    ((20 . "#dd5542")
+     (40 . "#CC5542")
+     (60 . "#fb8512")
+     (80 . "#baba36")
+     (100 . "#bdbc61")
+     (120 . "#7d7c61")
+     (140 . "#6abd50")
+     (160 . "#6aaf50")
+     (180 . "#6aa350")
+     (200 . "#6a9550")
+     (220 . "#6a8550")
+     (240 . "#6a7550")
+     (260 . "#9b55c3")
+     (280 . "#6CA0A3")
+     (300 . "#528fd1")
+     (320 . "#5180b3")
+     (340 . "#6380b3")
+     (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3")
  '(visible-bell nil)
  '(web-mode-auto-close-style 2)
  '(yas-prompt-functions
    (quote
-	(yas-completing-prompt yas-ido-prompt yas-no-prompt)))
+    (yas-completing-prompt yas-ido-prompt yas-no-prompt)))
  '(yas-wrap-around-region t)
  '(zencoding-preview-default nil))
 
