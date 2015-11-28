@@ -22,3 +22,5 @@ tramp
 /var/pcache
 TAGS
 .mc-lists.el
+.cider_history
+.nrepl-port
