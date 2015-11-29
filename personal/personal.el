@@ -28,14 +28,18 @@
 
 ;; Add custom magic requires to clj-refactor
 
-(dolist (mapping '(("maps" . "outpace.util.maps")
-                   ("seqs" . "outpace.util.seqs")
-                   ("times" . "outpace.util.times")
-                   ("repl" . "outpace.util.repl")
-                   ("time" . "clj-time.core")
-				   ("try" . "clj-try.core")
+(dolist (mapping '(("time" . "clj-time.core")
+				   ("try"  . "clj-try.core")
 				   ("log"  . "clojure.tools.logging")
-                   ("string" . "clojure.string")))
+                   ("str"  . "clojure.string")
+                   ("json" . "cheshire.core")
+                   ("csrf" . "ring.util.anti-forgery")
+                   ("selmer"    . "selmer.parser")
+                   ("response"  . "ring.util.response")
+                   ("component" . "com.stuartsierra.component")
+                   ("compojure" . "compojure.core")
+                   ("liberator" . "liberator.core")))
+
   (add-to-list 'cljr-magic-require-namespaces mapping t))
 
 
