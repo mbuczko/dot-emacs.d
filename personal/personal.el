@@ -22,11 +22,6 @@
 
 (powerline-default-theme)
 
-;; UTF-8 by default, please
-
-(prefer-coding-system 'utf-8)
-(setq default-process-coding-system 'utf-8)
-
 ;; Add custom magic requires to clj-refactor
 
 (dolist (mapping '(("time" . "clj-time.core")
@@ -43,16 +38,19 @@
 
   (add-to-list 'cljr-magic-require-namespaces mapping t))
 
+;; UTF-8 preferred by default
+
+(prefer-coding-system 'utf-8)
 
 ;; sane defaults
 
 (setq-default truncate-lines t)
 (setq-default abbrev-mode t)
+(setq default-process-coding-system 'utf-8)
 
 ;; git flow enabler
 
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-
 
 ;; helm configuration
 
@@ -85,7 +83,6 @@
 	  split-height-threshold nil
 	  window-min-width 30)
 
-
 ;; no trailing whitespaces, please!
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -117,6 +114,7 @@
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
 (add-to-list 'projectile-globally-ignored-directories "bower_components")
 (add-to-list 'projectile-globally-ignored-directories "dist")
+(add-to-list 'projectile-globally-ignored-directories "out")
 (add-to-list 'projectile-globally-ignored-directories "target")
 
 ;; ido magic
@@ -141,17 +139,15 @@
       ido-decorations '("  " "" " | " ", ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]")
 
       ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~/workspace")
-      ido-case-fold  t                 ; be case-insensitive
-
+      ido-case-fold  t                    ; be case-insensitive
       ido-enable-last-directory-history t ; remember last used dirs
-      ido-max-work-directory-list 20   ; should be enough
-      ido-max-work-file-list 50        ; remember many
-      ido-use-filename-at-point nil    ; don't use filename at point (annoying)
-      ido-use-url-at-point nil         ; don't use url at point (annoying)
-
-      ido-enable-flex-matching nil     ; don't try to be too smart
-      ido-max-prospects 8              ; don't spam my minibuffer
-      ido-confirm-unique-completion t  ; wait for RET, even with unique completion
+      ido-max-work-directory-list 20      ; should be enough
+      ido-max-work-file-list 50           ; remember many
+      ido-use-filename-at-point nil       ; don't use filename at point (annoying)
+      ido-use-url-at-point nil            ; don't use url at point (annoying)
+      ido-enable-flex-matching nil        ; don't try to be too smart
+      ido-max-prospects 8                 ; don't spam my minibuffer
+      ido-confirm-unique-completion t     ; wait for RET, even with unique completion
 
       confirm-nonexistent-file-or-buffer nil) ; when using ido, the confirmation is rather annoying...
 
@@ -209,10 +205,6 @@
 			(define-key dired-mode-map [M-up]
 			  (lambda () (interactive) (find-alternate-file "..")))))
 
-; links abbreviations
-(setq org-link-abbrev-alist
-	  '(("jira"  . "http://jira.corpo.im.working.in.com/jira/browse/%s")))
-
 ; custom commands for agenda view
 (setq org-agenda-custom-commands
            '(("w" occur-tree "workshop")))
@@ -248,11 +240,9 @@
       org-agenda-skip-scheduled-if-done t
       org-agenda-start-on-weekday nil
       org-agenda-to-appt t
-
       org-reverse-note-order t
       org-deadline-warning-days 3
       org-use-fast-todo-selection t
-
       org-agenda-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
       org-contacts-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
       org-log-into-drawer t
@@ -322,33 +312,6 @@
         (setq yas/trigger-key [tab])
         (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
         (define-key yas/keymap [tab] 'yas/next-field)))
-
-;; javascript mode
-
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
-
-;; clojure mode
-
-(add-hook 'clojure-mode-hook
-		  (lambda ()
-			(clj-refactor-mode 1)
-			(cljr-add-keybindings-with-prefix "M-l")))
-
-;; fight modeline clutter by removing or abbreviating minor mode indicators
-
-(diminish 'projectile-mode)
-(diminish 'golden-ratio-mode)
-(diminish 'helm-mode)
-(diminish 'yas-minor-mode)
-(diminish 'visual-line-mode)
-(diminish 'smartparens-mode)
-(diminish 'paxedit-mode)
-(diminish 'prelude-mode)
-(diminish 'flycheck-mode)
-(diminish 'company-mode)
-(diminish 'abbrev-mode)
 
 ;; full screen magit-status
 
@@ -422,6 +385,20 @@
   (re-search-forward "[ \t\n]+" nil t)
   (replace-match "" nil nil))
 
+
+;; javascript mode
+
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+
+;; clojure mode
+
+(add-hook 'clojure-mode-hook
+		  (lambda ()
+			(clj-refactor-mode 1)
+			(cljr-add-keybindings-with-prefix "M-l")))
+
 ;; company mode FTW
 
 (define-key company-active-map "\e" 'company-abort)
@@ -434,7 +411,7 @@
 (global-set-key (kbd "M-c")       'kill-ring-save)
 (global-set-key (kbd "M-x")       'kill-region)
 (global-set-key (kbd "M-v")       'yank)
-(global-set-key (kbd "M-z")       'zap-to-char)
+(global-set-key (kbd "M-z")       'zop-to-char)
 (global-set-key (kbd "C->")       'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-<")       'mc/mark-all-like-this-dwim)
 (global-set-key (kbd "M-w q")     'er/mark-inside-quotes)
@@ -448,11 +425,11 @@
 (global-set-key (kbd "C-c m")     'magit-status)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
+(global-set-key (kbd "C-x C-i")   'projectile-find-tag)
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
-(global-set-key (kbd "C-x C-i")   'helm-etags-select)
 (global-set-key (kbd "C-x C-d")   'dash-at-point)
 (global-set-key (kbd "C-x C-b")   'projectile-ibuffer)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
@@ -461,27 +438,36 @@
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
 (global-set-key [C-S-down]        'highlight-symbol-next)
 (global-set-key [C-S-up]          'highlight-symbol-prev)
+(global-set-key [(C-backspace)]   'backward-kill-word)
+(global-set-key [(C-S-return)]    'er/expand-region)
+(global-set-key [(C-tab)]         'helm-buffers-list)
 (global-set-key [?\C-b]           'ido-switch-buffer)
 (global-set-key [?\C-o]           'helm-imenu)
 (global-set-key [?\C-p]           'helm-projectile)
 (global-set-key [?\C-z]           'undo)
-(global-set-key [(C-backspace)]   'backward-kill-word)
-(global-set-key [(C-S-return)]    'er/expand-region)
-(global-set-key [(C-tab)]         'helm-buffers-list)
 (global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-q]           'kill-buffer-and-window)
+(global-set-key [?\M-\;]          'comment-or-uncomment-region-or-line)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
 (global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (sleep-for 1.3) (cider-interactive-eval "(boot.user/reset)")))
 (global-set-key [?\M-[]           '(lambda () (interactive) (sp-wrap-with-pair "[")))
-(global-set-key [?\M-\;]          'comment-or-uncomment-region-or-line)
-
-(global-set-key (kbd "C-|")       'paxedit-sexp-raise)
-(global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [remap zap-to-char]    'zop-to-char)
 
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
 
-(setq magit-last-seen-setup-instructions "1.4.0")
-(setq cider-repl-history-file ".cider_history")
+;; (setq cider-repl-history-file ".cider_history")
+
+;; fight modeline clutter by removing or abbreviating minor mode indicators
+
+(diminish 'projectile-mode)
+(diminish 'golden-ratio-mode)
+(diminish 'helm-mode)
+(diminish 'yas-minor-mode)
+(diminish 'visual-line-mode)
+(diminish 'smartparens-mode)
+(diminish 'paxedit-mode)
+(diminish 'prelude-mode)
+(diminish 'flycheck-mode)
+(diminish 'company-mode)
+(diminish 'abbrev-mode)
