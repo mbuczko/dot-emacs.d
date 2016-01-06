@@ -210,6 +210,7 @@
    (quote
     (("M-<right>" . sp-forward-sexp)
      ("M-<left>" . sp-backward-sexp)
+     ("M-s" . ace-window)
      ("C-|" . sp-splice-sexp-killing-forward)
      ("M-<up>" . sp-backward-up-sexp)
      ("M-<down>" . sp-backward-down-sexp)

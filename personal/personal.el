@@ -7,6 +7,7 @@
 (require 'diminish)
 (require 'clj-refactor)
 (require 'magit)
+(require 'magit-gitflow)
 
 (scroll-bar-mode      -1)
 (tool-bar-mode        -1)
@@ -21,7 +22,7 @@
 
 (powerline-default-theme)
 
-(setq-default truncate-lines t)
+;; UTF-8 by default, please
 
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system 'utf-8)
@@ -41,6 +42,16 @@
                    ("liberator" . "liberator.core")))
 
   (add-to-list 'cljr-magic-require-namespaces mapping t))
+
+
+;; sane defaults
+
+(setq-default truncate-lines t)
+(setq-default abbrev-mode t)
+
+;; git flow enabler
+
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 
 ;; helm configuration
@@ -168,6 +179,7 @@
                      (mode . gnus-group-mode)
                      (mode . gnus-summary-mode)
                      (mode . gnus-article-mode)))
+         ("REPL" (name . "*cider-repl*"))
          ("ERB" (name ."*.erb*"))
          ("Magit" (name . "\*magit"))
          ("ERC" (mode . erc-mode))
@@ -315,6 +327,7 @@
 
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
 ;; clojure mode
 
@@ -328,7 +341,6 @@
 (diminish 'projectile-mode)
 (diminish 'golden-ratio-mode)
 (diminish 'helm-mode)
-(diminish 'history-mode)
 (diminish 'yas-minor-mode)
 (diminish 'visual-line-mode)
 (diminish 'smartparens-mode)
@@ -336,6 +348,7 @@
 (diminish 'prelude-mode)
 (diminish 'flycheck-mode)
 (diminish 'company-mode)
+(diminish 'abbrev-mode)
 
 ;; full screen magit-status
 
@@ -409,8 +422,10 @@
   (re-search-forward "[ \t\n]+" nil t)
   (replace-match "" nil nil))
 
+;; company mode FTW
 
 (define-key company-active-map "\e" 'company-abort)
+(setq company-transformers '(company-sort-by-occurrence))
 
 
 ;; global keybindings
@@ -426,13 +441,13 @@
 (global-set-key (kbd "M-w b")     'er/mark-inside-pairs)
 (global-set-key (kbd "M-w w")     'er/mark-word)
 (global-set-key (kbd "M-w c")     'er/mark-comment)
+(global-set-key (kbd "M-w d")     'er/mark-defun)
 (global-set-key (kbd "M-w i")     'er/mark-inner-tag)
 (global-set-key (kbd "M-w o")     'er/mark-outer-tag)
 (global-set-key (kbd "C-c d")     'duplicate-line)
 (global-set-key (kbd "C-c m")     'magit-status)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
-(global-set-key (kbd "C-x d")     'projectile-speedbar-open-current-buffer-in-tree)
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x o")     'helm-occur)
@@ -457,12 +472,13 @@
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-q]           'kill-buffer-and-window)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
-(global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (sleep-for 1.3) (cider-interactive-eval "(reloaded.repl/reset)")))
+(global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (sleep-for 1.3) (cider-interactive-eval "(boot.user/reset)")))
 (global-set-key [?\M-[]           '(lambda () (interactive) (sp-wrap-with-pair "[")))
 (global-set-key [?\M-\;]          'comment-or-uncomment-region-or-line)
 
 (global-set-key (kbd "C-|")       'paxedit-sexp-raise)
 (global-set-key [remap kill-ring-save] 'easy-kill)
+(global-set-key [remap zap-to-char]    'zop-to-char)
 
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
