@@ -385,6 +385,13 @@
   (re-search-forward "[ \t\n]+" nil t)
   (replace-match "" nil nil))
 
+(defun cider-switch-repl ()
+  "Switches between cider-repl and last active buffer"
+  (interactive)
+  (if (string-match "cider-repl" (buffer-name) 1)
+      (cider-switch-to-last-clojure-buffer)
+    (cider-switch-to-repl-buffer)))
+
 
 ;; javascript mode
 
@@ -471,3 +478,5 @@
 (diminish 'flycheck-mode)
 (diminish 'company-mode)
 (diminish 'abbrev-mode)
+(diminish 'magit-wip-after-save-mode)
+(diminish 'magit-wip-after-save-local-mode)
