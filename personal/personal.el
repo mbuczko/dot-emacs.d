@@ -455,6 +455,7 @@
 (global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-q]           'kill-buffer-and-window)
+(global-set-key [?\M-t]           'projectile-toggle-between-implementation-and-test)
 (global-set-key [?\M-\;]          'comment-or-uncomment-region-or-line)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
 (global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (sleep-for 1.3) (cider-interactive-eval "(boot.user/reset)")))
