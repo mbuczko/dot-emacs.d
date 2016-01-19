@@ -8,6 +8,7 @@
 (require 'clj-refactor)
 (require 'magit)
 (require 'magit-gitflow)
+(require 'key-chord)
 
 (scroll-bar-mode      -1)
 (tool-bar-mode        -1)
@@ -18,6 +19,7 @@
 (golden-ratio-mode     1)
 (helm-mode             1)
 (paxedit-mode          1)
+(key-chord-mode        1)
 (yas/global-mode       1)
 
 (powerline-default-theme)
@@ -45,7 +47,6 @@
 ;; sane defaults
 
 (setq-default truncate-lines t)
-(setq-default abbrev-mode t)
 (setq default-process-coding-system 'utf-8)
 
 ;; git flow enabler
@@ -441,7 +442,6 @@
 (global-set-key (kbd "C-x C-b")   'projectile-ibuffer)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
 (global-set-key (kbd "C-x C-l")   'bm-show-all)
-(global-set-key (kbd "C-x C-o")   'whack-whitespace)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
 (global-set-key [C-S-down]        'highlight-symbol-next)
 (global-set-key [C-S-up]          'highlight-symbol-prev)
@@ -461,10 +461,15 @@
 (global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (sleep-for 1.3) (cider-interactive-eval "(boot.user/reset)")))
 (global-set-key [?\M-[]           '(lambda () (interactive) (sp-wrap-with-pair "[")))
 
+;; key chords
+
+(key-chord-define-global "ff" "FORTYTWO-")
+(key-chord-define-global "xx" 'whack-whitespace)
+
+;; custom colors
+
 (set-face-background 'highlight "gray20")
 (set-face-background 'region "DodgerBlue4")
-
-;; (setq cider-repl-history-file ".cider_history")
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 
@@ -481,3 +486,6 @@
 (diminish 'abbrev-mode)
 (diminish 'magit-wip-after-save-mode)
 (diminish 'magit-wip-after-save-local-mode)
+
+
+;; (setq cider-repl-history-file ".cider_history")
