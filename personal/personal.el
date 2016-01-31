@@ -407,11 +407,20 @@
 			(clj-refactor-mode 1)
 			(cljr-add-keybindings-with-prefix "M-l")))
 
+(add-hook 'cider-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook 'cider-load-buffer nil 'make-it-local)))
+
 ;; company mode FTW
 
 (define-key company-active-map "\e" 'company-abort)
 (setq company-transformers '(company-sort-by-occurrence))
 
+;; yasnippet additional snippets
+
+(setq yas-snippet-dirs '("~/.emacs.d/snippets/web-mode"
+                         "~/.emacs.d/snippets/clojure-mode"
+                         "~/.emacs.d/snippets/js2-mode"))
 
 ;; global keybindings
 
@@ -439,7 +448,6 @@
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-d")   'dash-at-point)
-(global-set-key (kbd "C-x C-b")   'projectile-ibuffer)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
 (global-set-key (kbd "C-x C-l")   'bm-show-all)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
@@ -448,13 +456,14 @@
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
 (global-set-key [(C-tab)]         'helm-buffers-list)
-(global-set-key [?\C-b]           'ido-switch-buffer)
+(global-set-key [?\C-b]           'projectile-ibuffer)
 (global-set-key [?\C-o]           'helm-imenu)
 (global-set-key [?\C-p]           'helm-projectile)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-q]           'kill-buffer-and-window)
+(global-set-key [?\M-w]           'helm-swoop)
 (global-set-key [?\M-t]           'projectile-toggle-between-implementation-and-test)
 (global-set-key [?\M-\;]          'comment-or-uncomment-region-or-line)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
