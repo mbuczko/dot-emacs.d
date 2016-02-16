@@ -46,7 +46,9 @@
  '(cider-repl-history-file nil)
  '(cider-repl-pop-to-buffer-on-connect nil)
  '(cider-repl-use-pretty-printing t)
+ '(cljr-auto-clean-ns t)
  '(cljr-suppress-middleware-warnings t)
+ '(cljr-warn-on-eval nil)
  '(column-number-mode t)
  '(comment-line-break-function (quote indent-new-comment-line) t)
  '(comment-multi-line t)
@@ -54,6 +56,11 @@
  '(comment-start-skip "/\\*\\*" t)
  '(company-auto-complete t)
  '(company-auto-complete-chars (quote (41 46)))
+ '(company-backends
+   (quote
+    (company-bbdb company-nxml company-css company-semantic company-capf company-files
+                  (company-dabbrev-code company-etags company-keywords)
+                  company-dabbrev)))
  '(company-idle-delay 0.4)
  '(company-tooltip-flip-when-above nil)
  '(compilation-ask-about-save nil)
@@ -130,6 +137,7 @@
  '(golden-ratio-exclude-buffer-names
    (quote
     ("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*undo-tree*" "*Helm Swoop*")))
+ '(golden-ratio-exclude-buffer-regexp nil)
  '(golden-ratio-exclude-modes
    (quote
     ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
@@ -145,7 +153,9 @@
      (tmm-menubar)
      (cycbuf-switch-to-next-buffer))))
  '(helm-display-header-line nil)
- '(helm-swoop-split-direction (quote split-window-horizontally))
+ '(helm-swoop-speed-or-color t)
+ '(helm-swoop-split-direction (quote split-window-vertically))
+ '(helm-swoop-split-with-multiple-windows t)
  '(helm-truncate-lines t t)
  '(history-mode t)
  '(history-window-local-history t)
@@ -217,8 +227,8 @@
      ("M-s" . ace-window)
      ("C-|" . paxedit-sexp-raise)
      ("M-C-<backspace>" . paxedit-delete)
-     ("M-C-<up>" . paxedit-transpose-forward)
-     ("M-C-<down>" . paxedit-transpose-backward)
+     ("M-C-<down>" . paxedit-transpose-forward)
+     ("M-C-<up>" . paxedit-transpose-backward)
      ("C-<right>" . sp-next-sexp)
      ("C-<left>" . sp-previous-sexp))))
  '(speedbar-tag-group-name-minimum-length 2)
@@ -254,6 +264,8 @@
  '(vc-annotate-very-old-color "#DC8CC3")
  '(visible-bell nil)
  '(web-mode-auto-close-style 2)
+ '(web-mode-enable-current-column-highlight t)
+ '(web-mode-script-padding 0)
  '(yas-prompt-functions
    (quote
     (yas-completing-prompt yas-ido-prompt yas-no-prompt)))
@@ -265,10 +277,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "nil" :slant normal :weight normal :height 120 :width normal))))
+ '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight normal :height 120 :width normal))))
  '(bmkp-desktop ((t (:foreground "orange" :background "#2d2d2d"))))
  '(comint-highlight-input ((t (:underline nil :weight bold))))
  '(comint-highlight-prompt ((t (:inherit minibuffer-prompt :underline nil))))
+ '(company-tooltip-annotation-selection ((t (:background "#036274" :foreground "white"))))
  '(compilation-column-number ((t (:inherit font-lock-doc-face :underline nil))))
  '(compilation-error ((t (:inherit error :underline nil :slant italic))))
  '(compilation-warning ((t (:inherit warning :underline nil))))

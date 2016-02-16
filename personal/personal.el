@@ -407,9 +407,16 @@
 			(clj-refactor-mode 1)
 			(cljr-add-keybindings-with-prefix "M-l")))
 
-(add-hook 'cider-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook 'cider-load-buffer nil 'make-it-local)))
+(defun repl-reset ()
+  "Sends (reset) to currently running repl"
+  (interactive)
+  (save-buffer)
+  (sleep-for 1.3)
+  (cider-interactive-eval "(boot.user/reset)"))
+
+;; (add-hook 'cider-mode-hook
+;;           (lambda ()
+;;             (add-hook 'after-save-hook 'cider-load-buffer nil 'make-it-local)))
 
 ;; company mode FTW
 
@@ -441,11 +448,13 @@
 (global-set-key (kbd "C-c d")     'duplicate-line)
 (global-set-key (kbd "C-c m")     'magit-status)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
+(global-set-key (kbd "C-x x")     'repl-reset)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
-(global-set-key (kbd "C-x C-i")   'projectile-find-tag)
+(global-set-key (kbd "C-x C-i")   'helm-etags-select)
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x o")     'helm-occur)
+(global-set-key (kbd "C-x C-o")   'helm-swoop)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-d")   'dash-at-point)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
@@ -455,24 +464,22 @@
 (global-set-key [C-S-up]          'highlight-symbol-prev)
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
-(global-set-key [(C-tab)]         'helm-buffers-list)
-(global-set-key [?\C-b]           'projectile-ibuffer)
+(global-set-key [(C-tab)]         'helm-projectile)
+(global-set-key [?\C-b]           'helm-buffers-list)
 (global-set-key [?\C-o]           'helm-imenu)
-(global-set-key [?\C-p]           'helm-projectile)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [?\M-e]           'helm-M-x)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-q]           'kill-buffer-and-window)
-(global-set-key [?\M-w]           'helm-swoop)
 (global-set-key [?\M-t]           'projectile-toggle-between-implementation-and-test)
 (global-set-key [?\M-\;]          'comment-or-uncomment-region-or-line)
 (global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
-(global-set-key [?\M-i]           '(lambda () (interactive) (save-buffer) (sleep-for 1.3) (cider-interactive-eval "(boot.user/reset)")))
 (global-set-key [?\M-[]           '(lambda () (interactive) (sp-wrap-with-pair "[")))
 
 ;; key chords
 
-(key-chord-define-global "ff" "FORTYTWO-")
+(key-chord-define-global ";f" "FORTYTWO-")
+(key-chord-define-global "qq" ":cljs/quit")
 (key-chord-define-global "xx" 'whack-whitespace)
 
 ;; custom colors
@@ -495,6 +502,5 @@
 (diminish 'abbrev-mode)
 (diminish 'magit-wip-after-save-mode)
 (diminish 'magit-wip-after-save-local-mode)
-
 
 ;; (setq cider-repl-history-file ".cider_history")
