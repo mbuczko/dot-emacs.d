@@ -3,6 +3,7 @@
 (require 'powerline)
 (require 'golden-ratio)
 (require 'helm-dash)
+(require 'helm-clojuredocs)
 (require 'ace-isearch)
 (require 'diminish)
 (require 'clj-refactor)
@@ -23,22 +24,6 @@
 (yas/global-mode       1)
 
 (powerline-default-theme)
-
-;; Add custom magic requires to clj-refactor
-
-(dolist (mapping '(("time" . "clj-time.core")
-				   ("try"  . "clj-try.core")
-				   ("log"  . "clojure.tools.logging")
-                   ("str"  . "clojure.string")
-                   ("json" . "cheshire.core")
-                   ("csrf" . "ring.util.anti-forgery")
-                   ("selmer"    . "selmer.parser")
-                   ("response"  . "ring.util.response")
-                   ("component" . "com.stuartsierra.component")
-                   ("compojure" . "compojure.core")
-                   ("liberator" . "liberator.core")))
-
-  (add-to-list 'cljr-magic-require-namespaces mapping t))
 
 ;; UTF-8 preferred by default
 
@@ -97,26 +82,24 @@
                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 
 (setq helm-split-window-default-side 'other
-	  helm-dash-common-docsets '("jQuery/jQuery"
-								 "JavaScript/JavaScript"
-								 "NodeJS/NodeJS"
-								 "Clojure/Clojure"
-								 "Express/Express"
-								 "Ruby_2/Ruby"
-								 "Ruby_on_Rails_4/Ruby on Rails"))
+      helm-dash-common-docsets '("ClojureDocs/ClojureDocs"
+                                 "Clojure/Clojure"
+                                 "jQuery/jQuery"
+                                 "Lo-Dash/Lo-Dash"
+                                 "D3JS/D3JS"
+                                 "JavaScript/JavaScript"))
 
 ;; projectile setup
-;; (add-hook 'projectile-mode-hook 'projectile-rails-on)
-
 (projectile-global-mode)
-
 (setq projectile-completion-system 'grizzl)
 
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
 (add-to-list 'projectile-globally-ignored-directories "bower_components")
 (add-to-list 'projectile-globally-ignored-directories "dist")
 (add-to-list 'projectile-globally-ignored-directories "out")
+(add-to-list 'projectile-globally-ignored-directories "docs")
 (add-to-list 'projectile-globally-ignored-directories "target")
+(add-to-list 'projectile-globally-ignored-directories "build")
 
 ;; ido magic
 
@@ -344,7 +327,6 @@
       (magit-dont-ignore-whitespace)
     (magit-ignore-whitespace)))
 
-
 (defun magit-ignore-whitespace ()
   (interactive)
   (add-to-list 'magit-diff-arguments "-w")
@@ -363,13 +345,6 @@
 		(setq beg (region-beginning) end (region-end))
 	  (setq beg (line-beginning-position) end (line-end-position)))
 	(comment-or-uncomment-region beg end)))
-
-(defun eshell/clear ()
-  "Hi, you will clear the eshell buffer."
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)
-    (message "erase eshell buffer")))
 
 (defun find-tag-without-ns (next-p)
   (interactive "P")
@@ -405,7 +380,30 @@
 (add-hook 'clojure-mode-hook
 		  (lambda ()
 			(clj-refactor-mode 1)
-			(cljr-add-keybindings-with-prefix "M-l")))
+			(cljr-add-keybindings-with-prefix "M-l")
+            (define-key clojure-mode-map (kbd "C-x C-d") 'helm-clojuredocs-at-point)))
+
+;; (add-hook 'cider-mode-hook
+;;           (lambda ()
+;;             (add-hook 'after-save-hook 'cider-load-buffer nil 'make-it-local)))
+
+;; Add custom magic requires to clj-refactor
+
+(dolist (mapping '(("time" . "clj-time.core")
+				   ("try"  . "clj-try.core")
+				   ("log"  . "clojure.tools.logging")
+                   ("str"  . "clojure.string")
+                   ("json" . "cheshire.core")
+                   ("csrf" . "ring.util.anti-forgery")
+                   ("selmer"    . "selmer.parser")
+                   ("response"  . "ring.util.response")
+                   ("component" . "com.stuartsierra.component")
+                   ("compojure" . "compojure.core")
+                   ("liberator" . "liberator.core")))
+
+  (add-to-list 'cljr-magic-require-namespaces mapping t))
+
+;; handy function used to reset clojure app via boot/reset task
 
 (defun repl-reset ()
   "Sends (reset) to currently running repl"
@@ -413,10 +411,6 @@
   (save-buffer)
   (sleep-for 1.3)
   (cider-interactive-eval "(boot.user/reset)"))
-
-;; (add-hook 'cider-mode-hook
-;;           (lambda ()
-;;             (add-hook 'after-save-hook 'cider-load-buffer nil 'make-it-local)))
 
 ;; company mode FTW
 
@@ -456,9 +450,10 @@
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x C-o")   'helm-swoop)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
-(global-set-key (kbd "C-x C-d")   'dash-at-point)
+(global-set-key (kbd "C-x C-d")   'helm-dash-at-point)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
 (global-set-key (kbd "C-x C-l")   'bm-show-all)
+(global-set-key (kbd "C-h r")     'cljr-helm)
 (global-set-key (kbd "C-S-h")     'highlight-symbol-at-point)
 (global-set-key [C-S-down]        'highlight-symbol-next)
 (global-set-key [C-S-up]          'highlight-symbol-prev)
@@ -502,5 +497,4 @@
 (diminish 'abbrev-mode)
 (diminish 'magit-wip-after-save-mode)
 (diminish 'magit-wip-after-save-local-mode)
-
-;; (setq cider-repl-history-file ".cider_history")
+(diminish 'git-gutter+-mode)

@@ -15,10 +15,6 @@
      (output-dvi "xdvi")
      (output-pdf "Evince")
      (output-html "xdg-open"))))
- '(ac-delay 0.3)
- '(ac-ignore-case nil)
- '(ac-show-menu-immediately-on-auto-complete nil)
- '(ac-stop-words (quote ("/" ";")))
  '(ack-and-a-half-executable "/usr/local/bin/ack")
  '(ack-and-a-half-mode-extension-alist
    (quote
@@ -58,9 +54,9 @@
  '(company-auto-complete-chars (quote (41 46)))
  '(company-backends
    (quote
-    (company-bbdb company-nxml company-css company-semantic company-capf company-files
+    (company-nxml company-css company-capf company-files
                   (company-dabbrev-code company-etags company-keywords)
-                  company-dabbrev)))
+                  company-semantic company-dabbrev)))
  '(company-idle-delay 0.4)
  '(company-tooltip-flip-when-above nil)
  '(compilation-ask-about-save nil)
@@ -129,6 +125,7 @@
  '(global-ace-isearch-mode t)
  '(global-flycheck-mode nil nil (flycheck))
  '(global-font-lock-mode t nil (font-lock))
+ '(global-git-gutter+-mode t)
  '(global-visual-line-mode nil)
  '(gnus-asynchronous nil)
  '(gnus-make-format-preserve-properties nil)
@@ -141,6 +138,9 @@
  '(golden-ratio-exclude-modes
    (quote
     ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
+ '(helm-boring-buffer-regexp-list
+   (quote
+    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "TAGS" "\\*magit-*")))
  '(helm-candidate-separator "")
  '(helm-completing-read-handlers-alist
    (quote
@@ -152,7 +152,9 @@
      (ffap-alternate-file)
      (tmm-menubar)
      (cycbuf-switch-to-next-buffer))))
+ '(helm-dictionary-browser-function (quote browse-url-mozilla))
  '(helm-display-header-line nil)
+ '(helm-net-prefer-curl t)
  '(helm-swoop-speed-or-color t)
  '(helm-swoop-split-direction (quote split-window-vertically))
  '(helm-swoop-split-with-multiple-windows t)
@@ -191,6 +193,7 @@
  '(makefile-electric-keys t)
  '(menu-bar-mode nil)
  '(minibuffer-max-depth nil)
+ '(mm-w3m-safe-url-regexp nil)
  '(mouse-drag-copy-region nil)
  '(mouse-yank-at-point nil)
  '(normal-erase-is-backspace t)
@@ -238,6 +241,7 @@
  '(tab-width 4)
  '(tabkey2-choose-next-on-error nil)
  '(tabkey2-mode nil)
+ '(tags-add-tables nil)
  '(tool-bar-mode nil)
  '(undo-tree-auto-save-history nil)
  '(vc-annotate-background "#3b3b3b")
@@ -281,7 +285,7 @@
  '(bmkp-desktop ((t (:foreground "orange" :background "#2d2d2d"))))
  '(comint-highlight-input ((t (:underline nil :weight bold))))
  '(comint-highlight-prompt ((t (:inherit minibuffer-prompt :underline nil))))
- '(company-tooltip-annotation-selection ((t (:background "#036274" :foreground "white"))))
+ '(company-tooltip-annotation-selection ((t (:foreground "white"))))
  '(compilation-column-number ((t (:inherit font-lock-doc-face :underline nil))))
  '(compilation-error ((t (:inherit error :underline nil :slant italic))))
  '(compilation-warning ((t (:inherit warning :underline nil))))
