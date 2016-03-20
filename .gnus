@@ -155,7 +155,7 @@
   gnus-summary-exit-hook 'gnus-summary-bubble-group)
 
 (defvar *mb-mails*
-  "umrzykus@gazeta\\.pl")
+  "umrzyk@gmail\\.com")
 
 (defun gnus-user-format-function-m (headers)
   (let ((to (gnus-extra-header 'To headers)))
@@ -180,13 +180,13 @@
 ;; (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
 
 ;; (setq
-;;  gnus-alias-identity-alist '(("news" "" "Janko Muzykant <umrzykus@gazeta.pl>" "" nil "" ""))
+;;  gnus-alias-identity-alist '(("news" "" "Janko Muzykant <umrzyk@gmail.com>" "" nil "" ""))
 ;;  gnus-alias-identity-rules '(("pl.news" ("Newsgroups" "pl.*" current) "news")
 ;;                              ("gmane" ("Newsgroups" "gmane.*" current) "news"))
 ;;  gnus-alias-default-identity "news")
 
 (setq user-full-name "Janko Muzykant"
-	  user-mail-address "umrzykus@gazeta.pl")
+	  user-mail-address "umrzyk@gmail.com")
 
 
 (defconst w3m-meta-content-type-charset-regexp
