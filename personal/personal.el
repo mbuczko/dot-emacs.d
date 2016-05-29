@@ -26,62 +26,17 @@
 (powerline-default-theme)
 
 ;; UTF-8 preferred by default
-
 (prefer-coding-system 'utf-8)
 
 ;; sane defaults
-
 (setq-default truncate-lines t)
-(setq default-process-coding-system 'utf-8)
 
 ;; git flow enabler
-
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 ;; helm configuration
-
-(setq helm-github-stars-username "mbuczko")
-(setq helm-split-window-in-side-p t)
-
-(add-to-list 'display-buffer-alist
-			 `(,(rx bos "*helm" (* not-newline) "*" eos)
-			   (display-buffer-in-side-window)
-			   (inhibit-same-window . t)
-			   (window-height . 0.4)))
-
-(setq prelude-guru nil
-	  prelude-whitespace nil
-	  prelude-flyspell nil
-
-	  mac-option-key-is-meta nil
-	  mac-command-key-is-meta t
-	  mac-command-modifier 'meta
-	  mac-option-modifier nil
-
-	  tags-revert-without-query 1
-	  powerline-arrow-shape 'slant-right
-	  use-dialog-box nil
-
-	  ;; keep window splitting at sane proportions
-	  ;; with golden-ratio switched on
-
-	  split-width-threshold 0
-	  split-height-threshold nil
-	  window-min-width 30)
-
-;; no trailing whitespaces, please!
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; set deja-vu UTF characters
-;; this is important for Gnus decorations
-
-(set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
-                  (cons (decode-char 'ucs #x2500)
-                        (decode-char 'ucs #x25ff))
-                  "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-
-(setq helm-split-window-default-side 'other
+(setq helm-split-window-in-side-p t
+      helm-split-window-default-side 'other
       helm-dash-common-docsets '("ClojureDocs/ClojureDocs"
                                  "Clojure/Clojure"
                                  "jQuery/jQuery"
@@ -89,12 +44,51 @@
                                  "D3JS/D3JS"
                                  "JavaScript/JavaScript"))
 
+(add-to-list 'display-buffer-alist
+             `(,(rx bos "*helm" (* not-newline) "*" eos)
+               (display-buffer-in-side-window)
+               (inhibit-same-window . t)
+               (window-height . 0.4)))
+
+(setq prelude-guru nil
+      prelude-whitespace nil
+      prelude-flyspell nil
+
+      mac-option-key-is-meta nil
+      mac-command-key-is-meta t
+      mac-command-modifier 'meta
+      mac-option-modifier nil
+
+      tags-revert-without-query 1
+      powerline-arrow-shape 'slant-right
+      use-dialog-box nil
+
+      ;; keep window splitting at sane proportions
+      ;; with golden-ratio switched on
+
+      split-width-threshold 0
+      split-height-threshold nil
+      window-min-width 30)
+
+
+;; no trailing whitespaces, please!
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; set deja-vu UTF characters
+;; this is important for Gnus decorations
+(set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
+                  (cons (decode-char 'ucs #x2500)
+                        (decode-char 'ucs #x25ff))
+                  "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+
+
 ;; projectile setup
 (projectile-global-mode)
 (setq projectile-completion-system 'grizzl)
 
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
 (add-to-list 'projectile-globally-ignored-directories "bower_components")
+(add-to-list 'projectile-globally-ignored-directories ".cljs_rhino_repl")
 (add-to-list 'projectile-globally-ignored-directories "dist")
 (add-to-list 'projectile-globally-ignored-directories "out")
 (add-to-list 'projectile-globally-ignored-directories "docs")
@@ -102,7 +96,6 @@
 (add-to-list 'projectile-globally-ignored-directories "build")
 
 ;; ido magic
-
 (setq ido-enable-prefix nil
       ido-enable-flex-matching t
       ido-auto-merge-work-directories-length nil
@@ -111,14 +104,8 @@
       ido-use-filename-at-point 'guess
       ido-use-virtual-buffers nil
       ido-handle-duplicate-virtual-buffers 2
-      ido-max-prospects 10)
-
-(defun ido-disable-line-trucation ()
-  (set (make-local-variable 'truncate-lines) nil))
-
-(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
-
-(setq ido-save-directory-list-file "~/tmp/ido.last"
+      ido-max-prospects 10
+      ido-save-directory-list-file "~/tmp/ido.last"
       ido-ignore-buffers '( "\\` " "^\*" "^\:" ".*Completion" "^\*Ido" "^\*trace" "^\*compilation" "^\*GTAGS" "\.bbdb" ".*nxhtml\-mode.*" "^\.newsrc*" ".*indent-buffer" "TAGS")
       ido-decorations '("  " "" " | " ", ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]")
 
@@ -137,18 +124,14 @@
 
 
 ;; ibuffer setup
-;; http://martinowen.net/blog/2010/02/tips-for-emacs-ibuffer.html
-
 (setq ibuffer-expert t
-	  ibuffer-show-empty-filter-groups nil
-	  ibuffer-saved-filter-groups
+      ibuffer-show-empty-filter-groups nil
+      ibuffer-saved-filter-groups
       '(("home"
-         ("emacs-config" (or (filename . ".emacs")
-                             (filename . ".gnus")))
+         ("emacs-config" (or (filename . ".emacs") (filename . ".gnus")))
          ("Dired" (mode . dired-mode))
          ("Ruby" (mode . ruby-mode))
-         ("CSS" (or (mode . scss-mode)
-                    (mode . css-mode)))
+         ("CSS" (or (mode . scss-mode) (mode . css-mode)))
          ("JS" (mode . js2-mode))
          ("Clojure" (mode . clojure-mode))
          ("EShell" (mode . eshell-mode))
@@ -167,138 +150,26 @@
                      (name . "\*Apropos\*")
                      (name . "\*info\*"))))))
 
-; Switching to ibuffer puts the cursor on the most recent buffer
-
+;; Switching to ibuffer puts the cursor on the most recent buffer
 (defadvice ibuffer (around ibuffer-point-to-most-recent) ()
-  "Open ibuffer with cursor pointed to most recent buffer name"
-  (let ((recent-buffer-name (buffer-name)))
-    ad-do-it
-    (ibuffer-jump-to-buffer recent-buffer-name)))
+           "Open ibuffer with cursor pointed to most recent buffer name"
+           (let ((recent-buffer-name (buffer-name)))
+             ad-do-it
+             (ibuffer-jump-to-buffer recent-buffer-name)))
+
+(add-hook 'ibuffer-mode-hook
+          '(lambda ()
+             (ibuffer-auto-mode 1)
+             (ibuffer-switch-to-saved-filter-groups "home")))
+
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (define-key dired-mode-map [M-up]
+              (lambda () (interactive) (find-alternate-file "..")))))
 
 (ad-activate 'ibuffer)
 
-(add-hook 'ibuffer-mode-hook
-	  '(lambda ()
-         (ibuffer-auto-mode 1)
-	     (ibuffer-switch-to-saved-filter-groups "home")))
-
-;; dired configuration
-
-(add-hook 'dired-mode-hook
-		  (lambda ()
-			(define-key dired-mode-map [M-up]
-			  (lambda () (interactive) (find-alternate-file "..")))))
-
-; custom commands for agenda view
-(setq org-agenda-custom-commands
-           '(("w" occur-tree "workshop")))
-
-; org-capture templates go here
-(setq org-capture-templates
-      '(("t" "task"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "Tasks") "* TODO %?\n  %i\n")
-        ("l" "task linked" entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "Tasks") "* TODO %?\n  %i\n  %a\n")
-        ("c" "call"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "Calls") "* Call: %?\n  Scheduled on: %^T\n%i\n" "~/.notes/scheduled.org")
-        ("m" "meet"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "Meets") "* Meeting: %?\n  Scheduled on: %^T\n%i\n" "~/.notes/scheduled.org")
-        ("n" "contact"  entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/contacts.org" "Contacts") "* %^{Name}
-:PROPERTIES:
-:EMAIL: %^{Email}
-:MOBILE: %^{Mobile}
-:HOME:
-:WORK:
-:END:")
-        ("@" "mail"  entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/contacts.org" "Contacts") "* %?%(org-contacts-template-name)
-:PROPERTIES:
-:EMAIL: %(org-contacts-template-email)
-:END:"))
-
-      appt-message-warning-time 15
-      appt-display-mode-line t
-      appt-display-format 'window
-
-      org-startup-folded nil
-      org-agenda-include-diary nil
-      org-agenda-include-all-todo t
-      org-agenda-ndays 7
-      org-agenda-show-all-dates t
-      org-agenda-skip-deadline-if-done t
-      org-agenda-skip-scheduled-if-done t
-      org-agenda-start-on-weekday nil
-      org-agenda-to-appt t
-      org-reverse-note-order t
-      org-deadline-warning-days 3
-      org-use-fast-todo-selection t
-      org-agenda-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
-      org-contacts-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
-      org-log-into-drawer t
-      org-log-done 'time
-      org-log-note-headings
-      (quote ((done . "CLOSING NOTE %t")
-              (state . "State %-12s %t")
-              (note . "Note taken on %t")
-              (reschedule . "Rescheduled from %S on %t")
-              (delschedule . "Not scheduled, was %S on %t")
-              (redeadline . "New deadline from %S on %t")
-              (deldeadline . "Removed deadline, was %S on %t")
-              (refile . "Refiled on %t") (clock-out . "")))
-
-
-      org-tag-alist '( ("HOME" . ?h) ("MOBI" . ?m))
-      org-todo-keywords (quote ((sequence "TODO(t!)" "STARTED(s!)" "|" "DONE(d!/!)")
-                                (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)")
-                                (sequence "OPEN(O!)" "|" "CLOSED(C!)")))
-
-      org-todo-keyword-faces
-      (quote (("TODO"        :foreground "red"          :weight bold)
-              ("STARTED"     :foreground "green"        :weight bold)
-              ("DONE"        :foreground "forest green" :weight bold)
-              ("WAITING"     :foreground "yellow"       :weight bold)
-              ("SOMEDAY"     :foreground "goldenrod"    :weight bold)
-              ("CANCELLED"   :foreground "orangered"    :weight bold)
-              ("OPEN"        :foreground "magenta"      :weight bold)
-              ("CLOSED"      :foreground "forest green" :weight bold)))
-
-      org-todo-state-tags-triggers
-      (quote (("CANCELLED"
-               ("CANCELLED" . t))
-              ("WAITING"
-               ("WAITING" . t))
-              ("SOMEDAY"
-               ("WAITING" . t))
-              (done
-               ("WAITING"))
-              ("TODO"
-               ("WAITING")
-               ("CANCELLED"))
-              ("STARTED"
-               ("WAITING"))
-              ("DONE"
-               ("WAITING")
-               ("CANCELLED")))))
-
-;; Strike through headlines for DONE
-;; http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/
-
-(setq org-fontify-done-headline t)
-
-;; resolving issue that org-mode has with yasnippets (tab completion)
-(defun yas/org-very-safe-expand ()
-  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
-
-(add-hook 'org-mode-hook
-	  (lambda ()
-        (visual-line-mode)
-        (org-defkey org-mode-map [(meta e)] 'helm-M-x)
-
-        ;; The way Org mode binds the TAB key (binding to [tab] instead of "\t") overrules YASnippet's access to this key.
-        ;; The following code fixed this problem:
-
-        (make-variable-buffer-local 'yas/trigger-key)
-        (setq yas/trigger-key [tab])
-        (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-        (define-key yas/keymap [tab] 'yas/next-field)))
-
 ;; full screen magit-status
-
 (defadvice magit-status (around magit-fullscreen activate)
   (window-configuration-to-register :magit-fullscreen)
   ad-do-it
@@ -313,14 +184,12 @@
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
 ;; magit UTF-8 setting
-
 (add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
 (add-hook 'git-commit-mode-hook
           '(lambda ()
              (set-buffer-file-coding-system 'utf-8)))
 
 ;; magit toggle whitespaces
-
 (defun magit-toggle-whitespace ()
   (interactive)
   (if (member "-w" magit-diff-arguments)
@@ -341,10 +210,10 @@
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
   (let (beg end)
-	(if (region-active-p)
-		(setq beg (region-beginning) end (region-end))
-	  (setq beg (line-beginning-position) end (line-end-position)))
-	(comment-or-uncomment-region beg end)))
+    (if (region-active-p)
+        (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position)))
+    (comment-or-uncomment-region beg end)))
 
 (defun find-tag-without-ns (next-p)
   (interactive "P")
@@ -369,29 +238,36 @@
     (cider-switch-to-repl-buffer)))
 
 
-;; javascript mode
+(defun cider-find-file-current-ns ()
+  (interactive)
+  (let* ((ns (cider-current-ns))
+         (path (s-replace "." "/" ns))
+         (clj-file (concat path ".clj"))
+         (cljs-file (concat path ".cljs"))
+         (classpath (cider-sync-request:classpath))
+         (files (-reduce-from (lambda (l item)
+                                (list* (concat item "/" cljs-file) (concat item "/" clj-file) l))
+                              '()
+                              (reverse classpath))))
+    (if-let ((f (-find 'file-exists-p files)))
+        (find-file f))))
 
+;; javascript mode
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 
 ;; clojure mode
-
 (add-hook 'clojure-mode-hook
-		  (lambda ()
-			(clj-refactor-mode 1)
-			(cljr-add-keybindings-with-prefix "M-l")
+          (lambda ()
+            (clj-refactor-mode 1)
+            (cljr-add-keybindings-with-prefix "M-l")
             (define-key clojure-mode-map (kbd "C-x C-d") 'helm-clojuredocs-at-point)))
 
-;; (add-hook 'cider-mode-hook
-;;           (lambda ()
-;;             (add-hook 'after-save-hook 'cider-load-buffer nil 'make-it-local)))
-
 ;; Add custom magic requires to clj-refactor
-
 (dolist (mapping '(("time" . "clj-time.core")
-				   ("try"  . "clj-try.core")
-				   ("log"  . "clojure.tools.logging")
+                   ("try"  . "clj-try.core")
+                   ("log"  . "clojure.tools.logging")
                    ("str"  . "clojure.string")
                    ("json" . "cheshire.core")
                    ("csrf" . "ring.util.anti-forgery")
@@ -404,7 +280,6 @@
   (add-to-list 'cljr-magic-require-namespaces mapping t))
 
 ;; handy function used to reset clojure app via boot/reset task
-
 (defun repl-reset ()
   "Sends (reset) to currently running repl"
   (interactive)
@@ -413,18 +288,101 @@
   (cider-interactive-eval "(boot.user/reset)"))
 
 ;; company mode FTW
-
 (define-key company-active-map "\e" 'company-abort)
-(setq company-transformers '(company-sort-by-occurrence))
+(setq company-transformers '(company-sort-by-occurrence)
+      company-dabbrev-downcase nil)
 
 ;; yasnippet additional snippets
-
 (setq yas-snippet-dirs '("~/.emacs.d/snippets/web-mode"
                          "~/.emacs.d/snippets/clojure-mode"
                          "~/.emacs.d/snippets/js2-mode"))
 
-;; global keybindings
+;; custom commands for agenda view
+(setq org-agenda-custom-commands '(("w" occur-tree "workshop"))
+      org-capture-templates
+      '(("t" "task"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "Tasks") "* TODO %?\n  %i\n")
+        ("l" "task linked" entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "Tasks") "* TODO %?\n  %i\n  %a\n")
+        ("c" "call"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "Calls") "* Call: %?\n  Scheduled on: %^T\n%i\n" "~/.notes/scheduled.org")
+        ("m" "meet"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "Meets") "* Meeting: %?\n  Scheduled on: %^T\n%i\n" "~/.notes/scheduled.org")
+        ("n" "contact"  entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/contacts.org" "Contacts") "* %^{Name}
+												 :PROPERTIES:
+												 :EMAIL: %^{Email}
+												 :MOBILE: %^{Mobile}
+												 :HOME:
+												 :WORK:
+												 :END:")
+        ("@" "mail"  entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/contacts.org" "Contacts") "* %?%(org-contacts-template-name)
+												 :PROPERTIES:
+												 :EMAIL: %(org-contacts-template-email)
+												 :END:"))
+      appt-message-warning-time 15
+      appt-display-mode-line t
+      appt-display-format 'window
+      org-startup-folded nil
+      org-agenda-include-diary nil
+      org-agenda-include-all-todo t
+      org-agenda-ndays 7
+      org-agenda-show-all-dates t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t
+      org-agenda-start-on-weekday nil
+      org-agenda-to-appt t
+      org-reverse-note-order t
+      org-deadline-warning-days 3
+      org-use-fast-todo-selection t
+      org-agenda-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
+      org-contacts-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
+      org-log-into-drawer t
+      org-log-done 'time
+      org-tag-alist '(("HOME" . ?h) ("MOBI" . ?m))
+      org-todo-keywords '((sequence "TODO(t!)" "STARTED(s!)" "|" "DONE(d!/!)")
+                          (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)")
+                          (sequence "OPEN(O!)" "|" "CLOSED(C!)"))
+      org-log-note-headings '((done . "CLOSING NOTE %t")
+                              (state . "State %-12s %t")
+                              (note . "Note taken on %t")
+                              (reschedule . "Rescheduled from %S on %t")
+                              (delschedule . "Not scheduled, was %S on %t")
+                              (redeadline . "New deadline from %S on %t")
+                              (deldeadline . "Removed deadline, was %S on %t")
+                              (refile . "Refiled on %t") (clock-out . ""))
+      org-todo-keyword-faces '(("TODO"        :foreground "red"          :weight bold)
+                               ("STARTED"     :foreground "green"        :weight bold)
+                               ("DONE"        :foreground "forest green" :weight bold)
+                               ("WAITING"     :foreground "yellow"       :weight bold)
+                               ("SOMEDAY"     :foreground "goldenrod"    :weight bold)
+                               ("CANCELLED"   :foreground "orangered"    :weight bold)
+                               ("OPEN"        :foreground "magenta"      :weight bold)
+                               ("CLOSED"      :foreground "forest green" :weight bold))
+      org-todo-state-tags-triggers '(("CANCELLED" ("CANCELLED" . t))
+                                     ("WAITING"   ("WAITING" . t))
+                                     ("SOMEDAY"   ("WAITING" . t))
+                                     (done        ("WAITING"))
+                                     ("TODO"      ("WAITING") ("CANCELLED"))
+                                     ("STARTED"   ("WAITING"))
+                                     ("DONE"      ("WAITING") ("CANCELLED"))))
 
+;; Strike through headlines for DONE
+;; http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/
+(setq org-fontify-done-headline t)
+
+;; resolving issue that org-mode has with yasnippets (tab completion)
+(defun yas/org-very-safe-expand ()
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (visual-line-mode)
+            (org-defkey org-mode-map [(meta e)] 'helm-M-x)
+
+            ;; The way Org mode binds the TAB key (binding to [tab] instead of "\t") overrules YASnippet's access to this key.
+            ;; The following code fixed this problem:
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+            (define-key yas/keymap [tab] 'yas/next-field)))
+
+;; global keybindings
 (global-set-key (kbd "M-w")       nil)
 (global-set-key (kbd "M-c")       'kill-ring-save)
 (global-set-key (kbd "M-x")       'kill-region)
@@ -472,18 +430,18 @@
 (global-set-key [?\M-[]           '(lambda () (interactive) (sp-wrap-with-pair "[")))
 
 ;; key chords
-
 (key-chord-define-global ";f" "FORTYTWO-")
 (key-chord-define-global "qq" ":cljs/quit")
 (key-chord-define-global "xx" 'whack-whitespace)
 
 ;; custom colors
-
-(set-face-background 'highlight "gray20")
-(set-face-background 'region "DodgerBlue4")
+;; (set-face-background 'highlight "gray20")
+;; (set-face-background 'region "sienna")
+;; (set-face-foreground 'font-lock-doc-face "DimGray")
+(set-face-background 'dired-header "black")
+(set-face-foreground 'dired-header "orange")
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
-
 (diminish 'projectile-mode)
 (diminish 'golden-ratio-mode)
 (diminish 'helm-mode)
@@ -498,3 +456,5 @@
 (diminish 'magit-wip-after-save-mode)
 (diminish 'magit-wip-after-save-local-mode)
 (diminish 'git-gutter+-mode)
+(diminish 'clj-refactor-mode)
+(diminish 'ace-isearch-mode)

@@ -1,0 +1,5 @@
+(setq prelude-theme 'monokai)
+;; (setq prelude-theme 'zen-and-art)
+;; (setq prelude-theme 'jazz)
+;; (setq prelude-theme 'gruvbox)
+;; (setq prelude-theme 'badger)
