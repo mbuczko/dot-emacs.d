@@ -51,13 +51,13 @@
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
  '(company-auto-complete t)
- '(company-auto-complete-chars (quote (41 46)))
+ '(company-auto-complete-chars (quote (40 41 46)))
  '(company-backends
    (quote
     (company-nxml company-css company-capf company-files
                   (company-dabbrev-code company-etags company-keywords)
                   company-semantic company-dabbrev)))
- '(company-idle-delay 0.4)
+ '(company-idle-delay 0.2)
  '(company-occurrence-weight-function (quote company-occurrence-prefer-closest-above))
  '(company-search-regexp-function (quote company-search-words-regexp))
  '(company-tooltip-flip-when-above nil)
@@ -122,8 +122,8 @@
  '(gnus-use-correct-string-widths t)
  '(golden-ratio-exclude-buffer-names
    (quote
-    ("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*undo-tree*" "*Helm Swoop*")))
- '(golden-ratio-exclude-buffer-regexp nil)
+    ("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*Helm Swoop*")))
+ '(golden-ratio-exclude-buffer-regexp (quote ("undo")))
  '(golden-ratio-exclude-modes
    (quote
     ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode")))
@@ -144,7 +144,7 @@
  '(helm-dictionary-browser-function (quote browse-url-mozilla))
  '(helm-display-header-line nil)
  '(helm-net-prefer-curl t)
- '(helm-swoop-speed-or-color t)
+ '(helm-swoop-speed-or-color nil)
  '(helm-swoop-split-direction (quote split-window-vertically))
  '(helm-swoop-split-with-multiple-windows t)
  '(helm-truncate-lines t t)

@@ -29,7 +29,8 @@
 (prefer-coding-system 'utf-8)
 
 ;; sane defaults
-(setq-default truncate-lines t)
+(setq-default truncate-lines t
+              delete-selection-mode t)
 
 ;; git flow enabler
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
@@ -84,7 +85,7 @@
 
 ;; projectile setup
 (projectile-global-mode)
-(setq projectile-completion-system 'grizzl)
+(setq projectile-completion-system 'helm)
 
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
 (add-to-list 'projectile-globally-ignored-directories "bower_components")
@@ -406,7 +407,7 @@
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x o")     'helm-occur)
-(global-set-key (kbd "C-x C-o")   'helm-swoop)
+(global-set-key (kbd "C-x C-o")   'helm-multi-occur-from-isearch)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-d")   'helm-dash-at-point)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
@@ -435,7 +436,7 @@
 (key-chord-define-global "xx" 'whack-whitespace)
 
 ;; custom colors
-;; (set-face-background 'highlight "gray20")
+;; (set-face-background 'highlight "black")
 ;; (set-face-background 'region "sienna")
 ;; (set-face-foreground 'font-lock-doc-face "DimGray")
 (set-face-background 'dired-header "black")
@@ -458,3 +459,8 @@
 (diminish 'git-gutter+-mode)
 (diminish 'clj-refactor-mode)
 (diminish 'ace-isearch-mode)
+
+;; SBCL
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+(slime-setup '(slime-company helm-slime))
