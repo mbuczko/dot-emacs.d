@@ -4,7 +4,6 @@
 (require 'golden-ratio)
 (require 'helm-dash)
 (require 'helm-clojuredocs)
-(require 'ace-isearch)
 (require 'diminish)
 (require 'clj-refactor)
 (require 'magit)
@@ -82,19 +81,9 @@
                         (decode-char 'ucs #x25ff))
                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 
-
 ;; projectile setup
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
-
-(add-to-list 'projectile-globally-ignored-directories "node_modules")
-(add-to-list 'projectile-globally-ignored-directories "bower_components")
-(add-to-list 'projectile-globally-ignored-directories ".cljs_rhino_repl")
-(add-to-list 'projectile-globally-ignored-directories "dist")
-(add-to-list 'projectile-globally-ignored-directories "out")
-(add-to-list 'projectile-globally-ignored-directories "docs")
-(add-to-list 'projectile-globally-ignored-directories "target")
-(add-to-list 'projectile-globally-ignored-directories "build")
 
 ;; ido magic
 (setq ido-enable-prefix nil
@@ -261,9 +250,14 @@
 ;; clojure mode
 (add-hook 'clojure-mode-hook
           (lambda ()
-            (clj-refactor-mode 1)
+            (clj-refactor-mode)
+            (focus-mode)
             (cljr-add-keybindings-with-prefix "M-l")
             (define-key clojure-mode-map (kbd "C-x C-d") 'helm-clojuredocs-at-point)))
+
+;; treat some-symbol as a single word for editing
+(dolist (c (string-to-list ":_-?!#*"))
+  (modify-syntax-entry c "w" clojure-mode-syntax-table ))
 
 ;; Add custom magic requires to clj-refactor
 (dolist (mapping '(("time" . "clj-time.core")
@@ -298,91 +292,6 @@
                          "~/.emacs.d/snippets/clojure-mode"
                          "~/.emacs.d/snippets/js2-mode"))
 
-;; custom commands for agenda view
-(setq org-agenda-custom-commands '(("w" occur-tree "workshop"))
-      org-capture-templates
-      '(("t" "task"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "Tasks") "* TODO %?\n  %i\n")
-        ("l" "task linked" entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "Tasks") "* TODO %?\n  %i\n  %a\n")
-        ("c" "call"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "Calls") "* Call: %?\n  Scheduled on: %^T\n%i\n" "~/.notes/scheduled.org")
-        ("m" "meet"     entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "Meets") "* Meeting: %?\n  Scheduled on: %^T\n%i\n" "~/.notes/scheduled.org")
-        ("n" "contact"  entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/contacts.org" "Contacts") "* %^{Name}
-												 :PROPERTIES:
-												 :EMAIL: %^{Email}
-												 :MOBILE: %^{Mobile}
-												 :HOME:
-												 :WORK:
-												 :END:")
-        ("@" "mail"  entry (file+headline "/Volumes/External/Dropbox/lisp/org-mode/contacts.org" "Contacts") "* %?%(org-contacts-template-name)
-												 :PROPERTIES:
-												 :EMAIL: %(org-contacts-template-email)
-												 :END:"))
-      appt-message-warning-time 15
-      appt-display-mode-line t
-      appt-display-format 'window
-      org-startup-folded nil
-      org-agenda-include-diary nil
-      org-agenda-include-all-todo t
-      org-agenda-ndays 7
-      org-agenda-show-all-dates t
-      org-agenda-skip-deadline-if-done t
-      org-agenda-skip-scheduled-if-done t
-      org-agenda-start-on-weekday nil
-      org-agenda-to-appt t
-      org-reverse-note-order t
-      org-deadline-warning-days 3
-      org-use-fast-todo-selection t
-      org-agenda-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/tasks.org" "/Volumes/External/Dropbox/lisp/org-mode/scheduled.org" "/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
-      org-contacts-files (quote ("/Volumes/External/Dropbox/lisp/org-mode/contacts.org"))
-      org-log-into-drawer t
-      org-log-done 'time
-      org-tag-alist '(("HOME" . ?h) ("MOBI" . ?m))
-      org-todo-keywords '((sequence "TODO(t!)" "STARTED(s!)" "|" "DONE(d!/!)")
-                          (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)")
-                          (sequence "OPEN(O!)" "|" "CLOSED(C!)"))
-      org-log-note-headings '((done . "CLOSING NOTE %t")
-                              (state . "State %-12s %t")
-                              (note . "Note taken on %t")
-                              (reschedule . "Rescheduled from %S on %t")
-                              (delschedule . "Not scheduled, was %S on %t")
-                              (redeadline . "New deadline from %S on %t")
-                              (deldeadline . "Removed deadline, was %S on %t")
-                              (refile . "Refiled on %t") (clock-out . ""))
-      org-todo-keyword-faces '(("TODO"        :foreground "red"          :weight bold)
-                               ("STARTED"     :foreground "green"        :weight bold)
-                               ("DONE"        :foreground "forest green" :weight bold)
-                               ("WAITING"     :foreground "yellow"       :weight bold)
-                               ("SOMEDAY"     :foreground "goldenrod"    :weight bold)
-                               ("CANCELLED"   :foreground "orangered"    :weight bold)
-                               ("OPEN"        :foreground "magenta"      :weight bold)
-                               ("CLOSED"      :foreground "forest green" :weight bold))
-      org-todo-state-tags-triggers '(("CANCELLED" ("CANCELLED" . t))
-                                     ("WAITING"   ("WAITING" . t))
-                                     ("SOMEDAY"   ("WAITING" . t))
-                                     (done        ("WAITING"))
-                                     ("TODO"      ("WAITING") ("CANCELLED"))
-                                     ("STARTED"   ("WAITING"))
-                                     ("DONE"      ("WAITING") ("CANCELLED"))))
-
-;; Strike through headlines for DONE
-;; http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/
-(setq org-fontify-done-headline t)
-
-;; resolving issue that org-mode has with yasnippets (tab completion)
-(defun yas/org-very-safe-expand ()
-  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (visual-line-mode)
-            (org-defkey org-mode-map [(meta e)] 'helm-M-x)
-
-            ;; The way Org mode binds the TAB key (binding to [tab] instead of "\t") overrules YASnippet's access to this key.
-            ;; The following code fixed this problem:
-            (make-variable-buffer-local 'yas/trigger-key)
-            (setq yas/trigger-key [tab])
-            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-            (define-key yas/keymap [tab] 'yas/next-field)))
-
 ;; global keybindings
 (global-set-key (kbd "M-w")       nil)
 (global-set-key (kbd "M-c")       'kill-ring-save)
@@ -400,16 +309,15 @@
 (global-set-key (kbd "M-w o")     'er/mark-outer-tag)
 (global-set-key (kbd "C-c d")     'duplicate-line)
 (global-set-key (kbd "C-c m")     'magit-status)
-(global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x x")     'repl-reset)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
 (global-set-key (kbd "C-x C-i")   'helm-etags-select)
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x o")     'helm-occur)
-(global-set-key (kbd "C-x C-o")   'helm-multi-occur-from-isearch)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-d")   'helm-dash-at-point)
+(global-set-key (kbd "C-x C-o")   'ace-jump-word-mode)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
 (global-set-key (kbd "C-x C-l")   'bm-show-all)
 (global-set-key (kbd "C-h r")     'cljr-helm)
@@ -418,7 +326,7 @@
 (global-set-key [C-S-up]          'highlight-symbol-prev)
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
-(global-set-key [(C-tab)]         'helm-projectile)
+(global-set-key [(C-tab)]         'projectile-find-file)
 (global-set-key [?\C-b]           'helm-buffers-list)
 (global-set-key [?\C-o]           'helm-imenu)
 (global-set-key [?\C-z]           'undo)
@@ -434,13 +342,6 @@
 (key-chord-define-global ";f" "FORTYTWO-")
 (key-chord-define-global "qq" ":cljs/quit")
 (key-chord-define-global "xx" 'whack-whitespace)
-
-;; custom colors
-;; (set-face-background 'highlight "black")
-;; (set-face-background 'region "sienna")
-;; (set-face-foreground 'font-lock-doc-face "DimGray")
-(set-face-background 'dired-header "black")
-(set-face-foreground 'dired-header "orange")
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 (diminish 'projectile-mode)
@@ -458,9 +359,12 @@
 (diminish 'magit-wip-after-save-local-mode)
 (diminish 'git-gutter+-mode)
 (diminish 'clj-refactor-mode)
-(diminish 'ace-isearch-mode)
+
+(defadvice select-window-by-number
+    (after select-window activate)
+  (golden-ratio))
 
 ;; SBCL
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
-(slime-setup '(slime-company helm-slime))
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (setq inferior-lisp-program "sbcl")
+;; (slime-setup '(slime-company helm-slime))
