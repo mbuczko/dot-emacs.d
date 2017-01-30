@@ -1,7 +1,6 @@
-(require 'starttls)
-(require 'nnir)
-
-(setq org-contacts-completion-ignore-case t)
+;; (require 'starttls)
+;; (require 'nnir)
+;; (setq org-contacts-completion-ignore-case t)
 ;; (org-contacts-gnus-insinuate)
 
 (setq
@@ -136,6 +135,20 @@
   gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
   gnus-article-emulate-mime t)
 
+(defvar *mb-mails* "umrzykus@gazeta\\.pl")
+
+(defun gnus-user-format-function-m (headers)
+  (let ((to (gnus-extra-header 'To headers)))
+    (if (string-match *mb-mails* to)
+        (if (string-match "," to) "»" " ")
+      (if (or (string-match *mb-mails*
+                            (gnus-extra-header 'Cc headers))
+              (string-match *mb-mails*
+                            (gnus-extra-header 'BCc headers)))
+          "~"
+        " "))))
+
+
 (when window-system
   (setq
      gnus-sum-thread-tree-root "● "
@@ -154,117 +167,51 @@
   gnus-summary-same-subject ""
   gnus-summary-exit-hook 'gnus-summary-bubble-group)
 
-(defvar *mb-mails*
-  "umrzyk@gmail\\.com")
-
-(defun gnus-user-format-function-m (headers)
-  (let ((to (gnus-extra-header 'To headers)))
-	(if (string-match *mb-mails* to)
-		(if (string-match "," to) "»" " ")
-	  (if (or (string-match *mb-mails*
-							(gnus-extra-header 'Cc headers))
-			  (string-match *mb-mails*
-							(gnus-extra-header 'BCc headers)))
-		  "~"
-		" "))))
-
-
 ;; put groups into topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 ;; increase score of own articles and follow-ups
 (add-hook 'message-sent-hook 'gnus-score-followup-thread) ;;'gnus-score-followup-article
 
-;; identities
-;; (autoload 'gnus-alias-determine-identity "gnus-alias" "" t)
-;; (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
-
-;; (setq
-;;  gnus-alias-identity-alist '(("news" "" "Janko Muzykant <umrzyk@gmail.com>" "" nil "" ""))
-;;  gnus-alias-identity-rules '(("pl.news" ("Newsgroups" "pl.*" current) "news")
-;;                              ("gmane" ("Newsgroups" "gmane.*" current) "news"))
-;;  gnus-alias-default-identity "news")
-
 (setq user-full-name "Janko Muzykant"
 	  user-mail-address "umrzyk@gmail.com")
-
 
 (defconst w3m-meta-content-type-charset-regexp
   "<meta[ \t\n]+http-equiv=\"?Content-type\"?[ \t\n]+\content=\"?\\([^;]+\\);[ \t\n]*charset=\\([^\"]+\\)\"?[ \t\n]*/?>")
 (defconst w3m-meta-charset-content-type-regexp
   "<meta[ \t\n]+content=\"?\\([^;]+\\);[ \t\n]*charset\=\\([^\"]+\\)\"?[ \t\n]+http-equiv=\"?Content-type\"?[ \t\n]*/?>")
 
-(defface face-1
-  '((default (:foreground "grey30"))) "a gnus face 1")
-
-(defface face-2
-  '((default (:foreground "white" :weight bold :font "Ubuntu Mono" :height 130))) "a gnus face 2")
-
-(defface face-3
-  '((default (:weight normal))) "a gnus face 3")
-
-(defface face-4
-  '((default (:foreground "orange" :font "Ubuntu Mono" :height 130))) "a gnus face 4")
-
-(defface face-5
-  '((default (:foreground "grey40"))) "a gnus face 5")
-
-(defface face-6
-  '((default (:foreground "red"))) "a gnus face 6")
-
-(setq gnus-face-1 'face-1)
-(setq gnus-face-2 'face-2)
-(setq gnus-face-3 'face-3)
-(setq gnus-face-4 'face-4)
-(setq gnus-face-5 'face-5)
-(setq gnus-face-6 'face-6)
+(defface face-1 '((default (:foreground "grey30"))) "gnus face 1")
+(defface face-2 '((default (:foreground "white")))  "gnus face 2")
+(defface face-3 '((default (:weight normal)))       "gnus face 3")
+(defface face-4 '((default (:foreground "orange"))) "gnus face 4")
+(defface face-5 '((default (:foreground "grey40"))) "gnus face 5")
+(defface face-6 '((default (:foreground "red")))    "gnus face 6")
 
 ;; Keep track of own postings
 
 (defface gnus-own-posting-face nil
   "Use this face to display own postings in Summary Buffer")
+
 (copy-face 'gnus-summary-high-unread-face 'gnus-own-posting-face)
 (set-face-foreground 'gnus-own-posting-face "red")
 
-(pushnew '((= score 90)
-           . gnus-own-posting-face)
-         gnus-summary-highlight)
+;; (pushnew '((= score 90) . gnus-own-posting-face) gnus-summary-highlight)
 
-(defadvice gnus-summary-save-parts-1 (around gnus-summary-save-parts-exclude-self activate)
-  (let ((handle (ad-get-arg 2)))
-    (unless (and (not (stringp (car handle)))
-                 (not (mm-handle-filename handle)))
-      ad-do-it)))
+(setq gnus-face-1 'face-1
+      gnus-face-2 'face-2
+      gnus-face-3 'face-3
+      gnus-face-4 'face-4
+      gnus-face-5 'face-5
+      gnus-face-6 'face-6)
 
 (define-key gnus-article-mode-map (kbd "C-c C-o")
   (lambda()
     (interactive)
     (w3m-external-view-this-url)))
 
-(gnus-add-configuration
- '(article
-   (horizontal 1.0
-			   (vertical 0.25 (group 1.0))
-			   (vertical 1.0
-						 (summary 20)
-						 (article 1.0)))))
-(gnus-add-configuration
- '(summary
-   (horizontal 1.0
-			   (group 0.25 point)
-			   (summary 1.0))))
-
-(custom-set-faces
- '(gnus-group-news-1 ((t (:foreground "gray90"))))
- '(gnus-group-news-2 ((t (:foreground "gray70"))))
- '(gnus-group-news-3 ((t (:foreground "gray70"))))
- '(gnus-group-news-3-empty ((t (:foreground "gray50"))))
- '(gnus-signature ((t (:foreground "#777"))))
- '(gnus-summary-normal-read ((t (:foreground "Green"))))
- '(gnus-summary-normal-unread ((t (:foreground "LightGreen"))))
- '(gnus-summary-normal-ancient ((t (:foreground "LightGreen"))))
- '(gnus-summary-normal-ticked ((t (:foreground "pink" :weight normal))))
- '(gnus-summary-cancelled ((t (:foreground "purple" :background "#2d2d2d" :weight normal))))
- '(gnus-summary-high-read ((t (:foreground "LightBlue" :weight normal))))
- '(gnus-summary-high-unread ((t (:foreground "cyan" :weight normal))))
- '(gnus-summary-high-ancient ((t (:foreground "LightSalmon" :weight bold)))))
+;; (defadvice gnus-summary-save-parts-1 (around gnus-summary-save-parts-exclude-self activate)
+;;   (let ((handle (ad-get-arg 2)))
+;;     (unless (and (not (stringp (car handle)))
+;;                  (not (mm-handle-filename handle)))
+;;       ad-do-it)))

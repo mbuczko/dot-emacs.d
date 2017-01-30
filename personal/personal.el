@@ -1,6 +1,7 @@
 (require 'highlight-indentation)
 (require 'highlight-symbol)
 (require 'powerline)
+(require 'origami)
 (require 'golden-ratio)
 (require 'helm-dash)
 (require 'helm-clojuredocs)
@@ -14,6 +15,7 @@
 (tool-bar-mode        -1)
 (menu-bar-mode        -1)
 (global-hl-line-mode   1)
+(global-origami-mode   1)
 (window-numbering-mode 1)
 (blink-cursor-mode     1)
 (golden-ratio-mode     1)
@@ -76,10 +78,10 @@
 
 ;; set deja-vu UTF characters
 ;; this is important for Gnus decorations
-(set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
-                  (cons (decode-char 'ucs #x2500)
-                        (decode-char 'ucs #x25ff))
-                  "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+;; (set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
+;;                   (cons (decode-char 'ucs #x2500)
+;;                         (decode-char 'ucs #x25ff))
+;;                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 
 ;; projectile setup
 (projectile-global-mode)
@@ -227,33 +229,45 @@
       (cider-switch-to-last-clojure-buffer)
     (cider-switch-to-repl-buffer)))
 
-
-(defun cider-find-file-current-ns ()
-  (interactive)
-  (let* ((ns (cider-current-ns))
-         (path (s-replace "." "/" ns))
-         (clj-file (concat path ".clj"))
-         (cljs-file (concat path ".cljs"))
-         (classpath (cider-sync-request:classpath))
-         (files (-reduce-from (lambda (l item)
-                                (list* (concat item "/" cljs-file) (concat item "/" clj-file) l))
-                              '()
-                              (reverse classpath))))
-    (if-let ((f (-find 'file-exists-p files)))
-        (find-file f))))
-
-;; javascript mode
-(autoload 'js2-mode "js2-mode" nil t)
+;; javascript mode for all *.js and *.vue files
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+
+;; escape from helm easily
+(add-hook 'helm-after-initialize-hook
+          (lambda()
+            (define-key helm-buffer-map (kbd "ESC") 'helm-keyboard-quit)
+            (define-key helm-map (kbd "ESC") 'helm-keyboard-quit)))
+
+;; js2-mode
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (turn-on-smartparens-strict-mode)))
+
+;; css-less mode
+(add-hook 'less-css-mode-hook
+           (lambda ()
+             (define-key less-css-mode-map (kbd "C-o") 'helm-css-scss)))
+
+(add-hook 'css-mode-hook
+           (lambda ()
+             (define-key css-mode-map (kbd "C-o") 'helm-css-scss)))
 
 ;; clojure mode
 (add-hook 'clojure-mode-hook
           (lambda ()
             (clj-refactor-mode)
-            (focus-mode)
             (cljr-add-keybindings-with-prefix "M-l")
+            (turn-on-smartparens-strict-mode)
             (define-key clojure-mode-map (kbd "C-x C-d") 'helm-clojuredocs-at-point)))
+
+;; cider-repl mode
+(add-hook 'cider-repl-mode-hook
+          (lambda ()
+            (turn-on-smartparens-strict-mode)
+            (define-key cider-repl-mode-map (kbd "C-x C-d") 'helm-clojuredocs-at-point)
+            (define-key cider-repl-mode-map (kbd "M-r") 'cider-switch-repl)
+            (define-key cider-repl-mode-map (kbd "M-[") 'cider-repl-previous-matching-input)))
 
 ;; treat some-symbol as a single word for editing
 (dolist (c (string-to-list ":_-?!#*"))
@@ -298,6 +312,7 @@
 (global-set-key (kbd "M-x")       'kill-region)
 (global-set-key (kbd "M-v")       'yank)
 (global-set-key (kbd "M-z")       'zop-to-char)
+(global-set-key (kbd "M-n")       'projectile-find-file)
 (global-set-key (kbd "C->")       'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-<")       'mc/mark-all-like-this-dwim)
 (global-set-key (kbd "M-w q")     'er/mark-inside-quotes)
@@ -315,6 +330,7 @@
 (global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
 (global-set-key (kbd "C-x o")     'helm-occur)
+(global-set-key (kbd "C-x i")     'cider-browse-ns)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-d")   'helm-dash-at-point)
 (global-set-key (kbd "C-x C-o")   'ace-jump-word-mode)
@@ -326,8 +342,6 @@
 (global-set-key [C-S-up]          'highlight-symbol-prev)
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
-(global-set-key [(C-tab)]         'projectile-find-file)
-(global-set-key [?\C-b]           'helm-buffers-list)
 (global-set-key [?\C-o]           'helm-imenu)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [?\M-e]           'helm-M-x)
@@ -339,9 +353,9 @@
 (global-set-key [?\M-[]           '(lambda () (interactive) (sp-wrap-with-pair "[")))
 
 ;; key chords
-(key-chord-define-global ";f" "FORTYTWO-")
-(key-chord-define-global "qq" ":cljs/quit")
 (key-chord-define-global "xx" 'whack-whitespace)
+(key-chord-define-global "zz" 'origami-toggle-node)
+(key-chord-define-global "qq" 'origami-toggle-all-nodes)
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 (diminish 'projectile-mode)
@@ -360,9 +374,10 @@
 (diminish 'git-gutter+-mode)
 (diminish 'clj-refactor-mode)
 
-(defadvice select-window-by-number
-    (after select-window activate)
-  (golden-ratio))
+(defadvice select-window-by-number (after select-window activate)
+  (golden-ratio)
+  (if (not (string= major-mode "cider-repl-mode"))
+      (move-to-left-margin)))
 
 ;; SBCL
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
