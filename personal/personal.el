@@ -1,7 +1,5 @@
 (require 'highlight-indentation)
 (require 'highlight-symbol)
-(require 'powerline)
-(require 'origami)
 (require 'golden-ratio)
 (require 'helm-dash)
 (require 'helm-clojuredocs)
@@ -10,6 +8,7 @@
 (require 'magit)
 (require 'magit-gitflow)
 (require 'key-chord)
+(require 'spaceline-config)
 
 (scroll-bar-mode      -1)
 (tool-bar-mode        -1)
@@ -24,33 +23,28 @@
 (key-chord-mode        1)
 (yas/global-mode       1)
 
-(powerline-default-theme)
+(spaceline-emacs-theme)
+(spaceline-helm-mode)
+(spaceline-toggle-anzu-off)
+(spaceline-toggle-minor-modes-off)
+(zerodark-setup-modeline-format)
+
+(avy-setup-default)
 
 ;; UTF-8 preferred by default
 (prefer-coding-system 'utf-8)
 
-;; sane defaults
-(setq-default truncate-lines t
-              delete-selection-mode t)
+;; hydra config
+(defhydra hydra-todo (:pre
+                      (hl-todo-mode 1)
+                      :post
+                      (hl-todo-mode -1))
+  "Todo"
+  ("n" hl-todo-next "Next")
+  ("p" hl-todo-previous "Previous")
+  ("o" hl-todo-occur "Occur")
+  ("q" nil "Quit" :color blue :exit t))
 
-;; git flow enabler
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-
-;; helm configuration
-(setq helm-split-window-in-side-p t
-      helm-split-window-default-side 'other
-      helm-dash-common-docsets '("ClojureDocs/ClojureDocs"
-                                 "Clojure/Clojure"
-                                 "jQuery/jQuery"
-                                 "Lo-Dash/Lo-Dash"
-                                 "D3JS/D3JS"
-                                 "JavaScript/JavaScript"))
-
-(add-to-list 'display-buffer-alist
-             `(,(rx bos "*helm" (* not-newline) "*" eos)
-               (display-buffer-in-side-window)
-               (inhibit-same-window . t)
-               (window-height . 0.4)))
 
 (setq prelude-guru nil
       prelude-whitespace nil
@@ -61,8 +55,8 @@
       mac-command-modifier 'meta
       mac-option-modifier nil
 
+      confirm-nonexistent-file-or-buffer nil
       tags-revert-without-query 1
-      powerline-arrow-shape 'slant-right
       use-dialog-box nil
 
       ;; keep window splitting at sane proportions
@@ -70,53 +64,9 @@
 
       split-width-threshold 0
       split-height-threshold nil
-      window-min-width 30)
+      window-min-width 30
 
-
-;; no trailing whitespaces, please!
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; set deja-vu UTF characters
-;; this is important for Gnus decorations
-;; (set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
-;;                   (cons (decode-char 'ucs #x2500)
-;;                         (decode-char 'ucs #x25ff))
-;;                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-
-;; projectile setup
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-
-;; ido magic
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-auto-merge-work-directories-length nil
-      ido-create-new-buffer 'always
-      ido-use-faces nil
-      ido-use-filename-at-point 'guess
-      ido-use-virtual-buffers nil
-      ido-handle-duplicate-virtual-buffers 2
-      ido-max-prospects 10
-      ido-save-directory-list-file "~/tmp/ido.last"
-      ido-ignore-buffers '( "\\` " "^\*" "^\:" ".*Completion" "^\*Ido" "^\*trace" "^\*compilation" "^\*GTAGS" "\.bbdb" ".*nxhtml\-mode.*" "^\.newsrc*" ".*indent-buffer" "TAGS")
-      ido-decorations '("  " "" " | " ", ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]")
-
-      ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~/workspace")
-      ido-case-fold  t                    ; be case-insensitive
-      ido-enable-last-directory-history t ; remember last used dirs
-      ido-max-work-directory-list 20      ; should be enough
-      ido-max-work-file-list 50           ; remember many
-      ido-use-filename-at-point nil       ; don't use filename at point (annoying)
-      ido-use-url-at-point nil            ; don't use url at point (annoying)
-      ido-enable-flex-matching nil        ; don't try to be too smart
-      ido-max-prospects 8                 ; don't spam my minibuffer
-      ido-confirm-unique-completion t     ; wait for RET, even with unique completion
-
-      confirm-nonexistent-file-or-buffer nil) ; when using ido, the confirmation is rather annoying...
-
-
-;; ibuffer setup
-(setq ibuffer-expert t
+      ibuffer-expert t
       ibuffer-show-empty-filter-groups nil
       ibuffer-saved-filter-groups
       '(("home"
@@ -140,7 +90,44 @@
          ("ERC" (mode . erc-mode))
          ("Help" (or (name . "\*Help\*")
                      (name . "\*Apropos\*")
-                     (name . "\*info\*"))))))
+                     (name . "\*info\*")))))
+
+      ;; helm config
+
+      ;; helm-split-window-in-side-p t
+      ;; helm-split-window-default-side 'other
+      helm-dash-common-docsets '("Clojure/Clojure"
+                                 "Java_SE8/Java"
+                                 "jQuery/jQuery"
+                                 "Lo-Dash/Lo-Dash"
+                                 "D3JS/D3JS"
+                                 "JavaScript/JavaScript"))
+
+(setq-default
+ truncate-lines t
+ delete-selection-mode t)
+
+;; set deja-vu UTF characters
+;; this is important for Gnus decorations
+;; (set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
+;;                   (cons (decode-char 'ucs #x2500)
+;;                         (decode-char 'ucs #x25ff))
+;;                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+
+;; projectile setup
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+
+;; full screen magit-status
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+;; magit gitflow enabler
+;; (magithub-feature-autoinject t)
+
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 ;; Switching to ibuffer puts the cursor on the most recent buffer
 (defadvice ibuffer (around ibuffer-point-to-most-recent) ()
@@ -148,6 +135,8 @@
            (let ((recent-buffer-name (buffer-name)))
              ad-do-it
              (ibuffer-jump-to-buffer recent-buffer-name)))
+
+(ad-activate 'ibuffer)
 
 (add-hook 'ibuffer-mode-hook
           '(lambda ()
@@ -159,13 +148,15 @@
             (define-key dired-mode-map [M-up]
               (lambda () (interactive) (find-alternate-file "..")))))
 
-(ad-activate 'ibuffer)
+;; no trailing whitespaces, please!
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; full screen magit-status
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
+;; helm fixed layout
+(add-to-list 'display-buffer-alist
+             `(,(rx bos "*helm" (* not-newline) "*" eos)
+               (display-buffer-in-side-window)
+               (inhibit-same-window . t)
+               (window-height . 0.4)))
 
 (defun magit-quit-session ()
   "Restores the previous window configuration and kills the magit buffer"
@@ -275,25 +266,26 @@
 
 ;; Add custom magic requires to clj-refactor
 (dolist (mapping '(("time" . "clj-time.core")
-                   ("try"  . "clj-try.core")
-                   ("log"  . "clojure.tools.logging")
-                   ("str"  . "clojure.string")
-                   ("json" . "cheshire.core")
-                   ("csrf" . "ring.util.anti-forgery")
-                   ("selmer"    . "selmer.parser")
-                   ("response"  . "ring.util.response")
-                   ("component" . "com.stuartsierra.component")
-                   ("compojure" . "compojure.core")
-                   ("liberator" . "liberator.core")))
+                  ("try"  . "clj-try.core")
+                  ("rf"   . "re-frame.core")
+                  ("log"  . "clojure.tools.logging")
+                  ("str"  . "clojure.string")
+                  ("json" . "cheshire.core")
+                  ("csrf" . "ring.util.anti-forgery")
+                  ("selmer"    . "selmer.parser")
+                  ("response"  . "ring.util.response")
+                  ("component" . "com.stuartsierra.component")
+                  ("compojure" . "compojure.core")
+                  ("liberator" . "liberator.core")))
 
-  (add-to-list 'cljr-magic-require-namespaces mapping t))
+(add-to-list 'cljr-magic-require-namespaces mapping t))
 
 ;; handy function used to reset clojure app via boot/reset task
 (defun repl-reset ()
   "Sends (reset) to currently running repl"
   (interactive)
   (save-buffer)
-  (sleep-for 1.3)
+  (sleep-for 1)
   (cider-interactive-eval "(boot.user/reset)"))
 
 ;; company mode FTW
@@ -312,7 +304,6 @@
 (global-set-key (kbd "M-x")       'kill-region)
 (global-set-key (kbd "M-v")       'yank)
 (global-set-key (kbd "M-z")       'zop-to-char)
-(global-set-key (kbd "M-n")       'projectile-find-file)
 (global-set-key (kbd "C->")       'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-<")       'mc/mark-all-like-this-dwim)
 (global-set-key (kbd "M-w q")     'er/mark-inside-quotes)
@@ -327,13 +318,12 @@
 (global-set-key (kbd "C-x x")     'repl-reset)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
 (global-set-key (kbd "C-x C-i")   'helm-etags-select)
-(global-set-key (kbd "C-x s")     'helm-git-grep)
-(global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
+(global-set-key (kbd "C-x C-o")   'avy-goto-char-timer)
+(global-set-key (kbd "C-x s")     'helm-grep-do-git-grep)
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x i")     'cider-browse-ns)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
 (global-set-key (kbd "C-x C-d")   'helm-dash-at-point)
-(global-set-key (kbd "C-x C-o")   'ace-jump-word-mode)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
 (global-set-key (kbd "C-x C-l")   'bm-show-all)
 (global-set-key (kbd "C-h r")     'cljr-helm)
@@ -343,8 +333,10 @@
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
 (global-set-key [?\C-o]           'helm-imenu)
+(global-set-key [?\C-b]           'helm-buffers-list)
 (global-set-key [?\C-z]           'undo)
 (global-set-key [?\M-e]           'helm-M-x)
+(global-set-key [?\M-s]           'projectile-find-file)
 (global-set-key [?\M-a]           'find-tag-without-ns)
 (global-set-key [?\M-q]           'kill-buffer-and-window)
 (global-set-key [?\M-t]           'projectile-toggle-between-implementation-and-test)
@@ -354,8 +346,6 @@
 
 ;; key chords
 (key-chord-define-global "xx" 'whack-whitespace)
-(key-chord-define-global "zz" 'origami-toggle-node)
-(key-chord-define-global "qq" 'origami-toggle-all-nodes)
 
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 (diminish 'projectile-mode)
@@ -369,10 +359,12 @@
 (diminish 'flycheck-mode)
 (diminish 'company-mode)
 (diminish 'abbrev-mode)
-(diminish 'magit-wip-after-save-mode)
-(diminish 'magit-wip-after-save-local-mode)
+;; (diminish 'magit-wip-after-save-mode)
+;; (diminish 'magit-wip-after-save-local-mode)
 (diminish 'git-gutter+-mode)
 (diminish 'clj-refactor-mode)
+(diminish 'editorconfig-mode)
+(diminish 'which-key-mode)
 
 (defadvice select-window-by-number (after select-window activate)
   (golden-ratio)

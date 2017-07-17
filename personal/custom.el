@@ -3,18 +3,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(TeX-PDF-mode t)
- '(TeX-save-query nil)
- '(TeX-source-correlate-method (quote synctex))
- '(TeX-source-correlate-mode t)
- '(TeX-source-correlate-start-server t)
- '(TeX-view-program-list (quote (("Skim" "open %o"))))
- '(TeX-view-program-selection
-   (quote
-    ((output-pdf "Skim")
-     (output-dvi "xdvi")
-     (output-pdf "Evince")
-     (output-html "xdg-open"))))
  '(ack-and-a-half-executable "/usr/local/bin/ack")
  '(ack-and-a-half-mode-extension-alist
    (quote
@@ -30,9 +18,6 @@
  '(bm-recenter t)
  '(bmkp-auto-light-when-set (quote autonamed-bookmark))
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(c-basic-offset 4)
- '(c-comment-continuation-stars "* ")
- '(c-comment-only-line-offset 0)
  '(canlock-password "1085e8558dcb0236dbd9c1926f175176486526c1")
  '(case-fold-search t)
  '(cider-default-repl-command "boot")
@@ -74,17 +59,10 @@
  '(cursor-in-non-selected-windows nil)
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "4f0f2f5ec60a4c6881ba36ffbfef31b2eea1c63aad9fe3a4a0e89452346de278" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "ac2b1fed9c0f0190045359327e963ddad250e131fbf332e80d371b2e1dbc1dc4" "7b4d9b8a6ada8e24ac9eecd057093b0572d7008dbd912328231d0cada776065a" "97d039a52cfb190f4fd677f02f7d03cf7dbd353e08ac8a0cb991223b135ac4e6" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" "8abee8a14e028101f90a2d314f1b03bed1cde7fd3f1eb945ada6ffc15b1d7d65" "8288b9b453cdd2398339a9fd0cec94105bc5ca79b86695bd7bf0381b1fbe8147" "3b0a350918ee819dca209cec62d867678d7dac74f6195f5e3799aa206358a983" "b825687675ea2644d1c017f246077cdd725d4326a1c11d84871308573d019f67" "c697b65591ba1fdda42fae093563867a95046466285459bd4e686dc95a819310" "cdbd0a803de328a4986659d799659939d13ec01da1f482d838b68038c1bb35e8" "62408b3adcd05f887b6357e5bd9221652984a389e9b015f87bbc596aba62ba48" "770181eda0f652ef9293e8db103a7e5ca629c516ca33dfa4709e2c8a0e7120f3" "2dd32048690787844d8cba601ed3dd8b2f419e9bd985898d0c3792671a05b96b" "afc220610bee26945b7c750b0cca03775a8b73c27fdca81a586a0a62d45bbce2" "01ce486c3a7c8b37cf13f8c95ca4bb3c11413228b35676025fdf239e77019ea1" "7f5837a7dbf54c2b7c41d94f5eb1373cf63274847d1971037faa24d7f2231eea" "39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "3ff96689086ebc06f5f813a804f7114195b7c703ed2f19b51e10026723711e33" "b85fc9f122202c71b9884c5aff428eb81b99d25d619ee6fde7f3016e08515f07" "51e228ffd6c4fff9b5168b31d5927c27734e82ec61f414970fc6bcce23bc140d" "02919b8e923da4fa84cb4bd9a1b422e042451f5936dae2a64994a618815a5b33" "40bc0ac47a9bd5b8db7304f8ef628d71e2798135935eb450483db0dbbfff8b11" "603a9c7f3ca3253cb68584cb26c408afcf4e674d7db86badcfe649dd3c538656" "bac3f5378bc938e96315059cd0488d6ef7a365bae73dac2ff6698960df90552d" "18a33cdb764e4baf99b23dcd5abdbf1249670d412c6d3a8092ae1a7b211613d5" "bffa9e9d8c1af5456a2a66957c5efe7dac080b5deca30ece7d41b96e966d3651" "2916d16e583c17bb2a1a9d231ea8ddcb3577f8cb97179eea689e91036213ff03" "3fd36152f5be7e701856c3d817356f78a4b1f4aefbbe8bbdd1ecbfa557b50006" "8cf56691a70156f611ac86d0bbcbc7dee7673df195de5918f34bfdc6814ffd39" "3164a65923ef23e0f3dff9f9607b4da1e07ef1c3888d0f6878feef6c28357732" "4530ef4d9cf54740fffb6ce25b393122158057d213a2b812f04930fcadf89d62" "77bd459212c0176bdf63c1904c4ba20fce015f730f0343776a1a14432de80990" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "f9e975bdf5843982f4860b39b2409d7fa66afab3deb2616c41a403d788749628" "013e87003e1e965d8ad78ee5b8927e743f940c7679959149bbee9a15bd286689" "9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e292ec749f785d348969926448e25790356a7ce1a8fda6e695f5e8b70bed786b" "a5beb9b1d6dc23dd8a3c204c159c9a5f1e0115ff14b5b8579d6f3ede4f3b3aee" "6c9ddb5e2ac58afb32358def7c68b6211f30dec8a92e44d2b9552141f76891b3" "0795e2c85394140788d72d34969be4acb305e4a54149e7237787d9df27832fbb" "0c311fb22e6197daba9123f43da98f273d2bfaeeaeb653007ad1ee77f0003037" "eea517c5cc867585ba1318d5bb9357b8a5b586e9220f32f35b15124b06d36029" "c63bee436bd8a67f6d9cd96acd5720c4a949c169f09c6850c439751f14fd923e" "1af9aa2eaaaf6cfa7d3b3d0c6d653a9e05b28f11681fbf4efb75812f4a2a310a" "89586444c668bae9ec7e594bc38b3a956f31dc6cb7c851ed40411cc4ff770708" "3103287c8d39800d6b41f8664b223f8ecdd8c6cc0b073441e174b61afdb4ce02" "c87cc60d01cf755375759d165c1d60d9586c6a31f0b5437a0378c2a93cfc8407" "70cf411fbf9512a4da81aa1e87b064d3a3f0a47b19d7a4850578c8d64cac2353" "1cd9defef2a98138c732728568b04043afd321eb802d25a254777de9b2463768" "96efbabfb6516f7375cdf85e7781fe7b7249b6e8114676d65337a1ffe78b78d9" "a655f17225ad0a7190c79602593563191b7640ddebbb8c8fbd80c9d82faff1c6" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "b458d10c9ea0c8c465635b7b13e1bd23f04e6b696b1ca96cb2c4eca35a31641e" "7dd515d883520286fc8936ce32381fb01b978d0d7cfb6fe56f7f55d8accbf63a" "56cb99174fad69feba8edd6663c592e77d77332fb4c4bb5be058ef459a426463" "c3e567dedaa800e869d879c4df8478237d6ea31fd04464086fd674c864fe4d71" "18e89f93cbaaac214202142d910582354d36639f21f32b04718ca6425dbc82a2" "96b023d1a6e796bab61b472f4379656bcac67b3af4e565d9fb1b6b7989356610" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "3d003561784526d83d1dd187aecf4799c72af27046bc3aa2f6d95c64e5ee4746" "d809ca3cef02087b48f3f94279b86feca896f544ae4a82b523fba823206b6040" "2affb26fb9a1b9325f05f4233d08ccbba7ec6e0c99c64681895219f964aac7af" "fa942713c74b5ad27893e72ed8dccf791c9d39e5e7336e52d76e7125bfa51d4c" "456ac8176c7c01680384356cbdc568a7683d1bada9c83ae3d7294809ddda4014" "569dc84822fc0ac6025f50df56eeee0843bffdeceff2c1f1d3b87d4f7d9fa661" "ad9fc392386f4859d28fe4ef3803585b51557838dbc072762117adad37e83585" "2a12e95e9ee6ed57592e7df12f3f028205575e9b3affdb5e6fa589421c618136" "72407995e2f9932fda3347e44e8c3f29879c5ed88da71f06ba4887b0596959a4" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
- '(default-indicate-buffer-boundaries (quote left) t)
+    ("ea4ae3c179b4fd23f50b50062ca0312f7bf0151aa4ba8c10088bba87943d8b93" default)))
+ '(default-indicate-buffer-boundaries (Quote left) t)
  '(default-input-method "latin-2-prefix")
  '(default-justification (quote left))
- '(desktop-base-file-name ".emacs.desktop")
- '(desktop-buffers-not-to-save "")
- '(desktop-file-name-format (quote absolute))
- '(desktop-files-not-to-save "^$")
- '(desktop-path (quote ("." "~/.emacs.d/" "~" "~/.notes")))
- '(desktop-save nil)
- '(desktop-save-mode nil)
  '(dired-listing-switches "-alo")
  '(epg-debug t)
  '(epg-gpg-program "/usr/local/MacGPG2/bin/gpg2")
@@ -117,11 +95,11 @@
     ("/etc/ssl/certs/ca-certificates.crt" "/etc/pki/tls/certs/ca-bundle.crt" "/etc/ssl/ca-bundle.pem" "/usr/ssl/certs/ca-bundle.crt" "/usr/local/share/certs/ca-root-nss.crt" "~/.emacs.d/ca-bundle.crt")))
  '(golden-ratio-exclude-buffer-names
    (quote
-    ("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*Helm Swoop*")))
+    ("*helm imenu*" "*helm etags*" "*Ediff Control Panel*" "*Helm Swoop*" "*fzf*")))
  '(golden-ratio-exclude-buffer-regexp (quote ("undo")))
  '(golden-ratio-exclude-modes
    (quote
-    ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode)))
+    ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)))
  '(helm-boring-buffer-regexp-list
    (quote
     ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "TAGS" "\\*magit-*" "\\*edn\\*" "\\*nrepl-messages *" "\\*cider-repl *" "\\*cider-error\\*")))
@@ -136,15 +114,11 @@
      (ffap-alternate-file)
      (tmm-menubar)
      (cycbuf-switch-to-next-buffer))))
+ '(helm-dash-docsets-path "/Users/michal/.docsets")
  '(helm-dictionary-browser-function (quote browse-url-mozilla))
  '(helm-display-header-line nil)
  '(helm-net-prefer-curl t)
- '(helm-swoop-speed-or-color nil)
- '(helm-swoop-split-direction (quote split-window-vertically))
- '(helm-swoop-split-with-multiple-windows t)
  '(helm-truncate-lines t t)
- '(history-mode t)
- '(history-window-local-history t)
  '(hscroll-step 1)
  '(ibuffer-display-summary nil)
  '(ibuffer-never-show-predicates
@@ -178,9 +152,6 @@
  '(makefile-electric-keys t)
  '(menu-bar-mode nil)
  '(minibuffer-max-depth nil)
- '(minimap-mode t)
- '(minimap-width-fraction 0.1)
- '(minimap-window-location (quote right))
  '(mm-w3m-safe-url-regexp nil)
  '(mouse-drag-copy-region nil)
  '(mouse-yank-at-point nil)
@@ -191,13 +162,12 @@
  '(org-tags-column -90)
  '(package-selected-packages
    (quote
-    (powershell highlight-indent-guides helm-git-grep smartparens web-mode which-key yaml-mode typescript-mode emmet-mode helm-emmet helm-css-scss origami expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes soft-charcoal-theme smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters powerline paxedit ov operate-on-number move-text monokai-theme monochrome-theme markdown-mode magit-gitflow lui less-css-mode lcs key-chord json-mode js2-mode ivy imenu-anywhere ido-ubiquitous highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dictionary helm-dash helm-clojuredocs helm-cider-history helm-cider helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode gruvbox-theme gruber-darker-theme grizzl golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist focus flycheck flx-ido firecode-theme exec-path-from-shell erlang elisp-slime-nav easy-kill dockerfile-mode discover-my-major diminish diff-hl dash-at-point darktooth-theme darkburn-theme darcula-theme dakrone-theme crux company-web color-theme coffee-mode cljr-helm busybee-theme browse-kill-ring browse-at-remote beacon badwolf-theme badger-theme atom-one-dark-theme anzu ample-zen-theme ag ace-window ace-jump-mode ace-jump-buffer)))
+    (zerodark-theme helm geben-helm-projectile cljr-helm clj-refactor restclient-helm restclient smartparens darktooth-theme spaceline helm-git-grep elscreen ws-butler hl-todo webpaste csv-mode pomidor highlight-indent-guides web-mode yaml-mode emmet-mode helm-emmet helm-css-scss origami expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters paxedit ov operate-on-number markdown-mode magit-gitflow less-css-mode lcs key-chord json-mode js2-mode ivy imenu-anywhere highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dictionary helm-dash helm-clojuredocs helm-cider-history helm-cider helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist flycheck flx-ido exec-path-from-shell dockerfile-mode discover-my-major diminish diff-hl dash-at-point crux company-web color-theme browse-kill-ring browse-at-remote beacon atom-one-dark-theme ag ace-window ace-jump-mode ace-jump-buffer)))
  '(paren-dont-touch-blink t)
  '(popcmp-completion-style (quote anything))
  '(popcmp-group-alternatives nil)
  '(popcmp-short-help-beside-alts t)
- '(powerline-default-separator (quote box))
- '(prelude-theme (quote wombat))
+ '(powerline-default-separator (quote butt))
  '(projectile-enable-idle-timer t)
  '(projectile-globally-ignored-file-suffixes (quote ("groovy" "java" "gz" "png")))
  '(projectile-globally-ignored-files (quote ("TAGS")))
@@ -220,7 +190,7 @@
      ("M-<up>" . sp-backward-up-sexp)
      ("M-<down>" . sp-down-sexp)
      ("M-r" . cider-switch-repl)
-     ("M-s" . helm-buffers-list)
+     ("M-s" . projectile-find-file)
      ("M-x" . kill-region)
      ("C-|" . paxedit-sexp-raise)
      ("M-C-<backspace>" . paxedit-delete)
@@ -238,55 +208,25 @@
  '(tags-add-tables nil)
  '(tool-bar-mode nil)
  '(undo-tree-auto-save-history nil)
+ '(undo-tree-visualizer-timestamps t)
  '(visible-bell nil)
  '(web-mode-auto-close-style 2)
  '(web-mode-code-indent-offset 4)
  '(web-mode-enable-current-column-highlight t)
  '(web-mode-script-padding 0)
+ '(ws-butler-global-mode t)
  '(yas-prompt-functions
    (quote
     (yas-completing-prompt yas-ido-prompt yas-no-prompt)))
  '(yas-wrap-around-region t)
  '(zencoding-preview-default nil))
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Roboto Mono" :foundry "nil" :slant normal :weight light :height 140 :width normal))))
+ '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight normal :height 141 :width normal))))
  '(comint-highlight-input ((t (:underline nil :weight bold))))
  '(comint-highlight-prompt ((t (:inherit minibuffer-prompt :underline nil))))
  '(company-tooltip-annotation-selection ((t (:foreground "white"))))
- '(compilation-column-number ((t (:inherit font-lock-doc-face :underline nil))))
- '(compilation-error ((t (:inherit error :underline nil :slant italic))))
- '(compilation-warning ((t (:inherit warning :underline nil))))
- '(diff-hunk-header ((t (:background "#111"))))
- '(diff-indicator-added ((t (:foreground "DarkGreen"))))
- '(diff-indicator-removed ((t (:foreground "DarkRed"))))
- '(face-1 ((t (:foreground "grey30"))))
- '(face-2 ((t (:foreground "white" :weight bold :font "Ubuntu Mono" :height 140))))
- '(face-3 ((t (:weight normal))))
- '(face-4 ((t (:foreground "orange" :font "Ubuntu Mono" :height 140))))
- '(face-5 ((t (:foreground "grey40"))))
- '(face-6 ((t (:foreground "red"))))
- '(gnus-group-news-1 ((t (:foreground "gray90"))))
- '(gnus-group-news-2 ((t (:foreground "gray70"))))
- '(gnus-group-news-3 ((t (:foreground "gray70"))))
- '(gnus-group-news-3-empty ((t (:foreground "gray50"))))
- '(gnus-signature ((t (:foreground "#777"))))
- '(gnus-summary-cancelled ((t (:foreground "purple" :background "#2d2d2d" :weight normal))))
- '(gnus-summary-high-ancient ((t (:foreground "LightSalmon" :weight bold))))
- '(gnus-summary-high-read ((t (:foreground "LightBlue" :weight normal))))
- '(gnus-summary-high-unread ((t (:foreground "cyan" :weight normal))))
- '(gnus-summary-normal-ancient ((t (:foreground "LightGreen"))))
- '(gnus-summary-normal-read ((t (:foreground "Green"))))
- '(gnus-summary-normal-ticked ((t (:foreground "pink" :weight normal))))
- '(gnus-summary-normal-unread ((t (:foreground "LightGreen"))))
- '(highline-face ((t (:background "#666"))) t)
- '(org-document-info ((t (:height 0.9 :family "Tahoma" :weight bold))))
- '(org-document-title ((t (:height 0.9 :family "Tahoma" :weight bold))))
- '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
- '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
- '(twittering-uri-face ((t (:foreground "gray70" :underline nil))) t)
- '(twittering-username-face ((t (:foreground "LightSalmon" :underline nil :weight bold))) t))
+ '(gnus-summary-low-read ((t (:foreground "DimGrey" :strike-through t)))))

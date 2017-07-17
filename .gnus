@@ -1,139 +1,124 @@
-;; (require 'starttls)
-;; (require 'nnir)
-;; (setq org-contacts-completion-ignore-case t)
-;; (org-contacts-gnus-insinuate)
-
 (setq
-  gnus-save-newsrc-file t
-  gnus-read-newsrc-file t
-  gnus-always-read-dribble-file t
-  gnus-always-save-dribble-file t
-  gnus-dribble-directory "~/tmp"
-  gnus-inhibit-startup-message t
-  gnus-play-startup-jingle nil
-  gnus-interactive-exit nil
-  gnus-treat-body-boundary nil
-  gnus-treat-buttonize t
-  gnus-treat-buttonize-head 'head
-  gnus-treat-date-original 'head
-  gnus-treat-display-smileys t
-  gnus-treat-emphasize t
-  gnus-treat-fill-long-lines nil
-  gnus-treat-from-picon 'head
-  gnus-treat-hide-boring-headers 'head
-  gnus-treat-highlight-citation t
-  gnus-treat-highlight-headers 'head
-  gnus-treat-highlight-signature 'last
-  gnus-treat-strip-cr t
-  gnus-treat-strip-leading-blank-lines t
-  gnus-treat-strip-trailing-blank-lines t
-  gnus-treat-strip-pem t
-  gnus-treat-translate t
-  gnus-auto-select-first nil
-  gnus-newsgroup-maximum-articles 300
+ user-full-name "Janko Muzykant"
+ user-mail-address "umrzyk@gmail.com"
 
-  ;; scoring
+ gnus-select-method '(nntp "europe.newsdemon.com")
+ gnus-dribble-directory "~/tmp"
+ gnus-always-read-dribble-file t
+ gnus-always-save-dribble-file t
+ gnus-save-newsrc-file t
+ gnus-read-newsrc-file t
+ gnus-inhibit-startup-message t
+ gnus-play-startup-jingle nil
+ gnus-interactive-exit nil
+ gnus-treat-body-boundary nil
+ gnus-treat-buttonize t
+ gnus-treat-buttonize-head 'head
+ gnus-treat-date-original 'head
+ gnus-treat-display-smileys t
+ gnus-treat-emphasize t
+ gnus-treat-fill-long-lines nil
+ gnus-treat-from-picon 'head
+ gnus-treat-hide-boring-headers 'head
+ gnus-treat-highlight-citation t
+ gnus-treat-highlight-headers 'head
+ gnus-treat-highlight-signature 'last
+ gnus-treat-strip-cr t
+ gnus-treat-strip-leading-blank-lines t
+ gnus-treat-strip-trailing-blank-lines t
+ gnus-treat-strip-pem t
+ gnus-treat-translate t
+ gnus-auto-select-first nil
+ gnus-newsgroup-maximum-articles 300
+ gnus-use-sendmail nil
+ gnus-signature-limit 500
+ gnus-large-newsgroup 2000
+ gnus-activate-level 3
+ gnus-save-all-headers t
+ gnus-check-new-newsgroups nil
+ gnus-read-active-file 'ask-server
+ gnus-nov-is-evil nil
+ gnus-novice-user nil
 
-  gnus-use-scoring t
-  gnus-score-interactive-default-score 3
-  gnus-global-score-files '("~/News/all.SCORE")
-  gnus-default-charset (quote iso-8859-2)
-  gnus-default-posting-charset (quote iso-8859-2)
-  gnus-signature-separator
-           '("^-- $"         ; The standard
-             "^-- *$"        ; A common mangling
-             "^-------*$"    ; Many people just use a looong line of dashes.  Shame!
-             "^ *--------*$" ; Double-shame!
-             "^________*$"   ; Underscores are also popular
-             "^========*$")  ; Pervert!
+ ;; scoring
+ gnus-use-scoring t
+ gnus-global-score-files '("~/News/all.SCORE")
+ gnus-score-interactive-default-score 3
 
-  gnus-ignored-from-addresses t
+ ;; charsets
+ gnus-default-charset (quote iso-8859-2)
+ gnus-default-posting-charset (quote iso-8859-2)
 
-  ;; Make Gnus NOT ignore [Gmail] mailboxes
-  gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
+ ;; Make Gnus NOT ignore [Gmail] mailboxes
+ gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
+ gnus-ignored-from-addresses t
 
-  gnus-use-sendmail nil
-  gnus-signature-limit 500
-  gnus-large-newsgroup 2000
+ ;; agent configuration
+ gnus-agent t
+ gnus-agent-enable-expiration t
+ gnus-agent-expire-days 30
+ gnus-agent-long-article 1000
 
-  gnus-activate-level 3
-  gnus-save-all-headers t
-  gnus-check-new-newsgroups nil
-  gnus-read-active-file nil ;;'ask-server
-  gnus-nov-is-evil nil
-  gnus-novice-user nil
+ gnus-button-url 'browse-url-generic
+ gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
+ gnus-article-emulate-mime t
 
-  gnus-agent t
-  gnus-agent-enable-expiration t
-  gnus-agent-expire-days 30
-  gnus-agent-long-article 1000
+ ;; headers setup
+ gnus-visible-headers "^From:\\|^To:\\|^Subject:\\|^Newsgroups:\\|^Date:\\|^Organization:\\|^X-Newsreader:\\|^User-Agent:"
+ gnus-extra-headers '(To Newsgroups Content-Type)
 
-  gnus-button-url 'browse-url-generic
+ nnmail-extra-headers '(To X-Label Newsgroups Content-Type)
+ nnmail-treat-duplicates 'delete
+ nnmail-keep-last-article nil
 
-  ;; headers setup
+ ;; signature
+ gnus-signature-separator
+ '("^-- $"         ; The standard
+   "^-- *$"        ; A common mangling
+   "^-------*$"    ; Many people just use a looong line of dashes.  Shame!
+   "^ *--------*$" ; Double-shame!
+   "^________*$"   ; Underscores are also popular
+   "^========*$")  ; Pervert!
 
-  gnus-visible-headers "^From:\\|^To:\\|^Subject:\\|^Newsgroups:\\|^Date:\\|^Organization:\\|^X-Newsreader:\\|^User-Agent:"
-  gnus-extra-headers '(To Newsgroups Content-Type)
+ ;; ~/Mail folders are annoying
+ message-auto-save-directory "~/.archive"
+ nndraft-directory "~/.archive"
 
-  nnmail-extra-headers '(To X-Label Newsgroups Content-Type)
-  nnmail-treat-duplicates 'delete
-  nnmail-keep-last-article nil
+ ;; mails archiving setup
+ gnus-message-archive-group '((if (message-news-p) "sent-news" "sent-mail"))
+ gnus-message-archive-method '(nnfolder "archive"
+                                        (nnfolder-inhibit-expiry t)
+                                        (nnfolder-active-file "~/.archive/active")
+                                        (nnfolder-directory "~/.archive"))
+ ;; posting styles
+ gnus-posting-styles '((".*" (signature "Keep flying and stay shiny"))
+                       ("gmane.*" (signature "\"This is so f*cking simple that I can't go wrong\" - most popular testing strategy")))
 
-  ;;gnus-select-method '(nntp "news.gmane.org")
-  gnus-select-method '(nntp "news.newsdemon.com")
+ ;; articles sorting by date (reverse)
+ gnus-thread-sort-functions '(lambda (t1 t2) (not (gnus-thread-sort-by-date t1 t2)))
 
-  ;; ~/Mail folders are annoying
+ message-forward-as-mime t
+ message-wash-forwarded-subjects t
+ message-send-mail-partially-limit nil
+ message-yank-cited-prefix "> "
+ message-yank-prefix "> "
+ message-signature t
+ message-default-headers (concat
+                          "Content-Type: text/plain; charset=iso-8859-2\n"
+                          "Content-Transfer-Encoding: 8bit\n")
 
-  message-auto-save-directory "~/.archive"
-  nndraft-directory "~/.archive"
+ ;; use w3m for html rendering
+ w3m-display-inline-image t
+ mm-text-html-renderer 'w3m
+ mm-inline-text-html-with-images t
+ mm-inline-text-html-renderer 'mm-inline-text-html-render-with-w3m
 
-  gnus-message-archive-method
-      '(nnfolder "archive"
-                 (nnfolder-inhibit-expiry t)
-                 (nnfolder-active-file "~/.archive/active")
-                 (nnfolder-directory "~/.archive"))
+ ;; define external browser
+ browse-url-browser-function 'browse-url-default-macosx-browser
 
-  ;; mails archiving setup
-
-  gnus-message-archive-group '((if (message-news-p) "sent-news" "sent-mail"))
-
-  ;; posting styles
-
-  gnus-posting-styles '((".*" (signature "Keep flying and stay shiny"))
-                        ("gmane.*" (signature "\"This is so f*cking simple that I can't go wrong\" - most popular testing strategy")))
-
-
-  ;; articles sorting by date (reverse)
-
-  gnus-thread-sort-functions '(lambda (t1 t2) (not (gnus-thread-sort-by-date t1 t2)))
-
-  message-forward-as-mime t
-  message-wash-forwarded-subjects t
-  message-send-mail-partially-limit nil
-  message-yank-cited-prefix "> "
-  message-yank-prefix "> "
-  message-signature t
-
-  message-default-headers (concat
-   "Content-Type: text/plain; charset=iso-8859-2\n"
-   "Content-Transfer-Encoding: 8bit\n")
-
-  ;; use w3m for html rendering
-  mm-text-html-renderer 'w3m
-  mm-inline-text-html-with-images t
-  mm-inline-text-html-renderer 'mm-inline-text-html-render-with-w3m
-
-  w3m-display-inline-image t
-
-  ;; define external browser
-  browse-url-browser-function 'browse-url-default-macosx-browser
-
-  ;; Emacs PGG customizaiton
-  mm-verify-option 'known
-  mm-decrypt-option 'known
-
-  gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
-  gnus-article-emulate-mime t)
+ ;; Emacs PGG customizaiton
+ mm-verify-option 'known
+ mm-decrypt-option 'known)
 
 (defvar *mb-mails* "umrzykus@gazeta\\.pl")
 
@@ -148,33 +133,29 @@
           "~"
         " "))))
 
-
 (when window-system
   (setq
-     gnus-sum-thread-tree-root "● "
-     gnus-sum-thread-tree-false-root "▷ "
-     gnus-sum-thread-tree-single-indent ""
-     gnus-sum-thread-tree-leaf-with-other "├─► "
-     gnus-sum-thread-tree-vertical "│ "
-     gnus-sum-thread-tree-single-leaf "└─► "))
+   gnus-sum-thread-tree-root "● "
+   gnus-sum-thread-tree-false-root "▷ "
+   gnus-sum-thread-tree-single-indent ""
+   gnus-sum-thread-tree-leaf-with-other "├─► "
+   gnus-sum-thread-tree-vertical "│ "
+   gnus-sum-thread-tree-single-leaf "└─► "))
 
 (setq
-  gnus-group-line-format   "%5{%M%}%S%3{%5y%} : %(%4{%g%}%) %5{(%R)%}\n"
-  gnus-summary-line-format "%1{%U%R%z: %}%2{%d%}%5{ %[%4i%] %}%um %4{%-30,30n%}%1{│%}%1{ %B%}%(%s%)\n"
-  gnus-server-line-format  "   {%(%h:%w%)} %s - %n\n"
+ gnus-group-line-format   "%5{%M%}%S%3{%5y%} : %(%4{%g%}%) %5{(%R)%}\n"
+ gnus-summary-line-format "%1{%U%R%z: %}%2{%d%}%5{ %[%4i%]%}%um%4{%-30,30n%}%1{│%}%1{ %B%}%(%s%)\n"
+ gnus-server-line-format  "   {%(%h:%w%)} %s - %n\n"
 
-  gnus-summary-make-false-root 'adopt
-  gnus-summary-same-subject ""
-  gnus-summary-exit-hook 'gnus-summary-bubble-group)
+ gnus-summary-make-false-root 'adopt
+ gnus-summary-same-subject ""
+ gnus-summary-exit-hook 'gnus-summary-bubble-group)
 
 ;; put groups into topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 ;; increase score of own articles and follow-ups
 (add-hook 'message-sent-hook 'gnus-score-followup-thread) ;;'gnus-score-followup-article
-
-(setq user-full-name "Janko Muzykant"
-	  user-mail-address "umrzyk@gmail.com")
 
 (defconst w3m-meta-content-type-charset-regexp
   "<meta[ \t\n]+http-equiv=\"?Content-type\"?[ \t\n]+\content=\"?\\([^;]+\\);[ \t\n]*charset=\\([^\"]+\\)\"?[ \t\n]*/?>")
@@ -189,7 +170,6 @@
 (defface face-6 '((default (:foreground "red")))    "gnus face 6")
 
 ;; Keep track of own postings
-
 (defface gnus-own-posting-face nil
   "Use this face to display own postings in Summary Buffer")
 
@@ -209,9 +189,3 @@
   (lambda()
     (interactive)
     (w3m-external-view-this-url)))
-
-;; (defadvice gnus-summary-save-parts-1 (around gnus-summary-save-parts-exclude-self activate)
-;;   (let ((handle (ad-get-arg 2)))
-;;     (unless (and (not (stringp (car handle)))
-;;                  (not (mm-handle-filename handle)))
-;;       ad-do-it)))
