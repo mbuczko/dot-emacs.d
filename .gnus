@@ -67,6 +67,9 @@
  gnus-visible-headers "^From:\\|^To:\\|^Subject:\\|^Newsgroups:\\|^Date:\\|^Organization:\\|^X-Newsreader:\\|^User-Agent:"
  gnus-extra-headers '(To Newsgroups Content-Type)
 
+ ;; define external browser
+ browse-url-browser-function 'browse-url-default-macosx-browser
+
  nnmail-extra-headers '(To X-Label Newsgroups Content-Type)
  nnmail-treat-duplicates 'delete
  nnmail-keep-last-article nil
@@ -112,9 +115,7 @@
  mm-text-html-renderer 'w3m
  mm-inline-text-html-with-images t
  mm-inline-text-html-renderer 'mm-inline-text-html-render-with-w3m
-
- ;; define external browser
- browse-url-browser-function 'browse-url-default-macosx-browser
+ mm-w3m-safe-url-regexp nil
 
  ;; Emacs PGG customizaiton
  mm-verify-option 'known
@@ -136,14 +137,14 @@
 (when window-system
   (setq
    gnus-sum-thread-tree-root "● "
-   gnus-sum-thread-tree-false-root "▷ "
+   gnus-sum-thread-tree-false-root "○ "
    gnus-sum-thread-tree-single-indent ""
-   gnus-sum-thread-tree-leaf-with-other "├─► "
+   gnus-sum-thread-tree-leaf-with-other "├─▻ "
    gnus-sum-thread-tree-vertical "│ "
-   gnus-sum-thread-tree-single-leaf "└─► "))
+   gnus-sum-thread-tree-single-leaf "└─▻ "))
 
 (setq
- gnus-group-line-format   "%5{%M%}%S%3{%5y%} : %(%4{%g%}%) %5{(%R)%}\n"
+ gnus-group-line-format   "%5{%M%}%S%3{%5y%} ▪ %(%4{%g%}%) %5{(%R)%}\n"
  gnus-summary-line-format "%1{%U%R%z: %}%2{%d%}%5{ %[%4i%]%}%um%4{%-30,30n%}%1{│%}%1{ %B%}%(%s%)\n"
  gnus-server-line-format  "   {%(%h:%w%)} %s - %n\n"
 
@@ -185,7 +186,4 @@
       gnus-face-5 'face-5
       gnus-face-6 'face-6)
 
-(define-key gnus-article-mode-map (kbd "C-c C-o")
-  (lambda()
-    (interactive)
-    (w3m-external-view-this-url)))
+(define-key gnus-article-mode-map (kbd "o") 'w3m-view-url-with-browse-url)

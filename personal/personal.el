@@ -7,6 +7,7 @@
 (require 'clj-refactor)
 (require 'magit)
 (require 'magit-gitflow)
+(require 'magithub)
 (require 'key-chord)
 (require 'spaceline-config)
 
@@ -107,13 +108,6 @@
  truncate-lines t
  delete-selection-mode t)
 
-;; set deja-vu UTF characters
-;; this is important for Gnus decorations
-;; (set-fontset-font "-*-*-*-*-*-*-*-*-*-*-*-*-fontset-default"
-;;                   (cons (decode-char 'ucs #x2500)
-;;                         (decode-char 'ucs #x25ff))
-;;                   "-apple-DejaVu_Sans_Mono-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-
 ;; projectile setup
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
@@ -125,7 +119,7 @@
   (delete-other-windows))
 
 ;; magit gitflow enabler
-;; (magithub-feature-autoinject t)
+(magithub-feature-autoinject t)
 
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
@@ -138,10 +132,10 @@
 
 (ad-activate 'ibuffer)
 
-(add-hook 'ibuffer-mode-hook
-          '(lambda ()
-             (ibuffer-auto-mode 1)
-             (ibuffer-switch-to-saved-filter-groups "home")))
+;; (add-hook 'ibuffer-mode-hook
+;;           '(lambda ()
+;;              (ibuffer-auto-mode 1)
+;;              (ibuffer-switch-to-saved-filter-groups "home")))
 
 (add-hook 'dired-mode-hook
           (lambda ()
@@ -304,6 +298,18 @@
 (global-set-key (kbd "M-x")       'kill-region)
 (global-set-key (kbd "M-v")       'yank)
 (global-set-key (kbd "M-z")       'zop-to-char)
+(global-set-key (kbd "M-e")       'helm-M-x)
+(global-set-key (kbd "M-s")       'projectile-find-file)
+(global-set-key (kbd "M-a")       'find-tag-without-ns)
+(global-set-key (kbd "M-q")       'kill-buffer-and-window)
+(global-set-key (kbd "M-t")       'projectile-toggle-between-implementation-and-test)
+(global-set-key (kbd "M-;")       'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "M-p")       'crux-cleanup-buffer-or-region)
+(global-set-key (kbd "M-[")       'paredit-wrap-square)
+(global-set-key (kbd "M-{")       'paredit-wrap-curly)
+(global-set-key (kbd "C-o")       'helm-imenu)
+(global-set-key (kbd "C-b")       'helm-buffers-list)
+(global-set-key (kbd "C-z")       'undo)
 (global-set-key (kbd "C->")       'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-<")       'mc/mark-all-like-this-dwim)
 (global-set-key (kbd "M-w q")     'er/mark-inside-quotes)
@@ -317,13 +323,14 @@
 (global-set-key (kbd "C-c m")     'magit-status)
 (global-set-key (kbd "C-x x")     'repl-reset)
 (global-set-key (kbd "C-x f")     'projectile-find-file)
-(global-set-key (kbd "C-x C-i")   'helm-etags-select)
 (global-set-key (kbd "C-x C-o")   'avy-goto-char-timer)
-(global-set-key (kbd "C-x s")     'helm-grep-do-git-grep)
+(global-set-key (kbd "C-x C-i")   'helm-etags-select)
+(global-set-key (kbd "C-x a")     'helm-grep-do-git-grep)
+(global-set-key (kbd "C-x s")     'helm-projectile-grep)
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x i")     'cider-browse-ns)
+(global-set-key (kbd "C-x d")     'helm-dash-at-point)
 (global-set-key (kbd "C-x C-r")   'helm-mini)
-(global-set-key (kbd "C-x C-d")   'helm-dash-at-point)
 (global-set-key (kbd "C-x C-m")   'bm-toggle)
 (global-set-key (kbd "C-x C-l")   'bm-show-all)
 (global-set-key (kbd "C-h r")     'cljr-helm)
@@ -332,17 +339,7 @@
 (global-set-key [C-S-up]          'highlight-symbol-prev)
 (global-set-key [(C-backspace)]   'backward-kill-word)
 (global-set-key [(C-S-return)]    'er/expand-region)
-(global-set-key [?\C-o]           'helm-imenu)
-(global-set-key [?\C-b]           'helm-buffers-list)
-(global-set-key [?\C-z]           'undo)
-(global-set-key [?\M-e]           'helm-M-x)
-(global-set-key [?\M-s]           'projectile-find-file)
-(global-set-key [?\M-a]           'find-tag-without-ns)
-(global-set-key [?\M-q]           'kill-buffer-and-window)
-(global-set-key [?\M-t]           'projectile-toggle-between-implementation-and-test)
-(global-set-key [?\M-\;]          'comment-or-uncomment-region-or-line)
-(global-set-key [?\M-p]           '(lambda () (interactive) (save-excursion (mark-whole-buffer) (indent-for-tab-command))))
-(global-set-key [?\M-[]           '(lambda () (interactive) (sp-wrap-with-pair "[")))
+(global-set-key [(C-tab)]         'ace-window)
 
 ;; key chords
 (key-chord-define-global "xx" 'whack-whitespace)
@@ -359,17 +356,25 @@
 (diminish 'flycheck-mode)
 (diminish 'company-mode)
 (diminish 'abbrev-mode)
-;; (diminish 'magit-wip-after-save-mode)
-;; (diminish 'magit-wip-after-save-local-mode)
 (diminish 'git-gutter+-mode)
 (diminish 'clj-refactor-mode)
 (diminish 'editorconfig-mode)
 (diminish 'which-key-mode)
+(diminish 'd)
+;; (diminish 'magit-wip-after-save-mode)
+;; (diminish 'magit-wip-after-save-local-mode)
 
-(defadvice select-window-by-number (after select-window activate)
+(defun golden-size ()
   (golden-ratio)
   (if (not (string= major-mode "cider-repl-mode"))
       (move-to-left-margin)))
+
+(defadvice select-window-by-number (after select-window activate)
+  (golden-size))
+
+(defadvice ace-select-window (after select-window activate)
+  (golden-size))
+
 
 ;; SBCL
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))

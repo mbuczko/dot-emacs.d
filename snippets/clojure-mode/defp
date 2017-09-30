@@ -1,4 +1,4 @@
-#name: defprotocol
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (def private ...)
 # --
-(defprotocol ${1:Name}
-  $0)
+(def ^:private $1 $0)

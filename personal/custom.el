@@ -11,6 +11,7 @@
  '(ack-executable "/usr/local/bin/ack")
  '(appmenu-mode nil)
  '(auth-sources (quote ("~/.authinfo" "~/.authinfo.gpg")))
+ '(auto-dim-other-buffers-mode t)
  '(bell-volume 0)
  '(block-comment-end nil t)
  '(bm-buffer-persistence t)
@@ -22,7 +23,7 @@
  '(case-fold-search t)
  '(cider-default-repl-command "boot")
  '(cider-repl-display-in-current-window t)
- '(cider-repl-history-file nil)
+ '(cider-repl-history-file ".cider_history")
  '(cider-repl-pop-to-buffer-on-connect nil)
  '(cider-repl-use-pretty-printing t)
  '(cljr-auto-clean-ns t)
@@ -64,6 +65,7 @@
  '(default-input-method "latin-2-prefix")
  '(default-justification (quote left))
  '(dired-listing-switches "-alo")
+ '(dired-use-ls-dired nil)
  '(epg-debug t)
  '(epg-gpg-program "/usr/local/MacGPG2/bin/gpg2")
  '(epg-gpgsm-program "/usr/local/MacGPG2/bin/gpgsm")
@@ -80,7 +82,7 @@
  '(font-lock-keywords-only nil t)
  '(font-lock-mark-block-function nil t)
  '(font-lock-maximum-decoration t)
- '(gh-api-v3-authenticator (quote gh-password-authenticator))
+ '(gh-api-v3-authenticator (quote gh-oauth-authenticator))
  '(global-ace-isearch-mode t)
  '(global-flycheck-mode nil)
  '(global-font-lock-mode t nil (font-lock))
@@ -152,7 +154,6 @@
  '(makefile-electric-keys t)
  '(menu-bar-mode nil)
  '(minibuffer-max-depth nil)
- '(mm-w3m-safe-url-regexp nil)
  '(mouse-drag-copy-region nil)
  '(mouse-yank-at-point nil)
  '(normal-erase-is-backspace t)
@@ -162,7 +163,7 @@
  '(org-tags-column -90)
  '(package-selected-packages
    (quote
-    (zerodark-theme helm geben-helm-projectile cljr-helm clj-refactor restclient-helm restclient smartparens darktooth-theme spaceline helm-git-grep elscreen ws-butler hl-todo webpaste csv-mode pomidor highlight-indent-guides web-mode yaml-mode emmet-mode helm-emmet helm-css-scss origami expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters paxedit ov operate-on-number markdown-mode magit-gitflow less-css-mode lcs key-chord json-mode js2-mode ivy imenu-anywhere highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dictionary helm-dash helm-clojuredocs helm-cider-history helm-cider helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist flycheck flx-ido exec-path-from-shell dockerfile-mode discover-my-major diminish diff-hl dash-at-point crux company-web color-theme browse-kill-ring browse-at-remote beacon atom-one-dark-theme ag ace-window ace-jump-mode ace-jump-buffer)))
+    (magithub helm-ag helpful helm-open-github dired-collapse zerodark-theme helm geben-helm-projectile cljr-helm clj-refactor restclient-helm restclient smartparens darktooth-theme spaceline helm-git-grep elscreen ws-butler hl-todo webpaste csv-mode pomidor highlight-indent-guides web-mode yaml-mode emmet-mode helm-emmet helm-css-scss origami expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters paxedit ov operate-on-number markdown-mode magit-gitflow less-css-mode lcs key-chord json-mode js2-mode ivy imenu-anywhere highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dictionary helm-dash helm-clojuredocs helm-cider-history helm-cider helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist flycheck flx-ido exec-path-from-shell dockerfile-mode discover-my-major diminish diff-hl dash-at-point crux company-web color-theme browse-kill-ring browse-at-remote beacon atom-one-dark-theme ag ace-window ace-jump-mode ace-jump-buffer)))
  '(paren-dont-touch-blink t)
  '(popcmp-completion-style (quote anything))
  '(popcmp-group-alternatives nil)
@@ -173,13 +174,26 @@
  '(projectile-globally-ignored-files (quote ("TAGS")))
  '(projectile-indexing-method (quote alien))
  '(rebind-keys-mode nil)
+ '(recentf-exclude
+   (quote
+    ("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" prelude-recentf-exclude-p ".*TAGS")))
  '(ring-bell-function (quote ignore))
+ '(safe-local-variable-values
+   (quote
+    ((eval when
+           (require
+            (quote projectile))
+           (setq cider-repl-history-file
+                 (concat
+                  (projectile-project-root)
+                  ".nrepl-history"))))))
  '(same-window-regexps (quote ("\\*magit.*")))
  '(scss-compile-at-save nil t)
  '(shell-pop-term-shell "/bin/zsh")
  '(shell-pop-universal-key "C-t")
  '(show-smartparens-global-mode t)
  '(size-indication-mode t)
+ '(smiley-style (quote medium))
  '(sp-autoescape-string-quote nil)
  '(sp-base-key-bindings (quote sp))
  '(sp-navigate-close-if-unbalanced nil)
@@ -220,12 +234,14 @@
     (yas-completing-prompt yas-ido-prompt yas-no-prompt)))
  '(yas-wrap-around-region t)
  '(zencoding-preview-default nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight normal :height 141 :width normal))))
+ '(default ((t (:family "Input Mono Condensed" :foundry "nil" :slant normal :weight normal :height 130 :width condensed))))
+ '(auto-dim-other-buffers-face ((t (:background "#21252c"))))
  '(comint-highlight-input ((t (:underline nil :weight bold))))
  '(comint-highlight-prompt ((t (:inherit minibuffer-prompt :underline nil))))
  '(company-tooltip-annotation-selection ((t (:foreground "white"))))

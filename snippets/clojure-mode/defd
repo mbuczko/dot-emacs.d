@@ -1,5 +1,4 @@
 #contributor : Michal Buczko <michal@buczko.pl>
-#name : (defn const ...)
+#name : (def dynamic ...)
 # --
-(defn ^:const $1 [$2]
-$0)
+(def ^:dynamic *$0*)

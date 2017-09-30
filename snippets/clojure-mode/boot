@@ -1,0 +1,23 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (boot ...)
+# --
+(set-env!
+ :source-paths   #{"src" "test"}
+ :resource-paths #{"resources"}
+ :dependencies '[[org.clojure/clojure "1.8.0" :scope "provided"]
+                 [org.clojure/tools.namespace "0.3.0-alpha3" :scope "provided"]
+                 [org.clojure/tools.logging "0.4.0"]
+                 [ch.qos.logback/logback-classic "1.2.3"]
+                 [metosin/boot-alt-test "0.3.2" :scope "test"]])
+
+;; to check the newest versions:
+;; boot -d boot-deps ancient
+
+(def +version+ "0.0.1")
+
+(require
+ '[metosin.boot-alt-test :refer [alt-test]]
+ '[clojure.tools.namespace.repl])
+ 
+;; which source dirs should be monitored for changes when resetting app?
+(apply clojure.tools.namespace.repl/set-refresh-dirs (get-env :source-paths))
