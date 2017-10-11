@@ -15,7 +15,6 @@
 (tool-bar-mode        -1)
 (menu-bar-mode        -1)
 (global-hl-line-mode   1)
-(global-origami-mode   1)
 (window-numbering-mode 1)
 (blink-cursor-mode     1)
 (golden-ratio-mode     1)
@@ -35,18 +34,6 @@
 ;; UTF-8 preferred by default
 (prefer-coding-system 'utf-8)
 
-;; hydra config
-(defhydra hydra-todo (:pre
-                      (hl-todo-mode 1)
-                      :post
-                      (hl-todo-mode -1))
-  "Todo"
-  ("n" hl-todo-next "Next")
-  ("p" hl-todo-previous "Previous")
-  ("o" hl-todo-occur "Occur")
-  ("q" nil "Quit" :color blue :exit t))
-
-
 (setq prelude-guru nil
       prelude-whitespace nil
       prelude-flyspell nil
@@ -59,6 +46,9 @@
       confirm-nonexistent-file-or-buffer nil
       tags-revert-without-query 1
       use-dialog-box nil
+
+      truncate-lines t
+      delete-selection-mode t
 
       ;; keep window splitting at sane proportions
       ;; with golden-ratio switched on
@@ -102,26 +92,19 @@
                                  "jQuery/jQuery"
                                  "Lo-Dash/Lo-Dash"
                                  "D3JS/D3JS"
-                                 "JavaScript/JavaScript"))
+                                 "JavaScript/JavaScript")
 
-(setq-default
- truncate-lines t
- delete-selection-mode t)
+      ;; company sorting order
+      company-transformers '(company-sort-by-occurrence)
+      company-dabbrev-downcase nil
+
+      ;; yasnippet additional snippets
+      yas-snippet-dirs '("~/.emacs.d/snippets/web-mode"
+                         "~/.emacs.d/snippets/clojure-mode"
+                         "~/.emacs.d/snippets/js2-mode"))
 
 ;; projectile setup
 (projectile-global-mode)
-(setq projectile-completion-system 'helm)
-
-;; full screen magit-status
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
-
-;; magit gitflow enabler
-(magithub-feature-autoinject t)
-
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 ;; Switching to ibuffer puts the cursor on the most recent buffer
 (defadvice ibuffer (around ibuffer-point-to-most-recent) ()
@@ -132,41 +115,22 @@
 
 (ad-activate 'ibuffer)
 
-;; (add-hook 'ibuffer-mode-hook
-;;           '(lambda ()
-;;              (ibuffer-auto-mode 1)
-;;              (ibuffer-switch-to-saved-filter-groups "home")))
-
+;; Make it easier to navigate up in dir hierarchy with dired
 (add-hook 'dired-mode-hook
           (lambda ()
             (define-key dired-mode-map [M-up]
               (lambda () (interactive) (find-alternate-file "..")))))
 
-;; no trailing whitespaces, please!
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; some more magit configurations:
+;; full screen magit-status
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
 
-;; helm fixed layout
-(add-to-list 'display-buffer-alist
-             `(,(rx bos "*helm" (* not-newline) "*" eos)
-               (display-buffer-in-side-window)
-               (inhibit-same-window . t)
-               (window-height . 0.4)))
+;; github integration enabler
+(magithub-feature-autoinject t)
 
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :magit-fullscreen))
-
-(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-
-;; magit UTF-8 setting
-(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
-(add-hook 'git-commit-mode-hook
-          '(lambda ()
-             (set-buffer-file-coding-system 'utf-8)))
-
-;; magit toggle whitespaces
 (defun magit-toggle-whitespace ()
   (interactive)
   (if (member "-w" magit-diff-arguments)
@@ -182,6 +146,23 @@
   (interactive)
   (setq magit-diff-arguments (remove "-w" magit-diff-arguments))
   (magit-refresh))
+
+(defun magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+
+;; magit UTF-8 setting
+(add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
+(add-hook 'git-commit-mode-hook
+          '(lambda ()
+             (set-buffer-file-coding-system 'utf-8)))
+
+;; a few handy functions to make life easier
 
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
@@ -213,6 +194,23 @@
   (if (string-match "cider-repl" (buffer-name) 1)
       (cider-switch-to-last-clojure-buffer)
     (cider-switch-to-repl-buffer)))
+
+(defun repl-reset ()
+  "Sends (reset) to currently running repl"
+  (interactive)
+  (save-buffer)
+  (sleep-for 1)
+  (cider-interactive-eval "(boot.user/reset)"))
+
+(defun cut-line-or-region ()
+  (interactive)
+  (if current-prefix-arg
+      (progn
+        (kill-new (buffer-string))
+        (delete-region (point-min) (point-max)))
+    (progn (if (use-region-p)
+               (kill-region (region-beginning) (region-end) t)
+             (kill-region (line-beginning-position) (line-beginning-position 2))))))
 
 ;; javascript mode for all *.js and *.vue files
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -274,28 +272,13 @@
 
 (add-to-list 'cljr-magic-require-namespaces mapping t))
 
-;; handy function used to reset clojure app via boot/reset task
-(defun repl-reset ()
-  "Sends (reset) to currently running repl"
-  (interactive)
-  (save-buffer)
-  (sleep-for 1)
-  (cider-interactive-eval "(boot.user/reset)"))
-
-;; company mode FTW
+;; quit company menu with escape key
 (define-key company-active-map "\e" 'company-abort)
-(setq company-transformers '(company-sort-by-occurrence)
-      company-dabbrev-downcase nil)
-
-;; yasnippet additional snippets
-(setq yas-snippet-dirs '("~/.emacs.d/snippets/web-mode"
-                         "~/.emacs.d/snippets/clojure-mode"
-                         "~/.emacs.d/snippets/js2-mode"))
 
 ;; global keybindings
 (global-set-key (kbd "M-w")       nil)
 (global-set-key (kbd "M-c")       'kill-ring-save)
-(global-set-key (kbd "M-x")       'kill-region)
+(global-set-key (kbd "M-x")       'cut-line-or-region)
 (global-set-key (kbd "M-v")       'yank)
 (global-set-key (kbd "M-z")       'zop-to-char)
 (global-set-key (kbd "M-e")       'helm-M-x)
@@ -309,6 +292,7 @@
 (global-set-key (kbd "M-{")       'paredit-wrap-curly)
 (global-set-key (kbd "C-o")       'helm-imenu)
 (global-set-key (kbd "C-b")       'helm-buffers-list)
+(global-set-key (kbd "C-'")       'helm-buffers-list)
 (global-set-key (kbd "C-z")       'undo)
 (global-set-key (kbd "C->")       'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-<")       'mc/mark-all-like-this-dwim)
@@ -325,8 +309,8 @@
 (global-set-key (kbd "C-x f")     'projectile-find-file)
 (global-set-key (kbd "C-x C-o")   'avy-goto-char-timer)
 (global-set-key (kbd "C-x C-i")   'helm-etags-select)
-(global-set-key (kbd "C-x a")     'helm-grep-do-git-grep)
-(global-set-key (kbd "C-x s")     'helm-projectile-grep)
+(global-set-key (kbd "C-x a")     'helm-git-grep-at-point)
+(global-set-key (kbd "C-x s")     'helm-git-grep)
 (global-set-key (kbd "C-x o")     'helm-occur)
 (global-set-key (kbd "C-x i")     'cider-browse-ns)
 (global-set-key (kbd "C-x d")     'helm-dash-at-point)
@@ -361,8 +345,12 @@
 (diminish 'editorconfig-mode)
 (diminish 'which-key-mode)
 (diminish 'd)
-;; (diminish 'magit-wip-after-save-mode)
-;; (diminish 'magit-wip-after-save-local-mode)
+(diminish 'magit-wip-after-save-mode)
+(diminish 'magit-wip-after-save-local-mode)
+
+(defun projectile-project-root-dir (&optional dir-name)
+  (ignore-errors
+    (projectile-project-root)))
 
 (defun golden-size ()
   (golden-ratio)

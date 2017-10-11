@@ -22,6 +22,7 @@
  '(canlock-password "1085e8558dcb0236dbd9c1926f175176486526c1")
  '(case-fold-search t)
  '(cider-default-repl-command "boot")
+ '(cider-preferred-build-tool "boot")
  '(cider-repl-display-in-current-window t)
  '(cider-repl-history-file ".cider_history")
  '(cider-repl-pop-to-buffer-on-connect nil)
@@ -29,6 +30,11 @@
  '(cljr-auto-clean-ns t)
  '(cljr-suppress-middleware-warnings t)
  '(cljr-warn-on-eval nil)
+ '(clojure-project-root-function
+   (lambda
+     (dir-name)
+     (ignore-errors
+       (projectile-project-root))))
  '(column-number-mode t)
  '(comment-line-break-function (quote indent-new-comment-line) t)
  '(comment-multi-line t)
@@ -45,6 +51,7 @@
  '(company-occurrence-weight-function (quote company-occurrence-prefer-closest-above))
  '(company-search-regexp-function (quote company-search-words-regexp))
  '(company-tooltip-flip-when-above nil)
+ '(company-tooltip-minimum-width 40)
  '(compilation-ask-about-save nil)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-process-setup-function nil t)
@@ -87,6 +94,8 @@
  '(global-flycheck-mode nil)
  '(global-font-lock-mode t nil (font-lock))
  '(global-git-gutter+-mode t)
+ '(global-highlight-parentheses-mode t)
+ '(global-hl-sexp-mode t)
  '(global-visual-line-mode nil)
  '(gnus-asynchronous nil)
  '(gnus-make-format-preserve-properties nil)
@@ -163,16 +172,22 @@
  '(org-tags-column -90)
  '(package-selected-packages
    (quote
-    (magithub helm-ag helpful helm-open-github dired-collapse zerodark-theme helm geben-helm-projectile cljr-helm clj-refactor restclient-helm restclient smartparens darktooth-theme spaceline helm-git-grep elscreen ws-butler hl-todo webpaste csv-mode pomidor highlight-indent-guides web-mode yaml-mode emmet-mode helm-emmet helm-css-scss origami expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters paxedit ov operate-on-number markdown-mode magit-gitflow less-css-mode lcs key-chord json-mode js2-mode ivy imenu-anywhere highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dictionary helm-dash helm-clojuredocs helm-cider-history helm-cider helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist flycheck flx-ido exec-path-from-shell dockerfile-mode discover-my-major diminish diff-hl dash-at-point crux company-web color-theme browse-kill-ring browse-at-remote beacon atom-one-dark-theme ag ace-window ace-jump-mode ace-jump-buffer)))
+    (highlight-parentheses helm-cider cljr-helm clj-refactor groovy-mode magithub helm-ag helpful helm-open-github dired-collapse zerodark-theme helm smartparens spaceline helm-git-grep elscreen ws-butler webpaste pomidor highlight-indent-guides web-mode yaml-mode emmet-mode helm-emmet helm-css-scss expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters paxedit ov operate-on-number markdown-mode magit-gitflow less-css-mode lcs key-chord json-mode js2-mode ivy imenu-anywhere highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dash helm-clojuredocs helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist flycheck flx-ido exec-path-from-shell dockerfile-mode discover-my-major diminish diff-hl dash-at-point crux company-web color-theme browse-kill-ring browse-at-remote beacon ag ace-window ace-jump-mode ace-jump-buffer)))
  '(paren-dont-touch-blink t)
  '(popcmp-completion-style (quote anything))
  '(popcmp-group-alternatives nil)
  '(popcmp-short-help-beside-alts t)
  '(powerline-default-separator (quote butt))
+ '(projectile-completion-system (quote helm))
+ '(projectile-enable-caching t)
  '(projectile-enable-idle-timer t)
  '(projectile-globally-ignored-file-suffixes (quote ("groovy" "java" "gz" "png")))
  '(projectile-globally-ignored-files (quote ("TAGS")))
+ '(projectile-idle-timer-seconds 60)
  '(projectile-indexing-method (quote alien))
+ '(projectile-project-root-files
+   (quote
+    ("rebar.config" "project.clj" "build.boot" "SConstruct" "pom.xml" "build.sbt" ".ensime" "Gemfile" "requirements.txt" "setup.py" "tox.ini" "composer.json" "Cargo.toml" "mix.exs" "stack.yaml" "info.rkt" "DESCRIPTION" "TAGS" "GTAGS")))
  '(rebind-keys-mode nil)
  '(recentf-exclude
    (quote
@@ -205,8 +220,7 @@
      ("M-<down>" . sp-down-sexp)
      ("M-r" . cider-switch-repl)
      ("M-s" . projectile-find-file)
-     ("M-x" . kill-region)
-     ("C-|" . paxedit-sexp-raise)
+     ("M-x" . cut-line-or-region)
      ("M-C-<backspace>" . paxedit-delete)
      ("M-C-<down>" . paxedit-transpose-forward)
      ("M-C-<up>" . paxedit-transpose-backward)
@@ -240,9 +254,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Input Mono Condensed" :foundry "nil" :slant normal :weight normal :height 130 :width condensed))))
+ '(default ((t (:family "Input Mono Condensed" :foundry "nil" :slant normal :weight light :height 120 :width condensed))))
  '(auto-dim-other-buffers-face ((t (:background "#21252c"))))
  '(comint-highlight-input ((t (:underline nil :weight bold))))
  '(comint-highlight-prompt ((t (:inherit minibuffer-prompt :underline nil))))
- '(company-tooltip-annotation-selection ((t (:foreground "white"))))
- '(gnus-summary-low-read ((t (:foreground "DimGrey" :strike-through t)))))
+ '(gnus-summary-low-read ((t (:foreground "DimGrey" :strike-through t))))
+ '(hl-sexp-face ((t (:background "#1a1e27")))))
