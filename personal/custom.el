@@ -40,6 +40,7 @@
  '(comment-multi-line t)
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
+ '(company-abort-manual-when-too-short t)
  '(company-auto-complete t)
  '(company-auto-complete-chars nil)
  '(company-backends
@@ -47,10 +48,12 @@
     (company-nxml company-css company-capf company-files
                   (company-dabbrev-code company-etags company-keywords)
                   company-semantic company-dabbrev)))
- '(company-idle-delay 0.2)
+ '(company-idle-delay 0.3)
+ '(company-minimum-prefix-length 3)
  '(company-occurrence-weight-function (quote company-occurrence-prefer-closest-above))
  '(company-search-regexp-function (quote company-search-words-regexp))
  '(company-tooltip-flip-when-above nil)
+ '(company-tooltip-margin 1)
  '(company-tooltip-minimum-width 40)
  '(compilation-ask-about-save nil)
  '(compilation-auto-jump-to-first-error t)
@@ -68,7 +71,6 @@
  '(custom-safe-themes
    (quote
     ("ea4ae3c179b4fd23f50b50062ca0312f7bf0151aa4ba8c10088bba87943d8b93" default)))
- '(default-indicate-buffer-boundaries (Quote left) t)
  '(default-input-method "latin-2-prefix")
  '(default-justification (quote left))
  '(dired-listing-switches "-alo")
@@ -172,7 +174,7 @@
  '(org-tags-column -90)
  '(package-selected-packages
    (quote
-    (highlight-parentheses helm-cider cljr-helm clj-refactor groovy-mode magithub helm-ag helpful helm-open-github dired-collapse zerodark-theme helm smartparens spaceline helm-git-grep elscreen ws-butler webpaste pomidor highlight-indent-guides web-mode yaml-mode emmet-mode helm-emmet helm-css-scss expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters paxedit ov operate-on-number markdown-mode magit-gitflow less-css-mode lcs key-chord json-mode js2-mode ivy imenu-anywhere highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dash helm-clojuredocs helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist flycheck flx-ido exec-path-from-shell dockerfile-mode discover-my-major diminish diff-hl dash-at-point crux company-web color-theme browse-kill-ring browse-at-remote beacon ag ace-window ace-jump-mode ace-jump-buffer)))
+    (highlight-parentheses helm-cider cljr-helm clj-refactor groovy-mode magithub helm-ag helpful helm-open-github dired-collapse zerodark-theme helm smartparens spaceline helm-git-grep elscreen ws-butler webpaste pomidor highlight-indent-guides web-mode yaml-mode emmet-mode helm-emmet helm-css-scss expand-region zop-to-char window-numbering w3m volatile-highlights vkill vdiff undo-tree toggle-quotes smex smartrep smart-mode-line slime-company shorten shell-pop scss-mode sass-mode rvm rainbow-mode rainbow-delimiters paxedit ov operate-on-number markdown-mode magit-gitflow less-css-mode lcs json-mode js2-mode ivy imenu-anywhere highlight-symbol highlight-indentation helm-projectile-all helm-projectile helm-hunks helm-git-files helm-dash helm-clojuredocs helm-chrome helm-c-moccur helm-bm helm-bind-key guru-mode golden-ratio god-mode gitignore-mode github-search gitconfig-mode git-timemachine git-gutter-fringe+ git-blame gist flycheck flx-ido exec-path-from-shell dockerfile-mode discover-my-major diminish diff-hl dash-at-point crux company-web color-theme browse-kill-ring browse-at-remote beacon ag ace-window ace-jump-mode ace-jump-buffer)))
  '(paren-dont-touch-blink t)
  '(popcmp-completion-style (quote anything))
  '(popcmp-group-alternatives nil)
@@ -235,6 +237,7 @@
  '(tabkey2-mode nil)
  '(tags-add-tables nil)
  '(tool-bar-mode nil)
+ '(truncate-lines t)
  '(undo-tree-auto-save-history nil)
  '(undo-tree-visualizer-timestamps t)
  '(visible-bell nil)

@@ -19,8 +19,6 @@
 (blink-cursor-mode     1)
 (golden-ratio-mode     1)
 (helm-mode             1)
-(paxedit-mode          1)
-(key-chord-mode        1)
 (yas/global-mode       1)
 
 (spaceline-emacs-theme)
@@ -46,9 +44,6 @@
       confirm-nonexistent-file-or-buffer nil
       tags-revert-without-query 1
       use-dialog-box nil
-
-      truncate-lines t
-      delete-selection-mode t
 
       ;; keep window splitting at sane proportions
       ;; with golden-ratio switched on
@@ -212,6 +207,10 @@
                (kill-region (region-beginning) (region-end) t)
              (kill-region (line-beginning-position) (line-beginning-position 2))))))
 
+(defun golden-size ()
+  (golden-ratio)
+  (scroll-right))
+
 ;; javascript mode for all *.js and *.vue files
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
@@ -296,6 +295,7 @@
 (global-set-key (kbd "C-z")       'undo)
 (global-set-key (kbd "C->")       'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-<")       'mc/mark-all-like-this-dwim)
+(global-set-key (kbd "C-|")       'whack-whitespace)
 (global-set-key (kbd "M-w q")     'er/mark-inside-quotes)
 (global-set-key (kbd "M-w b")     'er/mark-inside-pairs)
 (global-set-key (kbd "M-w w")     'er/mark-word)
@@ -325,9 +325,6 @@
 (global-set-key [(C-S-return)]    'er/expand-region)
 (global-set-key [(C-tab)]         'ace-window)
 
-;; key chords
-(key-chord-define-global "xx" 'whack-whitespace)
-
 ;; fight modeline clutter by removing or abbreviating minor mode indicators
 (diminish 'projectile-mode)
 (diminish 'golden-ratio-mode)
@@ -347,15 +344,6 @@
 (diminish 'd)
 (diminish 'magit-wip-after-save-mode)
 (diminish 'magit-wip-after-save-local-mode)
-
-(defun projectile-project-root-dir (&optional dir-name)
-  (ignore-errors
-    (projectile-project-root)))
-
-(defun golden-size ()
-  (golden-ratio)
-  (if (not (string= major-mode "cider-repl-mode"))
-      (move-to-left-margin)))
 
 (defadvice select-window-by-number (after select-window activate)
   (golden-size))
