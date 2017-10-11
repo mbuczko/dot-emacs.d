@@ -174,11 +174,6 @@
             next-p))
 
 (defun whack-whitespace ()
-  "Delete all white space from point to the next word.  With prefix ARG
-    delete across newlines as well.  The only danger in this is that you
-    don't have to actually be at the end of a word to make it work.  It
-    skips over to the next whitespace and then whacks it all to the next
-    word."
   (interactive)
   (re-search-forward "[ \t\n]+" nil t)
   (replace-match "" nil nil))
@@ -219,6 +214,7 @@
 (add-hook 'helm-after-initialize-hook
           (lambda()
             (define-key helm-buffer-map (kbd "ESC") 'helm-keyboard-quit)
+            (define-key helm-M-x-map (kbd "ESC") 'helm-keyboard-quit)
             (define-key helm-map (kbd "ESC") 'helm-keyboard-quit)))
 
 ;; js2-mode
